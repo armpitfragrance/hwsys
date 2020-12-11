@@ -19,9 +19,17 @@ public interface NoticeDao {
 
     List<Notice> queryAll();
 
+    List<Notice> queryNoticeByTitle(String title,Integer pageNO, Integer pageSize);//按标题查询公告
+
+    List<Notice> queryNoticeByNoticeTime(String noticeTime,Integer pageNO, Integer pageSize);//按发布时间查询公告
+
+    List<Notice> queryNoticeByTitleAndNoticeTime(String title,String noticeTime,Integer pageNO, Integer pageSize);//按标题和发布时间查询公告
+
     Notice queryNoticeById(int id);
 
     Integer queryPageTotalCounts();
+
+    Integer queryPageTotalCountsByTitleAndNoticeTime(String title,String noticeTime);
 
     List<Notice> queryNoticeByPage(Integer pageNO, Integer pageSize);
 }
