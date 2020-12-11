@@ -46,4 +46,10 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         String sql = "SELECT `id`,`type`,`psw`,`realname`,`sex`,`age`,`create_time`,`update_time` FROM `user` LIMIT ?,? ";
         return queryForList(User.class, sql, pageNo, pageSize);
     }
+
+    @Override
+    public Integer getMaxId() {
+        String sql = "SELECT MAX(id) id FROM `user` WHERE 1=1";
+        return queryForOne(User.class, sql).getId();
+    }
 }

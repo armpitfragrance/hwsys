@@ -24,4 +24,6 @@ public interface UserDao {
     Integer queryPageTotalCounts();//查询当前表的总记录条数
 
     List<User> queryUserByPage(int pageNo, int pageSize);
+
+    Integer getMaxId();
 }

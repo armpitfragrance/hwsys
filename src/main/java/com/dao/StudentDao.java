@@ -16,6 +16,8 @@ public interface StudentDao {
 
     Integer delete(int id);
 
+    Integer deleteByUserId(int user_id);
+
     List<Student> queryAll();
 
     Student queryStudentById(int id);

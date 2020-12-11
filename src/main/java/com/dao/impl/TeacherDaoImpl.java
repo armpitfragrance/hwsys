@@ -22,6 +22,12 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         return update(sql, id);
     }
 
+    @Override
+    public Integer deleteByUserId(int user_id) {
+        String sql = "delete from `teacher` where `user_id`=?";
+        return update(sql, user_id);
+    }
+
     public int update(Teacher teacher) {
         String sql = "UPDATE `teacher` SET `user_id`=?,`t_no`=? WHERE `id`=? ";
         return update(sql, teacher.getUser_id(), teacher.getT_no(), teacher.getId());
