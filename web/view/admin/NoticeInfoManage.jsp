@@ -15,6 +15,8 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://www.huangwx.cn/css/sweetalert.css">
+    <script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -54,11 +56,11 @@
                     dataType: "json",
                     success: function (data) {
                         // console.log(data);
-                        // if (data > 0) {
-                        //     alert("添加成功");
-                        // } else {
-                        //     alert("添加失败");
-                        // }
+                        if (data > 0) {
+                            swal("添加成功", "", "success");
+                        } else {
+                            swal("添加失败", "", "error");
+                        }
                         $("#button-add-close").click();
                         changePage(oldPageTotal);
                     }
@@ -76,9 +78,9 @@
                     success: function (data) {
                         // console.log(data);
                         if (data > 0) {
-                            alert("修改成功");
+                            swal("修改成功", "", "success");
                         } else {
-                            alert("修改失败");
+                            swal("修改失败", "", "error");
                         }
                         $("#button-update-close").click();
                         changePage(currentPage);
@@ -204,11 +206,9 @@
                     success: function (data) {
                         // console.log(data);
                         if (data > 0) {
-                            // swal("删除成功", "", "success");
-                            alert("删除成功");
+                            swal("删除成功", "", "success");
                         } else {
-                            // swal("删除失败", "", "error");
-                            alert("删除失败");
+                            swal("删除失败", "", "error");
                         }
 
                         changePage(currentPage);

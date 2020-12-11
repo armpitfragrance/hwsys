@@ -39,19 +39,19 @@ public class NoticeDaoImpl extends BaseDao implements NoticeDao {
     @Override
     public List<Notice> queryNoticeByTitle(String title,Integer pageNO, Integer pageSize) {
         String sql = "select * from `notice` where `title` like ? LIMIT ?,?";
-        return queryForList(Notice.class, sql, "%"+title+"%", (pageNO-1)*pageSize, pageSize);
+        return queryForList(Notice.class, sql, "%"+title+"%", pageNO, pageSize);
     }
 
     @Override
     public List<Notice> queryNoticeByNoticeTime(String noticeTime,Integer pageNO, Integer pageSize) {
         String sql = "select * from `notice` where `notice_time` like ? LIMIT ?,?";
-        return queryForList(Notice.class, sql,"%"+noticeTime+"%", (pageNO-1)*pageSize, pageSize);
+        return queryForList(Notice.class, sql,"%"+noticeTime+"%", pageNO, pageSize);
     }
 
     @Override
     public List<Notice> queryNoticeByTitleAndNoticeTime(String title, String noticeTime,Integer pageNO, Integer pageSize) {
         String sql = "select * from `notice` where `title` like ? and `notice_time` like ? LIMIT ?,?";
-        return queryForList(Notice.class, sql,"%"+title+"%","%"+noticeTime+"%", (pageNO-1)*pageSize, pageSize);
+        return queryForList(Notice.class, sql,"%"+title+"%","%"+noticeTime+"%", pageNO, pageSize);
     }
 
     @Override
@@ -82,6 +82,6 @@ public class NoticeDaoImpl extends BaseDao implements NoticeDao {
     @Override
     public List<Notice> queryNoticeByPage(Integer pageNO, Integer pageSize) {
         String sql = "select * from notice LIMIT ?,?";
-        return queryForList(Notice.class, sql, (pageNO-1)*pageSize, pageSize);
+        return queryForList(Notice.class, sql, pageNO, pageSize);
     }
 }

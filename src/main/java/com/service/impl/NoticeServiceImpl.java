@@ -68,16 +68,22 @@ public class NoticeServiceImpl implements NoticeService {
         //设置总页数
         int pageTotal = pageTotalCounts % pageSize > 0 ? ((pageTotalCounts / pageSize) + 1) : (pageTotalCounts / pageSize);
         page.setPageTotal(pageTotal);
+        int begin = 0;
+        if (page.getPageNum() == 0) {
+            begin = 0;
+        } else {
+            begin = (page.getPageNum() - 1) * pageSize;
+        }
         //设置当前页数据
         List<Notice> items = null;
         if (title == null && time == null) {
-            items = noticeDao.queryNoticeByPage(pageNo, pageSize);
+            items = noticeDao.queryNoticeByPage(begin, pageSize);
         } else if (title != null && time == null) {
-            items = noticeDao.queryNoticeByTitle(title,pageNo, pageSize);
+            items = noticeDao.queryNoticeByTitle(title,begin, pageSize);
         } else if (title == null && time != null) {
-            items = noticeDao.queryNoticeByNoticeTime(time,pageNo, pageSize);
+            items = noticeDao.queryNoticeByNoticeTime(time,begin, pageSize);
         } else if (title != null && time != null) {
-            items = noticeDao.queryNoticeByTitleAndNoticeTime(title, time,pageNo, pageSize);
+            items = noticeDao.queryNoticeByTitleAndNoticeTime(title, time,begin, pageSize);
         }
         page.setItems(items);
         return page;
