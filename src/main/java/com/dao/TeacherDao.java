@@ -14,6 +14,8 @@ public interface TeacherDao {
 
     int delete(Integer id);
 
+    Integer deleteByUserId(int user_id);
+
     int update(Teacher teacher);
 
     List<Teacher> queryAll();

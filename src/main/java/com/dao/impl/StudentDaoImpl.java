@@ -31,6 +31,12 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
     }
 
     @Override
+    public Integer deleteByUserId(int user_id) {
+        String sql = "delete from `student` where `user_id`=?";
+        return update(sql, user_id);
+    }
+
+    @Override
     public List<Student> queryAll() {
         String sql = "select * from `student`";
         return queryForList(Student.class, sql);

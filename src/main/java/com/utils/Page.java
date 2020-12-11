@@ -11,7 +11,7 @@ import java.util.List;
 public class Page<T> {
     public static final Integer PAGE_SIZE = 10;
     //当前页码
-    private Integer pageNo;
+    private Integer pageNum;
     //总页码
     private Integer pageTotal;
     //当前页显示数量
@@ -27,7 +27,7 @@ public class Page<T> {
     @Override
     public String toString() {
         return "Page{" +
-                "pageNo=" + pageNo +
+                "pageNum=" + pageNum +
                 ", pageTotal=" + pageTotal +
                 ", pageSize=" + pageSize +
                 ", pageTotalCount=" + pageTotalCount +
@@ -55,12 +55,12 @@ public class Page<T> {
         this.items = items;
     }
 
-    public Integer getPageNo() {
-        return pageNo;
+    public Integer getPageNum() {
+        return pageNum;
     }
 
-    public void setPageNo(Integer pageNo) {
-        this.pageNo = pageNo;
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
     }
 
     public Integer getPageTotal() {

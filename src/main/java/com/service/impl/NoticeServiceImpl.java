@@ -40,7 +40,7 @@ public class NoticeServiceImpl implements NoticeService {
     public Page<Notice> queryByPage(int pageNo, int pageSize) {
         Page<Notice> page = new Page<>();
         //设置当前页码
-        page.setPageNo(pageNo);
+        page.setPageNum(pageNo);
         //设置每页数据数量
         page.setPageSize(pageSize);
         //设置总数据数量
@@ -59,14 +59,14 @@ public class NoticeServiceImpl implements NoticeService {
     public Page<Notice> queryByTitleAndTimeAndPage(String title, String time, int pageNo, int pageSize) {
         Page<Notice> page = new Page<>();
         //设置当前页码
-        page.setPageNo(pageNo);
+        page.setPageNum(pageNo);
         //设置每页数据数量
         page.setPageSize(pageSize);
         //设置总数据数量
         int pageTotalCounts = noticeDao.queryPageTotalCountsByTitleAndNoticeTime(title,time);
         page.setPageTotalCount(Math.toIntExact(pageTotalCounts));
         //设置总页数
-        int pageTotal = pageTotalCounts % pageSize > 0 ? (pageTotalCounts / pageSize + 1) : (pageTotalCounts / pageSize);
+        int pageTotal = pageTotalCounts % pageSize > 0 ? ((pageTotalCounts / pageSize) + 1) : (pageTotalCounts / pageSize);
         page.setPageTotal(pageTotal);
         //设置当前页数据
         List<Notice> items = null;

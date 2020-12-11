@@ -35,7 +35,7 @@
             let title = $("#search-if-title").val();
             let time = $("#search-if-time").val();
             $.ajax({
-                url: "http://localhost:80/hwsys/notice.do",
+                url: "/notice.do",
                 data: {action: "search", pageNo: "1",title:title,time:time},
                 type: "GET",
                 dataType: "text",
@@ -48,7 +48,7 @@
             $("#button-add-handup").on("click", function () {
                 let formatter = $("#add-notice-form").serialize();
                 $.ajax({
-                    url: "http://localhost:80/hwsys/notice.do",
+                    url: "/notice.do",
                     data: formatter,
                     type: "POST",
                     dataType: "json",
@@ -69,7 +69,7 @@
             $("#button-update-handup").on("click", function () {
                 let formatter = $("#update-notice-form").serialize();
                 $.ajax({
-                    url: "http://localhost:80/hwsys/notice.do",
+                    url: "/notice.do",
                     data: formatter,
                     type: "POST",
                     dataType: "json",
@@ -93,7 +93,7 @@
                 let time = $("#search-if-time").val();
                 console.log(title + "," + time);
                 $.ajax({
-                    url: "http://localhost:80/hwsys/notice.do",
+                    url: "/notice.do",
                     data: {action: "search",pageNo:1, title: title, time: time},
                     type: "GET",
                     dataType: "text",
@@ -138,16 +138,19 @@
                 }
             } else if (oldPageTotal > 4) {
                 let begin;
-                let end
-                if((oldPageTotal-currentPage)==0){
+                let end;
+                if(currentPage<4){
+                    begin=1;
+                    end=5;
+                }else if((oldPageTotal-currentPage)==0){
                     begin=currentPage-4;
                     end=currentPage;
                 }else if((oldPageTotal-currentPage)<=4){
                     begin=currentPage-(4-(oldPageTotal-currentPage));
                     end=oldPageTotal;
                 }else if((oldPageTotal-currentPage)>4){
-                    begin=currentPage;
-                    end=currentPage+4;
+                    begin=currentPage-2;
+                    end=currentPage+2;
                 }
                 for (let i = begin; i <=end; i++) {
                     <!--页数-->
@@ -194,7 +197,7 @@
                 let id = $($(this).parents("tr").children("td")[1]).html().trim();
                 // console.log(id);
                 $.ajax({
-                    url: "http://localhost:80/hwsys/notice.do",
+                    url: "/notice.do",
                     data: {action: "delete", id: id},
                     type: "GET",
                     dataType: "text",
@@ -223,7 +226,7 @@
             let title = $("#search-if-title").val();
             let time = $("#search-if-time").val();
             $.ajax({
-                url: "http://localhost:80/hwsys/notice.do",
+                url: "/notice.do",
                 data: {action: "search", pageNo: i, title: title, time: time},
                 type: "GET",
                 dataType: "text",
@@ -245,7 +248,7 @@
 
         function updateinitData(i) {
             $.ajax({
-                url: "http://localhost:80/hwsys/notice.do",
+                url: "/notice.do",
                 data: {action: "queryForOne", id: i},
                 type: "GET",
                 dataType: "text",
