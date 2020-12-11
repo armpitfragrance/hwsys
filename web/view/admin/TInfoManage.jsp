@@ -34,7 +34,7 @@
             t_no = "";
             $.ajax({
                 url: "/teacher.do",
-                data: {action: "queryPage", pageNum: "1",realname:realname,t_no:t_no},
+                data: {action: "query", pageNum: "1",realname:realname,t_no:t_no},
                 type: "get",
                 datatype: "text",
                 success: function (data) {
@@ -234,7 +234,7 @@
 
             $.ajax({
                 url: "/teacher.do",
-                data: {action: "queryPage", pageNum: i,realname:realname,t_no:t_no},
+                data: {action: "query", pageNum: i,realname:realname,t_no:t_no},
                 type: "get",
                 datatype: "text",
                 success: function (data) {
