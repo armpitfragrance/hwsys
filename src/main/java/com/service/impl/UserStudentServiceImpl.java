@@ -35,12 +35,7 @@ public class UserStudentServiceImpl implements UserStudentService {
         //设置总页码
         page.setPageTotal(pageTotal);
         //设置起始页
-        int begin = 0;
-        if (page.getPageNum() == 0) {
-            begin = 0;
-        } else {
-            begin = (page.getPageNum() - 1) * pageSize;
-        }
+        int begin = (page.getPageNum() - 1) * pageSize;
         //获取分页显示的列表
         List<UserStudent> items = userStudentDao.queryUserStudentByPage(begin, pageSize);
         //设置分页列表
@@ -69,7 +64,12 @@ public class UserStudentServiceImpl implements UserStudentService {
         //设置总页码
         page.setPageTotal(pageTotal);
         //设置起始页
-        int begin = (page.getPageNum() - 1) * pageSize;
+        int begin = 0;
+        if (page.getPageNum() == 0) {
+            begin = 0;
+        } else {
+            begin = (page.getPageNum() - 1) * pageSize;
+        }
         //获取分页显示的列表
         List<UserStudent> items = userStudentDao.queryUserStudentByPageByRealNameOrStuNo(begin,pageSize, realname, stu_no);
         //设置分页列表
