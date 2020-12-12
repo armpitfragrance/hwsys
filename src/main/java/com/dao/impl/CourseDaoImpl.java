@@ -14,8 +14,8 @@ import java.util.List;
 public class CourseDaoImpl extends BaseDao implements CourseDao {
     @Override
     public int insert(Course course) {
-        String sql="INSERT INTO `course`(`name`)VALUES(?)";
-        return update(sql,course.getName());
+        String sql="INSERT INTO `course`(`name`,`path`)VALUES(?,?)";
+        return update(sql,course.getName(),course.getPath());
     }
 
     @Override
@@ -26,8 +26,8 @@ public class CourseDaoImpl extends BaseDao implements CourseDao {
 
     @Override
     public int update(Course course) {
-        String sql="UPDATE `course` SET `name`=? WHERE `id`=? ";
-        return update(sql,course.getName(),course.getId());
+        String sql="UPDATE `course` SET `name`=?,`path`=? WHERE `id`=? ";
+        return update(sql,course.getName(),course.getPath(),course.getId());
     }
 
     @Override

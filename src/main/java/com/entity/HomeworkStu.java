@@ -10,7 +10,6 @@ public class HomeworkStu {
     private Integer hw_id;//布置作业编号
     private Integer stu_id;//学生编号
     private String handup_time;//提交时间
-    private String end_time;//截止提交时间
     private String correct;//评阅意见
     private Integer t_id;//评阅教师编号
     private String correct_time;//评阅时间
@@ -21,41 +20,54 @@ public class HomeworkStu {
     public HomeworkStu() {
     }
 
-    public HomeworkStu(Integer hw_id, Integer stu_id, String handup_time, String end_time, String correct, Integer t_id, String correct_time, String correct_status) {
+    public HomeworkStu(Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, String correct_time, String correct_status) {
         this.hw_id = hw_id;
         this.stu_id = stu_id;
         this.handup_time = handup_time;
-        this.end_time = end_time;
         this.correct = correct;
         this.t_id = t_id;
         this.correct_time = correct_time;
         this.correct_status = correct_status;
     }
 
-    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String handup_time, String end_time, String correct, Integer t_id, String correct_time, String correct_status) {
+    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, String correct_time, String correct_status) {
         this.id = id;
         this.hw_id = hw_id;
         this.stu_id = stu_id;
         this.handup_time = handup_time;
-        this.end_time = end_time;
         this.correct = correct;
         this.t_id = t_id;
         this.correct_time = correct_time;
         this.correct_status = correct_status;
     }
 
-    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String handup_time, String end_time, String correct, Integer t_id, String correct_time, String correct_status, String create_time, String update_time) {
+    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, String correct_time, String correct_status, String create_time, String update_time) {
         this.id = id;
         this.hw_id = hw_id;
         this.stu_id = stu_id;
         this.handup_time = handup_time;
-        this.end_time = end_time;
         this.correct = correct;
         this.t_id = t_id;
         this.correct_time = correct_time;
         this.correct_status = correct_status;
         this.create_time = create_time;
         this.update_time = update_time;
+    }
+
+    @Override
+    public String toString() {
+        return "HomeworkStu{" +
+                "id=" + id +
+                ", hw_id=" + hw_id +
+                ", stu_id=" + stu_id +
+                ", handup_time='" + handup_time + '\'' +
+                ", correct='" + correct + '\'' +
+                ", t_id=" + t_id +
+                ", correct_time='" + correct_time + '\'' +
+                ", correct_status='" + correct_status + '\'' +
+                ", create_time='" + create_time + '\'' +
+                ", update_time='" + update_time + '\'' +
+                '}';
     }
 
     public Integer getId() {
@@ -88,14 +100,6 @@ public class HomeworkStu {
 
     public void setHandup_time(String handup_time) {
         this.handup_time = handup_time;
-    }
-
-    public String getEnd_time() {
-        return end_time;
-    }
-
-    public void setEnd_time(String end_time) {
-        this.end_time = end_time;
     }
 
     public String getCorrect() {
@@ -144,23 +148,6 @@ public class HomeworkStu {
 
     public void setUpdate_time(String update_time) {
         this.update_time = update_time;
-    }
-
-    @Override
-    public String toString() {
-        return "HomeworkStu{" +
-                "id=" + id +
-                ", hw_id=" + hw_id +
-                ", stu_id=" + stu_id +
-                ", handup_time='" + handup_time + '\'' +
-                ", end_time='" + end_time + '\'' +
-                ", correct='" + correct + '\'' +
-                ", t_id=" + t_id +
-                ", correct_time='" + correct_time + '\'' +
-                ", correct_status='" + correct_status + '\'' +
-                ", create_time='" + create_time + '\'' +
-                ", update_time='" + update_time + '\'' +
-                '}';
     }
 }
 

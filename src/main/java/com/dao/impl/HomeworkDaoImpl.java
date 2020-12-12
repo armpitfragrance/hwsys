@@ -14,8 +14,8 @@ import java.util.List;
 public class HomeworkDaoImpl extends BaseDao implements HomeworkDao {
     @Override
     public int insert(Homework homework) {
-        String sql="INSERT INTO `homework`(`name`,`docu_name`,`path`,`t_id`,`c_id`)VALUES(?,?,?,?,?)";
-        return update(sql, homework.getName(), homework.getDocu_name(), homework.getPath(), homework.getT_id(), homework.getC_id());
+        String sql="INSERT INTO `homework`(`name`,`docu_name`,`path`,`t_id`,`c_id`,`end_time`)VALUES(?,?,?,?,?,?)";
+        return update(sql, homework.getName(), homework.getDocu_name(), homework.getPath(), homework.getT_id(), homework.getC_id(),homework.getEnd_time());
     }
 
     @Override
@@ -26,8 +26,8 @@ public class HomeworkDaoImpl extends BaseDao implements HomeworkDao {
 
     @Override
     public int update(Homework homework) {
-        String sql="UPDATE `homework` SET `name`=?,`docu_name`=?,`path`=?,`t_id`=?,`c_id`=? WHERE `id`=? ";
-        return update(sql,homework.getName(), homework.getDocu_name(), homework.getPath(), homework.getT_id(), homework.getC_id(),homework.getId());
+        String sql="UPDATE `homework` SET `name`=?,`docu_name`=?,`path`=?,`t_id`=?,`c_id`=?,`end_time`=? WHERE `id`=? ";
+        return update(sql,homework.getName(), homework.getDocu_name(), homework.getPath(), homework.getT_id(), homework.getC_id(),homework.getEnd_time(),homework.getId());
     }
 
     @Override

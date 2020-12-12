@@ -12,38 +12,57 @@ public class Homework {
     private String path;//附件路径
     private Integer t_id;//教师编号
     private Integer c_id;//课程编号
+    private String end_time;//截止提交时间
     private String create_time;//建表时间
     private String update_time;//改表时间
 
     public Homework() {
     }
 
-    public Homework(String name, String docu_name, String path, Integer t_id, Integer c_id) {
+    public Homework(String name, String docu_name, String path, Integer t_id, Integer c_id, String end_time) {
         this.name = name;
         this.docu_name = docu_name;
         this.path = path;
         this.t_id = t_id;
         this.c_id = c_id;
+        this.end_time = end_time;
     }
 
-    public Homework(Integer id, String name, String docu_name, String path, Integer t_id, Integer c_id) {
+    public Homework(Integer id, String name, String docu_name, String path, Integer t_id, Integer c_id, String end_time) {
         this.id = id;
         this.name = name;
         this.docu_name = docu_name;
         this.path = path;
         this.t_id = t_id;
         this.c_id = c_id;
+        this.end_time = end_time;
     }
 
-    public Homework(Integer id, String name, String docu_name, String path, Integer t_id, Integer c_id, String create_time, String update_time) {
+    public Homework(Integer id, String name, String docu_name, String path, Integer t_id, Integer c_id, String end_time, String create_time, String update_time) {
         this.id = id;
         this.name = name;
         this.docu_name = docu_name;
         this.path = path;
         this.t_id = t_id;
         this.c_id = c_id;
+        this.end_time = end_time;
         this.create_time = create_time;
         this.update_time = update_time;
+    }
+
+    @Override
+    public String toString() {
+        return "Homework{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", docu_name='" + docu_name + '\'' +
+                ", path='" + path + '\'' +
+                ", t_id=" + t_id +
+                ", c_id=" + c_id +
+                ", end_time='" + end_time + '\'' +
+                ", create_time='" + create_time + '\'' +
+                ", update_time='" + update_time + '\'' +
+                '}';
     }
 
     public Integer getId() {
@@ -94,6 +113,14 @@ public class Homework {
         this.c_id = c_id;
     }
 
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
+    }
+
     public String getCreate_time() {
         return create_time;
     }
@@ -108,19 +135,5 @@ public class Homework {
 
     public void setUpdate_time(String update_time) {
         this.update_time = update_time;
-    }
-
-    @Override
-    public String toString() {
-        return "Homework{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", docu_name='" + docu_name + '\'' +
-                ", path='" + path + '\'' +
-                ", t_id=" + t_id +
-                ", c_id=" + c_id +
-                ", create_time='" + create_time + '\'' +
-                ", update_time='" + update_time + '\'' +
-                '}';
     }
 }

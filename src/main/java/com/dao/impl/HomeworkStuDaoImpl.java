@@ -14,8 +14,8 @@ import java.util.List;
 public class HomeworkStuDaoImpl extends BaseDao implements HomeworkStuDao {
     @Override
     public int insert(HomeworkStu homeworkStu) {
-        String sql="INSERT INTO `homework_stu`(`hw_id`,`stu_id`,`handup_time`,`end_time`,`correct`,`t_id`,`correct_time`,`correct_status`)VALUES(?,?,?,?,?,?,?,?)";
-        return update(sql,homeworkStu.getHw_id(),homeworkStu.getStu_id(),homeworkStu.getHandup_time(),homeworkStu.getEnd_time(),homeworkStu.getCorrect(),homeworkStu.getT_id(),homeworkStu.getCorrect_time(),homeworkStu.getCorrect_status());
+        String sql="INSERT INTO `homework_stu`(`hw_id`,`stu_id`,`handup_time`,`correct`,`t_id`,`correct_time`,`correct_status`)VALUES(?,?,?,?,?,?,?)";
+        return update(sql,homeworkStu.getHw_id(),homeworkStu.getStu_id(),homeworkStu.getHandup_time(),homeworkStu.getCorrect(),homeworkStu.getT_id(),homeworkStu.getCorrect_time(),homeworkStu.getCorrect_status());
     }
 
     @Override
@@ -26,8 +26,8 @@ public class HomeworkStuDaoImpl extends BaseDao implements HomeworkStuDao {
 
     @Override
     public int update(HomeworkStu homeworkStu) {
-        String sql="UPDATE `homework_stu` SET `hw_id`=?,`stu_id`=?,`handup_time`=?,`end_time`=?,`correct`=?,`t_id`=?,`correct_time`=?,`correct_status`=? WHERE `id`=? ";
-        return update(sql,homeworkStu.getHw_id(),homeworkStu.getStu_id(),homeworkStu.getHandup_time(),homeworkStu.getEnd_time(),homeworkStu.getCorrect(),homeworkStu.getT_id(),homeworkStu.getCorrect_time(),homeworkStu.getCorrect_status(),homeworkStu.getId());
+        String sql="UPDATE `homework_stu` SET `hw_id`=?,`stu_id`=?,`handup_time`=?,`correct`=?,`t_id`=?,`correct_time`=?,`correct_status`=? WHERE `id`=? ";
+        return update(sql,homeworkStu.getHw_id(),homeworkStu.getStu_id(),homeworkStu.getHandup_time(),homeworkStu.getCorrect(),homeworkStu.getT_id(),homeworkStu.getCorrect_time(),homeworkStu.getCorrect_status(),homeworkStu.getId());
     }
 
     @Override
