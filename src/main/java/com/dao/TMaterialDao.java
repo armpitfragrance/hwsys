@@ -23,4 +23,10 @@ public interface TMaterialDao {
     Integer queryPageTotalCounts();//查询当前表的总记录条数
 
     List<TMaterial> queryTMaterialByPage(int pageNo, int pageSize);
+
+    Integer queryPageTotalCountsByCid(int c_id);
+
+    List<TMaterial> queryTMaterialByPageByCid(int c_id, String name, String date, int pageNo, int pageSize);
+
+
 }

@@ -14,14 +14,14 @@ import java.util.List;
 public class MessageDaoImpl extends BaseDao implements MessageDao {
     @Override
     public Integer insert(Message message) {
-        String sql="insert into `message` (`title`,`content`,`send_id`,`receive_id`) values(?,?,?,?)";
-        return update(sql, message.getTitle(), message.getContent(), message.getSend_id(), message.getReceive_id());
+        String sql="insert into `message` (`title`,`content`,`send_id`,`receive_id`,`readFlag`) values(?,?,?,?,?)";
+        return update(sql, message.getTitle(), message.getContent(), message.getSend_id(), message.getReceive_id(),message.getReadFlag());
     }
 
     @Override
     public Integer update(Message message) {
-        String sql = "update `message` set `title`=?,`content`=?,`send_id`=?,`receive_id`=? where `id`=?";
-        return update(sql, message.getTitle(), message.getContent(), message.getSend_id(), message.getReceive_id(), message.getId());
+        String sql = "update `message` set `title`=?,`content`=?,`send_id`=?,`receive_id`=?,`readFlag`=? where `id`=?";
+        return update(sql, message.getTitle(), message.getContent(), message.getSend_id(), message.getReceive_id(),message.getReadFlag(), message.getId());
     }
 
     @Override

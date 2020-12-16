@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class TMaterialDaoImpl extends BaseDao implements TMaterialDao {
     public int insert(TMaterial tMaterial) {
-        String sql = "INSERT INTO `t_material`(`title`,`content`,`path`,`name`,`c_id`)VALUES(?,?,?,?,?)";
-        return update(sql, tMaterial.getTitle(), tMaterial.getContent(), tMaterial.getPath(), tMaterial.getName(), tMaterial.getC_id());
+        String sql = "INSERT INTO `t_material`(`name`,`path`,`c_id`)VALUES(?,?,?)";
+        return update(sql, tMaterial.getName(), tMaterial.getPath(), tMaterial.getC_id());
     }
 
     public int delete(Integer id) {
@@ -23,17 +23,17 @@ public class TMaterialDaoImpl extends BaseDao implements TMaterialDao {
     }
 
     public int update(TMaterial tMaterial) {
-        String sql = "UPDATE `t_material` SET `title`=?,`content`=?,`path`=?,`name`=?,`c_id`=? WHERE `id`=? ";
-        return update(sql, tMaterial.getTitle(), tMaterial.getContent(), tMaterial.getPath(), tMaterial.getName(), tMaterial.getC_id(), tMaterial.getId());
+        String sql = "UPDATE `t_material` SET `name`=?,`path`=?,`c_id`=? WHERE `id`=? ";
+        return update(sql, tMaterial.getName(), tMaterial.getPath(), tMaterial.getC_id(), tMaterial.getId());
     }
 
     public List<TMaterial> queryAll() {
-        String sql = "SELECT `id`,`title`,`content`,`path`,`name`,`handup_time`,`c_id`,`create_time`,`update_time` FROM `t_material` ";
+        String sql = "SELECT `id`,`name`,`path`,`handup_time`,`c_id`,`create_time`,`update_time` FROM `t_material` ";
         return queryForList(TMaterial.class, sql);
     }
 
     public TMaterial queryTMaterialById(Integer id) {
-        String sql = "SELECT `id`,`title`,`content`,`path`,`name`,`handup_time`,`c_id`,`create_time`,`update_time` FROM `t_material` WHERE `id`=? ";
+        String sql = "SELECT `id`,`name`,`path`,`handup_time`,`c_id`,`create_time`,`update_time` FROM `t_material` WHERE `id`=? ";
         return queryForOne(TMaterial.class, sql, id);
     }
 
@@ -43,7 +43,28 @@ public class TMaterialDaoImpl extends BaseDao implements TMaterialDao {
     }
 
     public List<TMaterial> queryTMaterialByPage(int pageNo, int pageSize) {
-        String sql = "SELECT `id`,`title`,`content`,`path`,`name`,`handup_time`,`c_id`,`create_time`,`update_time` FROM `t_material` LIMIT ?,? ";
+        String sql = "SELECT `id`,`name`,`path`,`handup_time`,`c_id`,`create_time`,`update_time` FROM `t_material` LIMIT ?,? ";
         return queryForList(TMaterial.class, sql, pageNo, pageSize);
+    }
+
+    @Override
+    public Integer queryPageTotalCountsByCid(int c_id) {
+        String sql = "SELECT COUNT(1) FROM `t_material` where c_id=?";
+        return Math.toIntExact((Long) queryForSingleValue(sql, c_id));
+    }
+
+    @Override
+    public List<TMaterial> queryTMaterialByPageByCid(int c_id, String name, String date, int pageNo, int pageSize) {
+        String sql = "SELECT `id`,`name`,`path`,`handup_time`,`c_id`,`create_time`,`update_time` FROM `t_material` where c_id=?";
+        if (!"".equals(name) && !"".equals(date)) {
+            sql += " and name like '%" + name + "%'";
+            sql += " and handup_time like '%" + date + "%'";
+        } else if (!"".equals(name) && "".equals(date)) {
+            sql += " and name like '%" + name + "%'";
+        } else if ("".equals(name) && !"".equals(date)) {
+            sql += " and handup_time like '%" + date + "%'";
+        }
+        sql += " LIMIT ?,?";
+        return queryForList(TMaterial.class, sql, c_id, pageNo, pageSize);
     }
 }
