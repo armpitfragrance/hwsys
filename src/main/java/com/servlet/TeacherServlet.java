@@ -119,8 +119,16 @@ public class TeacherServlet extends BaseServlet {
         String jsonStr = gson.toJson(page);
         System.out.println(jsonStr);
         resp.getWriter().write(jsonStr);
+    }
 
-
-
+    public void queryOne(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=UTF-8");
+        Integer t_id = Integer.valueOf(req.getParameter("t_id"));
+        UserTeacher userTeacher = userTeacherService.queryByTId(t_id);
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(userTeacher);
+        System.out.println(jsonStr);
+        resp.getWriter().write(jsonStr);
     }
 }

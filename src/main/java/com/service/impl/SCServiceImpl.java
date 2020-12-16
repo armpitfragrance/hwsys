@@ -46,6 +46,11 @@ public class SCServiceImpl implements SCService {
     }
 
     @Override
+    public int deleteByCId(int c_id) {
+        return scDao.deleteByCId(c_id);
+    }
+
+    @Override
     public int update(SC sc) {
         return 0;
     }

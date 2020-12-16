@@ -251,6 +251,8 @@
     </script>
 </head>
 <body layadmin-themealias="default" style="">
+
+
 <%--添加模态框--%>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -527,6 +529,6 @@
         </div>
     </div>
 
-
+</div>
 </body>
 </html>

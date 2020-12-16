@@ -30,6 +30,12 @@ public class SCDaoImpl extends BaseDao implements SCDao {
     }
 
     @Override
+    public Integer deleteByCId(int c_id) {
+        String sql = "delete from `sc` where `c_id`=?";
+        return update(sql, c_id);
+    }
+
+    @Override
     public List<SC> queryAll() {
         String sql = "select * from `sc`";
         return queryForList(SC.class, sql);

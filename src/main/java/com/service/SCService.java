@@ -17,6 +17,9 @@ public interface SCService {
 
     int delete(int scId);
 
+    //将选中某门课的信息都删除
+    int deleteByCId(int c_id);
+
     int update(SC sc);
 
     List<SC> queryAll();

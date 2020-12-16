@@ -14,4 +14,6 @@ public interface UserTeacherDao {
     Integer queryPageTotalCountsByPageByRealNameOrStuNo(String realname,String t_no);//查询符合条件当前表的总记录条数
     List<UserTeacher> queryUserStudentByPage(int pageNo, int pageSize);
     List<UserTeacher> queryUserStudentByPageByRealNameOrStuNo(int pageNo, int pageSize,String realname,String t_no);
+
+    UserTeacher queryByTId(int t_id);
 }

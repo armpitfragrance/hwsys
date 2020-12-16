@@ -80,7 +80,7 @@
     <div class="layui-side layui-side-menu">
       <div class="layui-side-scroll">
         <div class="layui-logo" lay-href="home/console.html">
-          <span>layuiAdmin</span>
+          <span>管理员控制台</span>
         </div>
 
         <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
@@ -135,8 +135,12 @@
                 <a lay-href="view/admin/TInfoManage.jsp">教师管理</a>
               </dd>
               <dd>
-                <a lay-href="user/administrators/role.html">管理员管理</a>
+                <a lay-href="view/user/teacher/CourseManage.jsp">课程管理</a>
               </dd>
+              <dd>
+                <a lay-href="view/user/teacher/TInfo.jsp">个人中心</a>
+              </dd>
+
             </dl>
           </li>
           <li data-name="set" class="layui-nav-item">

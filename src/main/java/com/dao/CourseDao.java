@@ -30,4 +30,6 @@ public interface CourseDao {
 
     //分页查询
     List<Course> queryCourseByPage(int pageNo, int pageSize);
+
+    Integer getMaxId();
 }

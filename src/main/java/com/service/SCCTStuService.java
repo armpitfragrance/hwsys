@@ -15,4 +15,6 @@ public interface SCCTStuService {
 
     Page<SCCTStu> queryByPageByNameorTid(String name, String t_id, int pageNo, int pageSize);
 
+
+
 }

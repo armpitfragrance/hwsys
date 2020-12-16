@@ -53,4 +53,9 @@ public class CourseDaoImpl extends BaseDao implements CourseDao {
         String sql="SELECT * FROM `course` LIMIT ?,? ";
         return queryForList(Course.class,sql,pageNo,pageSize);
     }
+    @Override
+    public Integer getMaxId() {
+        String sql = "SELECT MAX(id) id FROM `course` WHERE 1=1";
+        return queryForOne(Course.class, sql).getId();
+    }
 }
