@@ -12,6 +12,7 @@ public class HomeworkStu {
     private String handup_time;//提交时间
     private String correct;//评阅意见
     private Integer t_id;//评阅教师编号
+    private Integer score;//评阅分数
     private String correct_time;//评阅时间
     private String correct_status;//评阅状态
     private String create_time;//建表时间
@@ -20,54 +21,41 @@ public class HomeworkStu {
     public HomeworkStu() {
     }
 
-    public HomeworkStu(Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, String correct_time, String correct_status) {
+    public HomeworkStu(Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, Integer score, String correct_time, String correct_status) {
         this.hw_id = hw_id;
         this.stu_id = stu_id;
         this.handup_time = handup_time;
         this.correct = correct;
         this.t_id = t_id;
+        this.score = score;
         this.correct_time = correct_time;
         this.correct_status = correct_status;
     }
 
-    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, String correct_time, String correct_status) {
+    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, Integer score, String correct_time, String correct_status) {
         this.id = id;
         this.hw_id = hw_id;
         this.stu_id = stu_id;
         this.handup_time = handup_time;
         this.correct = correct;
         this.t_id = t_id;
+        this.score = score;
         this.correct_time = correct_time;
         this.correct_status = correct_status;
     }
 
-    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, String correct_time, String correct_status, String create_time, String update_time) {
+    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, Integer score, String correct_time, String correct_status, String create_time, String update_time) {
         this.id = id;
         this.hw_id = hw_id;
         this.stu_id = stu_id;
         this.handup_time = handup_time;
         this.correct = correct;
         this.t_id = t_id;
+        this.score = score;
         this.correct_time = correct_time;
         this.correct_status = correct_status;
         this.create_time = create_time;
         this.update_time = update_time;
-    }
-
-    @Override
-    public String toString() {
-        return "HomeworkStu{" +
-                "id=" + id +
-                ", hw_id=" + hw_id +
-                ", stu_id=" + stu_id +
-                ", handup_time='" + handup_time + '\'' +
-                ", correct='" + correct + '\'' +
-                ", t_id=" + t_id +
-                ", correct_time='" + correct_time + '\'' +
-                ", correct_status='" + correct_status + '\'' +
-                ", create_time='" + create_time + '\'' +
-                ", update_time='" + update_time + '\'' +
-                '}';
     }
 
     public Integer getId() {
@@ -116,6 +104,14 @@ public class HomeworkStu {
 
     public void setT_id(Integer t_id) {
         this.t_id = t_id;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public String getCorrect_time() {
