@@ -56,7 +56,7 @@ public class SCCTStuServiceImpl implements SCCTStuService {
         }
         page.setPageTotal(pageTotal);
         int begin = (page.getPageNum() - 1) * pageSize;
-        List<SCCTStu> items = scctStuDao.querySCCTStuByPageByNameorTid(name, t_id, begin, pageSize);
+        List<SCCTStu> items = scctStuDao.querySCCTStuByPageByNameorTid1(name, t_id, begin, pageSize);
         page.setItems(items);
         return page;
     }

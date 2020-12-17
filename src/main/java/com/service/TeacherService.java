@@ -16,4 +16,6 @@ public interface TeacherService {
     Integer update(Teacher teacher);
 
     Integer insert(Teacher teacher);
+
+    
 }

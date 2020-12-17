@@ -10,18 +10,19 @@ public class SCCTStu {
     private String name;//选课名字
     private String realname;//授课老师姓名
     private Integer t_no;//授课老师工号
+    private String path;//图片路径
     private Integer count;//选课人数
+    private String createtime;//创建时间
 
     public SCCTStu() {
     }
 
-    public SCCTStu(Integer id, String name, String realname, Integer t_no, Integer count) {
+    public String getCreatetime() {
+        return createtime;
+    }
 
-        this.id = id;
-        this.name = name;
-        this.realname = realname;
-        this.t_no = t_no;
-        this.count = count;
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
     }
 
     @Override
@@ -31,8 +32,29 @@ public class SCCTStu {
                 ", name='" + name + '\'' +
                 ", realname='" + realname + '\'' +
                 ", t_no=" + t_no +
+                ", path='" + path + '\'' +
                 ", count=" + count +
+                ", createtime='" + createtime + '\'' +
                 '}';
+    }
+
+    public SCCTStu(Integer id, String name, String realname, Integer t_no, String path, Integer count, String createtime) {
+
+        this.id = id;
+        this.name = name;
+        this.realname = realname;
+        this.t_no = t_no;
+        this.path = path;
+        this.count = 0;
+        this.createtime = createtime;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public Integer getId() {

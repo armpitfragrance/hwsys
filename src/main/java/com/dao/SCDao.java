@@ -16,6 +16,8 @@ public interface SCDao {
 
     Integer delete(int id);
 
+    Integer deleteByCId(int c_id);
+
     List<SC> queryAll();
 
     SC querySCById(int id);

@@ -2,8 +2,10 @@ package com.dao.impl;
 
 import com.dao.BaseDao;
 import com.dao.SCCTStuDao;
+import com.dao.TCDao;
 import com.entity.SCCTStu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +14,7 @@ import java.util.List;
  * 描述:
  */
 public class SCCTStuDaoImpl extends BaseDao implements SCCTStuDao {
+    TCDao tcDao = new TCDaoImpl();
     @Override
     public Integer delete(Integer id) {
         String sql = "delete from `tc` where `id`=?";
@@ -60,12 +63,12 @@ public class SCCTStuDaoImpl extends BaseDao implements SCCTStuDao {
 
     @Override
     public List<SCCTStu> querySCCTStuByPageByNameorTid(String name, String t_id, Integer pageNO, Integer pageSize) {
-        String sql = "SELECT tc.id,c.`name`,u.realname,t.t_no,COUNT(sc.stu_id) count FROM `sc` sc,`student` s,`teacher` t,`course` c,`user` u,`tc` tc WHERE";
+        String sql = "SELECT tc.id,c.`name`,u.realname,t.t_no,COUNT(sc.stu_id) count,c.path,tc.create_time createtime FROM `sc` sc,`student` s,`teacher` t,`course` c,`user` u,`tc` tc WHERE";
         if (!"".equals(name)) {
             sql += " c.`name`=? and";
         }
         if (!"".equals(t_id)) {
-            sql += " tc.`t_id`=? and";
+            sql += " t.`t_no`=? and";
         }
         sql += " sc.c_id=tc.id and sc.stu_id=s.id and u.id=t.user_id and tc.c_id=c.id and tc.t_id=t.id GROUP BY sc.c_id LIMIT ?,?";
 
@@ -78,5 +81,36 @@ public class SCCTStuDaoImpl extends BaseDao implements SCCTStuDao {
         } else {
             return queryForList(SCCTStu.class, sql, pageNO, pageSize);
         }
+    }
+
+    @Override
+    public List<SCCTStu> querySCCTStuByPageByNameorTid1(String name, String t_id, Integer pageNO, Integer pageSize) {
+        List<SCCTStu> list = new ArrayList<>();
+        String sql = "SELECT tc.id,c.`name`,u.realname,t.t_no,c.path,tc.create_time createtime FROM `teacher` t,`course` c,`user` u,`tc` tc WHERE";
+        if (!"".equals(name)) {
+            sql += " c.`name`=? and";
+        }
+        if (!"".equals(t_id)) {
+            sql += " t.`t_no`=? and";
+        }
+        sql += " u.id=t.user_id and tc.c_id=c.id and tc.t_id=t.id LIMIT ?,?";
+
+        if (!"".equals(name) && !"".equals(t_id)) {
+            list = queryForList(SCCTStu.class, sql, name, t_id, pageNO, pageSize);
+        } else if (!"".equals(name) && "".equals(t_id)) {
+            list = queryForList(SCCTStu.class, sql, name, pageNO, pageSize);
+        } else if ("".equals(name) && !"".equals(t_id)) {
+            list = queryForList(SCCTStu.class, sql, t_id, pageNO, pageSize);
+        } else {
+            list = queryForList(SCCTStu.class, sql, pageNO, pageSize);
+        }
+        String sql1 = "select count(1) count from course c,sc sc,student s where c.id=sc.c_id and sc.stu_id=s.id and sc.c_id=?";
+        for (int i = 0; i < list.size(); i++) {
+
+            Integer c_id = tcDao.queryTCById(list.get(i).getId()).getC_id();
+            Integer count = Math.toIntExact((Long) queryForSingleValue(sql1, c_id));
+            list.get(i).setCount(count);
+        }
+        return list;
     }
 }

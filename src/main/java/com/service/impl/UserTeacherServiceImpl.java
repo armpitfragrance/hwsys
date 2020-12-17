@@ -45,6 +45,11 @@ public class UserTeacherServiceImpl implements UserTeacherService {
     }
 
     @Override
+    public UserTeacher queryByTId(int t_id) {
+        return userTeacherDao.queryByTId(t_id);
+    }
+
+    @Override
     public Page<UserTeacher> queryUserStudentByPageByRealNameOrStuNo(int pageNo, int pageSize, String realname, String stu_no) {
         Page<UserTeacher> page = new Page<>();
         //设置当前页码

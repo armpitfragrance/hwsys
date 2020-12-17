@@ -12,33 +12,37 @@ public class Message {
     private String message_time;
     private Integer send_id;
     private Integer receive_id;
+    private Integer readFlag;
     private String create_time;
     private String update_time;
 
-    public Message(Integer id, String title, String content, String message_time, Integer send_id, Integer receive_id, String create_time, String update_time) {
+    public Message(Integer id, String title, String content, String message_time, Integer send_id, Integer receive_id,Integer readFlag, String create_time, String update_time) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.message_time = message_time;
         this.send_id = send_id;
         this.receive_id = receive_id;
+        this.readFlag = readFlag;
         this.create_time = create_time;
         this.update_time = update_time;
     }
 
-    public Message(Integer id, String title, String content, Integer send_id, Integer receive_id) {
+    public Message(Integer id, String title, String content, Integer send_id, Integer receive_id,Integer readFlag) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.send_id = send_id;
         this.receive_id = receive_id;
+        this.readFlag = readFlag;
     }
 
-    public Message(String title, String content, Integer send_id, Integer receive_id) {
+    public Message(String title, String content, Integer send_id, Integer receive_id,Integer readFlag) {
         this.title = title;
         this.content = content;
         this.send_id = send_id;
         this.receive_id = receive_id;
+        this.readFlag = readFlag;
     }
 
 
@@ -109,6 +113,14 @@ public class Message {
         this.update_time = update_time;
     }
 
+    public Integer getReadFlag() {
+        return readFlag;
+    }
+
+    public void setReadFlag(Integer readFlag) {
+        this.readFlag = readFlag;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -118,6 +130,7 @@ public class Message {
                 ", message_time='" + message_time + '\'' +
                 ", send_id=" + send_id +
                 ", receive_id=" + receive_id +
+                ", readFlag=" + readFlag +
                 ", create_time='" + create_time + '\'' +
                 ", update_time='" + update_time + '\'' +
                 '}';

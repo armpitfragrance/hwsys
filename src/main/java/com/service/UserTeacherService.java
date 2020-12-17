@@ -11,5 +11,7 @@ import com.utils.Page;
 public interface UserTeacherService {
     Page<UserTeacher> queryForPage(int pageNum, int pageSize);
 
+    UserTeacher queryByTId(int t_id);
+
     Page<UserTeacher> queryUserStudentByPageByRealNameOrStuNo(int pageNo, int pageSize, String realname, String stu_no);
 }
