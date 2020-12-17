@@ -58,6 +58,7 @@ public class HomeworkServlet extends BaseServlet {
         Page<HomeworkManageInfo> page = homeworkService.queryHomeworkByNameAndEndtime(pageNum, Page.PAGE_SIZE, course_id, name, end_time);
         Gson gson = new Gson();
         String JsonStr = gson.toJson(page);
+        System.out.println(JsonStr);
         response.getWriter().write(JsonStr);
     }
 
