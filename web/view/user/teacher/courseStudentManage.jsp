@@ -44,12 +44,13 @@
     <script type="text/javascript">
         var currentPage = 1;//当前页数
         var oldPageTotal = 0;//总页数
-
+        var course_id=<%=request.getParameter("c_id")%>
+            console.log(course_id);
         $(function () {
             let stu_no = $("#search-if-sno").val();
             $.ajax({
                 url: "/student.do",
-                data: {action: "queryStudentByCourse", pageNum: "1", course_id: 1,stu_no:stu_no},
+                data: {action: "queryStudentByCourse", pageNum: "1", course_id: course_id,stu_no:stu_no},
                 type: "GET",
                 dataType: "text",
                 success: function (data) {
@@ -85,7 +86,7 @@
                 let stu_no = $("#search-if-sno").val();
                 $.ajax({
                     url: "/student.do",
-                    data: {action: "queryStudentByCourse", pageNum: 1, course_id: 1, stu_no: stu_no},
+                    data: {action: "queryStudentByCourse", pageNum: 1, course_id: course_id, stu_no: stu_no},
                     type: "GET",
                     dataType: "text",
                     success: function (data) {
@@ -182,7 +183,7 @@
                 console.log(stu_id);
                 $.ajax({
                     url: "/sc.do",
-                    data: {action: "delete", course_id: 1, stu_id: stu_id},
+                    data: {action: "delete", course_id: course_id, stu_id: stu_id},
                     type: "GET",
                     dataType: "text",
                     success: function (data) {
@@ -207,7 +208,7 @@
             let stu_no = $("#search-if-sno").val();
             $.ajax({
                 url: "/student.do",
-                data: {action: "queryStudentByCourse", pageNum: i, course_id: 1, stu_no: stu_no},
+                data: {action: "queryStudentByCourse", pageNum: i, course_id: course_id, stu_no: stu_no},
                 type: "GET",
                 dataType: "text",
                 success: function (data) {

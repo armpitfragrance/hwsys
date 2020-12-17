@@ -44,6 +44,8 @@
     <script type="text/javascript">
         var currentPage = 1;//当前页数
         var oldPageTotal = 0;//总页数
+        var course_id=<%=request.getParameter("c_id")%>;
+        var t_id=<%=request.getParameter("t_id")%>
 
         $(function () {
             let name = $("#search-if-hwname").val();
@@ -53,8 +55,8 @@
                 data: {
                     action: "queryHomeworkByNameAndEndtime",
                     pageNum: "1",
-                    course_id: 1,
-                    t_id: 1,
+                    course_id: course_id,
+                    t_id: t_id,
                     name: name,
                     end_time: end_time
                 },
@@ -126,8 +128,8 @@
                     data: {
                         action: "queryHomeworkByNameAndEndtime",
                         pageNum: 1,
-                        course_id: 1,
-                        t_id: 1,
+                        course_id: course_id,
+                        t_id: t_id,
                         name: name,
                         end_time: end_time
                     },
@@ -240,7 +242,7 @@
                     url: "/homework.do",
                     data: {
                         action: "delete",
-                        course_id: 1,
+                        course_id: course_id,
                         homework_id: homework_id
                     },
                     type: "GET",
@@ -275,8 +277,8 @@
                 data: {
                     action: "queryHomeworkByNameAndEndtime",
                     pageNum: i,
-                    course_id: 1,
-                    t_id: 1,
+                    course_id: course_id,
+                    t_id: t_id,
                     name: name,
                     end_time: end_time
                 },

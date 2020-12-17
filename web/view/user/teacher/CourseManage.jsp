@@ -155,14 +155,16 @@
                     "                                   style=\"margin: 1px\">\n" +
                     "                                    <i class=\"layui-icon layui-icon-delete\"></i>删除</a>\n" +
                     "                            </div>\n" +
+                    "                            <div class=\"coursedetail\">\n" +
                     "                            <img src=\""+path+"\" width=\"240px\" height=\"165px\"><br>\n" +
-                    "                            <div style=\"margin-left: 8.5px;margin-right: 8.5px;position: absolute;width: 223px;height: 115px;\">\n" +
+                    "                            <div id=\"c_detail\" style=\"margin-left: 8.5px;margin-right: 8.5px;position: absolute;width: 223px;height: 115px;\">\n" +
                     "                                <h3 style=\"font-size: 17px;margin-top: 5px\"><b>"+jsonObj.items[i].name+"</b></h3>\n" +
                     "                                <h5 style=\"margin-top: 5px\">"+jsonObj.items[i].realname+"</h5>\n" +
                     "                                <div style=\"position: absolute;bottom:2px;width: 220px\">\n" +
                     "                                    <span style=\"float: left\">"+createtime+"</span>\n" +
                     "                                    <span style=\"float: right\">"+jsonObj.items[i].count+"人参加</span>\n" +
                     "                                </div>\n" +
+                    "                            </div>\n" +
                     "                            </div>\n" +
                     "                        </div>");
 
@@ -175,6 +177,25 @@
             });
             $(".detail").on("mouseleave",function () {
                 $(this).find(".edit_button").fadeOut(250);
+            });
+            $(".coursedetail").on("click",function () {
+                var t_id=0;
+                var c_id=0;
+                var tc_id=$($($(this).parent("div")).find("h5")).html().trim();
+                $.ajax({
+                    url: "/TC.do",
+                    data:{action:"queryForOne", tc_id: tc_id},
+                    type:"post",
+                    dataType: "text",
+                    success: function (data) {
+                        var jsonObj = JSON.parse(data);
+                        console.log(data);
+                        t_id = jsonObj.t_id;
+                        c_id = jsonObj.c_id;
+                        location.href = "CourseDetail.jsp?t_id="+t_id+"&c_id="+c_id;
+                    }
+                });
+
             });
             $(".delbtn").on("click",function(){
                 var tc_id = $($(this).parent("div").prev()).html().trim();

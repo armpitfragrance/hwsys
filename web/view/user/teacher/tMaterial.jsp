@@ -44,7 +44,7 @@
     <script type="text/javascript">
         var currentPage = 1;//当前页数
         var oldPageTotal = 0;//总页数
-        var course_id=1;//todo 课程编号
+        var course_id=<%=request.getParameter("c_id")%>;//todo 课程编号
         var user_id=2; //上传人 id
         var date;
         var filename;
