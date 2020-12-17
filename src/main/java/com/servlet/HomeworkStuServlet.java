@@ -40,6 +40,7 @@ public class HomeworkStuServlet extends BaseServlet{
      */
     public void queryHomeworkStuByHwNameAndEndtimeAndStatus(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer pageNum= Integer.valueOf(request.getParameter("pageNum"));
+        Integer course_id= Integer.valueOf(request.getParameter("course_id"));
         String homework_name=request.getParameter("hw_name");
         String end_time=request.getParameter("end_time");
         String correct_status=request.getParameter("correct_status");
@@ -47,7 +48,7 @@ public class HomeworkStuServlet extends BaseServlet{
             correct_status="";
         }
 
-        Page<HomeworkStuManageInfo> page=homeworkStuService.queryHomeworkStuByHwNameAndEndtimeAndStatus(pageNum,Page.PAGE_SIZE,homework_name,end_time,correct_status);
+        Page<HomeworkStuManageInfo> page=homeworkStuService.queryHomeworkStuByHwNameAndEndtimeAndStatus(pageNum,Page.PAGE_SIZE,course_id,homework_name,end_time,correct_status);
         Gson gson = new Gson();
         String JsonStr = gson.toJson(page);
         response.getWriter().write(JsonStr);

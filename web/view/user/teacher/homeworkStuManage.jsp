@@ -43,6 +43,7 @@
     <script type="text/javascript">
         var currentPage = 1;//当前页数
         var oldPageTotal = 0;//总页数
+        var course_id=1;//传进来的课程id
 
         $(function () {
             let hw_name = $("#search-if-hwname").val();
@@ -54,6 +55,7 @@
                 data: {
                     action: "queryHomeworkStuByHwNameAndEndtimeAndStatus",
                     pageNum: "1",
+                    course_id:course_id,
                     hw_name:hw_name,
                     end_time: end_time,
                     correct_status:correct_status
@@ -101,6 +103,7 @@
                     data: {
                         action: "queryHomeworkStuByHwNameAndEndtimeAndStatus",
                         pageNum: 1,
+                        course_id:course_id,
                         hw_name:hw_name,
                         end_time: end_time,
                         correct_status:correct_status
@@ -236,6 +239,7 @@
                 data: {
                     action: "queryHomeworkStuByHwNameAndEndtimeAndStatus",
                     pageNum: i,
+                    course_id:course_id,
                     hw_name:hw_name,
                     end_time: end_time,
                     correct_status:correct_status
