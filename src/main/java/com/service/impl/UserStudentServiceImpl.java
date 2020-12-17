@@ -77,4 +77,38 @@ public class UserStudentServiceImpl implements UserStudentService {
         //返回page
         return page;
     }
+
+    @Override
+    public Page<UserStudent> queryUserStudentByCourseIdAndSno(int pageNo, int pageSize, Integer course_id, Integer stu_no) {
+        Page<UserStudent> page = new Page<>();
+        //设置当前页码
+        page.setPageNum(pageNo);
+        //设置每页展示的数量
+        page.setPageSize(pageSize);
+        //求总记录数
+        Integer pageTotalCount = userStudentDao.queryPageTotalCountsByCourseIdAndSno(course_id,stu_no);
+        //设置总记录数
+        page.setPageTotalCount(pageTotalCount);
+        //求总页码
+        Integer pageTotal = pageTotalCount / pageSize;
+        //如果总记录数除以每页显示的记录数有余数，则总页码+1
+        if (pageTotalCount % pageSize > 0) {
+            pageTotal += 1;
+        }
+        //设置总页码
+        page.setPageTotal(pageTotal);
+        //设置起始页
+        int begin = 0;
+        if (page.getPageNum() == 0) {
+            begin = 0;
+        } else {
+            begin = (page.getPageNum() - 1) * pageSize;
+        }
+        //获取分页显示的列表
+        List<UserStudent> items = userStudentDao.queryUserStudentByCourseIdAndSno(begin,pageSize,course_id,stu_no);
+        //设置分页列表
+        page.setItems(items);
+        //返回page
+        return page;
+    }
 }

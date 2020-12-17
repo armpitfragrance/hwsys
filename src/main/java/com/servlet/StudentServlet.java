@@ -122,8 +122,18 @@ public class StudentServlet extends BaseServlet {
         String jsonStr = gson.toJson(page);
         System.out.println(jsonStr);
         resp.getWriter().write(jsonStr);
+    }
 
-
-
+    public void queryStudentByCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer course_id= Integer.valueOf(request.getParameter("course_id"));
+        Integer stu_no=null;
+        if(!"".equals(request.getParameter("stu_no"))){
+            stu_no= Integer.valueOf(request.getParameter("stu_no"));
+        }
+        Integer pageNum = Integer.valueOf(request.getParameter("pageNum"));
+        Page<UserStudent> page = userStudentService.queryUserStudentByCourseIdAndSno(pageNum,Page.PAGE_SIZE,course_id,stu_no);
+        Gson gson = new Gson();
+        String JsonStr = gson.toJson(page);
+        response.getWriter().write(JsonStr);
     }
 }

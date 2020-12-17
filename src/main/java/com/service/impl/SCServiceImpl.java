@@ -37,7 +37,7 @@ public class SCServiceImpl implements SCService {
 
     @Override
     public int insert(SC sc) {
-        return 0;
+        return scDao.insert(sc);
     }
 
     @Override
@@ -63,5 +63,10 @@ public class SCServiceImpl implements SCService {
     @Override
     public SC queryByid(int scId) {
         return null;
+    }
+
+    @Override
+    public SC queryByC_idAndStu_id(int c_id, int stu_id) {
+        return scDao.queryByC_idAndStu_id(c_id,stu_id);
     }
 }

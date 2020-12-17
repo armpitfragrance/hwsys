@@ -9,6 +9,8 @@ public class HomeworkStu {
     private Integer id;//主键id
     private Integer hw_id;//布置作业编号
     private Integer stu_id;//学生编号
+    private String docu_name;//学生提交作业附件
+    private String path;//附件路径
     private String handup_time;//提交时间
     private String correct;//评阅意见
     private Integer t_id;//评阅教师编号
@@ -21,9 +23,11 @@ public class HomeworkStu {
     public HomeworkStu() {
     }
 
-    public HomeworkStu(Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, Integer score, String correct_time, String correct_status) {
+    public HomeworkStu(Integer hw_id, Integer stu_id, String docu_name, String path, String handup_time, String correct, Integer t_id, Integer score, String correct_time, String correct_status) {
         this.hw_id = hw_id;
         this.stu_id = stu_id;
+        this.docu_name = docu_name;
+        this.path = path;
         this.handup_time = handup_time;
         this.correct = correct;
         this.t_id = t_id;
@@ -32,10 +36,12 @@ public class HomeworkStu {
         this.correct_status = correct_status;
     }
 
-    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, Integer score, String correct_time, String correct_status) {
+    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String docu_name, String path, String handup_time, String correct, Integer t_id, Integer score, String correct_time, String correct_status) {
         this.id = id;
         this.hw_id = hw_id;
         this.stu_id = stu_id;
+        this.docu_name = docu_name;
+        this.path = path;
         this.handup_time = handup_time;
         this.correct = correct;
         this.t_id = t_id;
@@ -44,10 +50,12 @@ public class HomeworkStu {
         this.correct_status = correct_status;
     }
 
-    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String handup_time, String correct, Integer t_id, Integer score, String correct_time, String correct_status, String create_time, String update_time) {
+    public HomeworkStu(Integer id, Integer hw_id, Integer stu_id, String docu_name, String path, String handup_time, String correct, Integer t_id, Integer score, String correct_time, String correct_status, String create_time, String update_time) {
         this.id = id;
         this.hw_id = hw_id;
         this.stu_id = stu_id;
+        this.docu_name = docu_name;
+        this.path = path;
         this.handup_time = handup_time;
         this.correct = correct;
         this.t_id = t_id;
@@ -56,6 +64,25 @@ public class HomeworkStu {
         this.correct_status = correct_status;
         this.create_time = create_time;
         this.update_time = update_time;
+    }
+
+    @Override
+    public String toString() {
+        return "HomeworkStu{" +
+                "id=" + id +
+                ", hw_id=" + hw_id +
+                ", stu_id=" + stu_id +
+                ", docu_name='" + docu_name + '\'' +
+                ", path='" + path + '\'' +
+                ", handup_time='" + handup_time + '\'' +
+                ", correct='" + correct + '\'' +
+                ", t_id=" + t_id +
+                ", score=" + score +
+                ", correct_time='" + correct_time + '\'' +
+                ", correct_status='" + correct_status + '\'' +
+                ", create_time='" + create_time + '\'' +
+                ", update_time='" + update_time + '\'' +
+                '}';
     }
 
     public Integer getId() {
@@ -144,6 +171,22 @@ public class HomeworkStu {
 
     public void setUpdate_time(String update_time) {
         this.update_time = update_time;
+    }
+
+    public String getDocu_name() {
+        return docu_name;
+    }
+
+    public void setDocu_name(String docu_name) {
+        this.docu_name = docu_name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
 

@@ -83,7 +83,7 @@ public class TMaterialUploadServlet extends HttpServlet {
             } else {//上传的文件
                 String imgpath = "";
                 if (!fileItem.getName().equals("")) {
-                    StringBuffer sb = new StringBuffer("D:\\upload\\");
+                    StringBuffer sb = new StringBuffer("C:\\upload\\");
                     sb.append(fileItem.getName());
                     String imgPath = sb.toString();
                     fileItem.write(new File(imgPath));

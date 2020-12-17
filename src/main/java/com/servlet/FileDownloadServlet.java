@@ -33,6 +33,7 @@ public class FileDownloadServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         //设置相应类型为图片
         response.setContentType("application/octet-stream");
+        //下载文件中文乱码
         String agent = request.getHeader("User-Agent");
         if(agent.toLowerCase().indexOf("chrome")>0)
         {
@@ -42,9 +43,13 @@ public class FileDownloadServlet extends HttpServlet {
         {
             response.addHeader("content-Disposition", "attachment;filename="+URLEncoder.encode(path, "UTF-8"));
         }
+//        String str="attachment;fileNmae="+new String(path.getBytes("UTF-8"), "ISO8859-1");
+        //把编码后的字符串设置到响应头中
+        //文件下载
+//        response.setHeader("Content-Disposition",str);
         //读取工程资源
         System.out.println(""+path);
-        File file=new File("D://upload//",""+path);
+        File file=new File("C:\\upload\\",""+path);
         if(file.exists()){
             System.out.println("1");
         }

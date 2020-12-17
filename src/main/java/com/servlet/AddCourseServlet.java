@@ -69,7 +69,7 @@ public class AddCourseServlet extends HttpServlet {
                         //上传的文件
                         //System.out.println("表单项的name=" + fileItem.getFieldName());
                         //System.out.println("上传文件名=" + fileItem.getName());
-                        StringBuilder sb = new StringBuilder("D:\\upload\\");
+                        StringBuilder sb = new StringBuilder("C:\\upload\\");
                         sb.append(new Date().getTime());
                         sb.append(fileItem.getName());
                         String imgpath = sb.toString();
