@@ -22,6 +22,8 @@ public interface SCDao {
 
     SC querySCById(int id);
 
+    SC queryByC_idAndStu_id(int c_id,int stu_id);
+
     Integer queryPageTotalCounts();
 
     List<SC> querySCByPage(Integer pageNO, Integer pageSize);

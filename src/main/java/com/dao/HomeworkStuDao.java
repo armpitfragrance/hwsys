@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.entity.HomeworkStu;
+import com.entity.HomeworkStuManageInfo;
 
 import java.util.List;
 
@@ -28,6 +29,12 @@ public interface HomeworkStuDao {
     //查询总条数
     Integer queryPageTotalCounts();
 
+    //条件查询总条数
+    Integer queryPageTotalCountsByHwNameAndEndtimeAndStatus(String hw_name, String end_time, String correct_status);
+
     //分页查询
     List<HomeworkStu> queryHomeworkStuByPage(int pageNo, int pageSize);
+
+    //条件分页查询:
+    List<HomeworkStuManageInfo> queryHomeworkStuByHwNameAndEndtimeAndStatus(int pageNo, int pageSize, String hw_name, String end_time, String correct_status);
 }

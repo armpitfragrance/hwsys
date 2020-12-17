@@ -19,6 +19,13 @@ public class Homework {
     public Homework() {
     }
 
+    public Homework(String name, Integer t_id, Integer c_id, String end_time) {
+        this.name = name;
+        this.t_id = t_id;
+        this.c_id = c_id;
+        this.end_time = end_time;
+    }
+
     public Homework(String name, String docu_name, String path, Integer t_id, Integer c_id, String end_time) {
         this.name = name;
         this.docu_name = docu_name;

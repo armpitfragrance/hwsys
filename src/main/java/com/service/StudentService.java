@@ -16,4 +16,6 @@ public interface StudentService {
     Integer update(Student student);
 
     Integer insert(Student student);
+
+    Student queryStudentByStu_no(int stu_no);//根据学号查询学生信息
 }

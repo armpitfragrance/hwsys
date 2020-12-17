@@ -59,4 +59,9 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.insert(student);
     }
 
+    @Override
+    public Student queryStudentByStu_no(int stu_no) {
+        return studentDao.queryStudentByStu_no(stu_no);
+    }
+
 }
