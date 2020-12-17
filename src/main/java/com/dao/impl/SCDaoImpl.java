@@ -42,6 +42,12 @@ public class SCDaoImpl extends BaseDao implements SCDao {
     }
 
     @Override
+    public SC queryByC_idAndStu_id(int c_id, int stu_id) {
+        String sql = "select * from `sc` where `c_id`=? and `stu_id`=? ";
+        return queryForOne(SC.class,sql,c_id,stu_id);
+    }
+
+    @Override
     public Integer queryPageTotalCounts() {
         String sql = "select count(1) from sc";
         return Math.toIntExact((Long)queryForSingleValue(sql));

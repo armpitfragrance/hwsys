@@ -22,4 +22,6 @@ public interface SCService {
     List<SC> queryAll();
 
     SC queryByid(int scId);
+
+    SC queryByC_idAndStu_id(int c_id,int stu_id);
 }

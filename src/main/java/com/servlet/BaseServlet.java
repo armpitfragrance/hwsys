@@ -1,5 +1,10 @@
 package com.servlet;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.struts.upload.MultipartRequestWrapper;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +22,6 @@ public abstract class BaseServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
         response.setCharacterEncoding("utf-8");
         request.setCharacterEncoding("utf-8");
-
         String action = request.getParameter("action");
         try {
             //获取action业务鉴别字符串 获取相应的业务 方法反射对象
