@@ -43,8 +43,9 @@
     <script type="text/javascript">
         var currentPage = 1;//当前页数
         var oldPageTotal = 0;//总页数
-        var course_id=1;//传进来的课程id
+        var course_id=<%=request.getParameter("course_id")%>;//传进来的课程id
         var homework_id=<%=request.getParameter("homework_id")%>;
+        var t_id=<%=request.getParameter("t_id")%>;
 
         $(function () {
             let hw_name = $("#search-if-hwname").val();
@@ -72,8 +73,8 @@
 
             <!--评阅作业,提交评阅-->
             $("#button-update-handup").on("click", function () {
-                $("#updatecourse_id").val("1");
-                $("#updatet_id").val("1");
+                $("#updatecourse_id").val(course_id);
+                $("#updatet_id").val(t_id);
                 let formatter = new FormData(document.getElementById("correct-form"));
                 $.ajax({
                     url: "/upload.do",
