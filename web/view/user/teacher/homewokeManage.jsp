@@ -217,6 +217,8 @@
                     "<i class=\"layui-icon layui-icon-edit\"></i>编辑</button>\n" +
                     "<button class=\"delbtn layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"del\">" +
                     "<i class=\"layui-icon layui-icon-delete\"></i>删除</button>\n" +
+                    "<button class=\"conmmentbtn layui-btn layui-btn-normal layui-btn-xs\" lay-event=\"edit\"  >" +
+                    "<i class=\"layui-icon layui-icon-edit\"></i>评阅</button>\n"+
                     "</td>");
                 $("#page-body").append(trNode);
             }
@@ -255,6 +257,10 @@
                     }
                 });
             });
+            $(".conmmentbtn").on("click",function () {
+                let homework_id = $($(this).parents("tr").children("td")[1]).html().trim();
+                location.href="homeworkStuManage.jsp?homework_id="+homework_id;
+            })
 
 
         };
