@@ -143,7 +143,7 @@
                 createtime = createtime.substring(0, createtime.length - 2);
                 path = path.substring(2);
                 path = path.replaceAll("\\", "/");
-                path = "http://localhost:80" + path;
+                path = "http://localhost:9109" + path;
                 let trNode = $("<div class=\"detail layui-table-header\"\n" +
                     "                             style=\"float: left;width: 240px;height: 280px;margin: 8.5px;border-radius: 7px;position: relative\">\n" +
                     "                            <h5 style=\"display: none\">"+jsonObj.items[i].id+"</h5>\n" +
@@ -156,15 +156,15 @@
                     "                                    <i class=\"layui-icon layui-icon-delete\"></i>删除</a>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"coursedetail\">\n" +
-                    "                            <img src=\""+path+"\" width=\"240px\" height=\"165px\"><br>\n" +
-                    "                            <div id=\"c_detail\" style=\"margin-left: 8.5px;margin-right: 8.5px;position: absolute;width: 223px;height: 115px;\">\n" +
-                    "                                <h3 style=\"font-size: 17px;margin-top: 5px\"><b>"+jsonObj.items[i].name+"</b></h3>\n" +
-                    "                                <h5 style=\"margin-top: 5px\">"+jsonObj.items[i].realname+"</h5>\n" +
-                    "                                <div style=\"position: absolute;bottom:2px;width: 220px\">\n" +
-                    "                                    <span style=\"float: left\">"+createtime+"</span>\n" +
-                    "                                    <span style=\"float: right\">"+jsonObj.items[i].count+"人参加</span>\n" +
-                    "                                </div>\n" +
-                    "                            </div>\n" +
+                    "                               <img src=\""+path+"\" width=\"240px\" height=\"165px\"><br>\n" +
+                    "                               <div id=\"c_detail\" style=\"margin-left: 8.5px;margin-right: 8.5px;position: absolute;width: 223px;height: 115px;\">\n" +
+                    "                                   <h3 style=\"font-size: 17px;margin-top: 5px\"><b>"+jsonObj.items[i].name+"</b></h3>\n" +
+                    "                                   <h5 style=\"margin-top: 5px\">"+jsonObj.items[i].realname+"</h5>\n" +
+                    "                                   <div style=\"position: absolute;bottom:2px;width: 220px\">\n" +
+                    "                                       <span style=\"float: left\">"+createtime+"</span>\n" +
+                    "                                       <span style=\"float: right\">"+jsonObj.items[i].count+"人参加</span>\n" +
+                    "                                   </div>\n" +
+                    "                               </div>\n" +
                     "                            </div>\n" +
                     "                        </div>");
 
@@ -218,10 +218,11 @@
             });
             $(".upbtn").on("click",function(){
                 var tc_id = $($(this).parent("div").prev()).html().trim();
+                console.log(tc_id);
                 var t_id = 25;//之后使用session传值
-                var c_name=$($(this).parent("div").nextAll()[2]).find("h3").find("b").html().trim();
+                var c_name=$($($($(this).parent("div").nextAll()[0]).find("div")).find("h3")).find("b").html().trim();
                 // console.log(c_name);
-                var image=$($(this).parent("div").nextAll()[0])[0].src;
+                var image=$($(this).parent("div").nextAll()[0]).find("img")[0].src;
                 // console.log(image);
                 $("#tc_id1").val(tc_id);
                 $("#t_id1").val(t_id);
