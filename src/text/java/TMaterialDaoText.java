@@ -12,14 +12,14 @@ import java.util.List;
  */
 public class TMaterialDaoText {
     TMaterialDao tMaterialDao = new TMaterialDaoImpl();
-    TMaterial addTMaterial = new TMaterial("title1", "content1", "path1", "name1", 1);
-    TMaterial addTMaterial2 = new TMaterial("title2", "content2", "path2", "name2", 2);
-    TMaterial updateTMaterial = new TMaterial(2, "title1gai", "content1", "path1", "name1", 1);
+//    TMaterial addTMaterial = new TMaterial("title1", "content1", "path1", "name1", 1);
+//    TMaterial addTMaterial2 = new TMaterial("title2", "content2", "path2", "name2", 2);
+//    TMaterial updateTMaterial = new TMaterial(2, "title1gai", "content1", "path1", "name1", 1);
 
     @Test
     public void insert() {
-        System.out.println(tMaterialDao.insert(addTMaterial));
-        System.out.println(tMaterialDao.insert(addTMaterial2));
+//        System.out.println(tMaterialDao.insert(addTMaterial));
+//        System.out.println(tMaterialDao.insert(addTMaterial2));
     }
 
     @Test
@@ -29,7 +29,7 @@ public class TMaterialDaoText {
 
     @Test
     public void update() {
-        System.out.println(tMaterialDao.update(updateTMaterial));
+//        System.out.println(tMaterialDao.update(updateTMaterial));
     }
 
     @Test

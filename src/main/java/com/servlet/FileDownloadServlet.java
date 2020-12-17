@@ -14,7 +14,7 @@ import java.net.URLEncoder;
  * 描述:
  */
 @WebServlet("/download.do")
-public class HomeworkStuDownloadServlet extends HttpServlet {
+public class FileDownloadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getParameter("path");
         download(request, response, path);
@@ -49,7 +49,7 @@ public class HomeworkStuDownloadServlet extends HttpServlet {
 //        response.setHeader("Content-Disposition",str);
         //读取工程资源
         System.out.println(""+path);
-        File file=new File("C:\\upload",""+path);
+        File file=new File("C:\\upload\\",""+path);
         if(file.exists()){
             System.out.println("1");
         }
