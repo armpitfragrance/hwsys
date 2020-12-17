@@ -152,7 +152,7 @@ public class MsgUserDaoImpl extends BaseDao implements MsgUserDao {
         if (!"".equals(send_name) && "".equals(date)) {
             sql += "select m.id,m.title,m.content,m.message_time,m.send_id,m.receive_id,u.`realname` send_name,u.realname receive_name,m.readFlag from message m,user u where `receive_id`=? and m.send_id=u.id and u.realname like '%" + send_name + "%'";
         } else if (!"".equals(date) && "".equals(send_name)) {
-            sql += "select m.id,m.title,m.content,m.message_time,m.send_id,m.receive_id,u.`realname` send_name,u.realname receive_name,m.readFlag from message m,user u where `receive_id`=? and and m.send_id=u.id message_time LIKE '" + date + "%'";
+            sql += "select m.id,m.title,m.content,m.message_time,m.send_id,m.receive_id,u.`realname` send_name,u.realname receive_name,m.readFlag from message m,user u where `receive_id`=? and m.send_id=u.id and message_time LIKE '" + date + "%'";
         } else if ("".equals(date) && "".equals(send_name)) {
             sql += "select m.id,m.title,m.content,m.message_time,m.send_id,m.receive_id,u.`realname` send_name,u.realname receive_name,m.readFlag from message m,user u where `receive_id`=? and m.send_id=u.id";
         } else {
