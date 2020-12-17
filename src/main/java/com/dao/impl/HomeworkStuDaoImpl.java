@@ -50,8 +50,8 @@ public class HomeworkStuDaoImpl extends BaseDao implements HomeworkStuDao {
     }
 
     @Override
-    public Integer queryPageTotalCountsByHwNameAndEndtimeAndStatus(int course_id, String hw_name, String end_time, String correct_status) {
-        String sql = "SELECT count(1) FROM homework_stu hws,homework hw,student s,user su,teacher t,user tu WHERE hws.hw_id=hw.id AND hws.stu_id=s.id AND hws.t_id=t.id AND s.user_id=su.id AND t.user_id=tu.id AND hw.c_id= "+course_id;
+    public Integer queryPageTotalCountsByHwNameAndEndtimeAndStatus(int course_id, int homework_id, String hw_name, String end_time, String correct_status) {
+        String sql = "SELECT count(1) FROM homework_stu hws,homework hw,student s,user su,teacher t,user tu WHERE hws.hw_id=hw.id AND hws.stu_id=s.id AND hws.t_id=t.id AND s.user_id=su.id AND t.user_id=tu.id AND hw.c_id= " + course_id + " AND hw.id=" + homework_id;
         if (!"".equals(hw_name)) {
             sql += " AND hw.name= '" + hw_name + "'";
         }
@@ -71,8 +71,8 @@ public class HomeworkStuDaoImpl extends BaseDao implements HomeworkStuDao {
     }
 
     @Override
-    public List<HomeworkStuManageInfo> queryHomeworkStuByHwNameAndEndtimeAndStatus(int pageNo, int pageSize, int course_id, String hw_name, String end_time, String correct_status) {
-        String sql = "SELECT hws.id,hw.name as hw_name,s.stu_no,su.realname as stu_name,hws.docu_name,hw.end_time,hws.handup_time,tu.realname as t_name,hws.correct,hws.score,hws.correct_status as status,hws.correct_time FROM homework_stu hws,homework hw,student s,user su,teacher t,user tu WHERE hws.hw_id=hw.id AND hws.stu_id=s.id AND hws.t_id=t.id AND s.user_id=su.id AND t.user_id=tu.id AND hw.c_id=?";
+    public List<HomeworkStuManageInfo> queryHomeworkStuByHwNameAndEndtimeAndStatus(int pageNo, int pageSize, int course_id, int homework_id, String hw_name, String end_time, String correct_status) {
+        String sql = "SELECT hws.id,hw.name as hw_name,s.stu_no,su.realname as stu_name,hws.docu_name,hw.end_time,hws.handup_time,tu.realname as t_name,hws.correct,hws.score,hws.correct_status as status,hws.correct_time FROM homework_stu hws,homework hw,student s,user su,teacher t,user tu WHERE hws.hw_id=hw.id AND hws.stu_id=s.id AND hws.t_id=t.id AND s.user_id=su.id AND t.user_id=tu.id AND hw.c_id=? AND hw.id=?";
         if (!"".equals(hw_name)) {
             sql += " AND hw.name=? ";
         }
@@ -84,25 +84,25 @@ public class HomeworkStuDaoImpl extends BaseDao implements HomeworkStuDao {
         }
         sql += " limit ?,?";
         if (!"".equals(hw_name) && !"".equals(end_time) && !"".equals(correct_status)) {
-            return queryForList(HomeworkStuManageInfo.class, sql,course_id, hw_name, "%" + end_time + "%", correct_status, pageNo, pageSize);
+            return queryForList(HomeworkStuManageInfo.class, sql, course_id, homework_id, hw_name, "%" + end_time + "%", correct_status, pageNo, pageSize);
         } else if ("".equals(hw_name) && !"".equals(end_time) && !"".equals(correct_status)) {
-            return queryForList(HomeworkStuManageInfo.class, sql,course_id, "%" + end_time + "%", correct_status, pageNo, pageSize);
+            return queryForList(HomeworkStuManageInfo.class, sql, course_id, homework_id, "%" + end_time + "%", correct_status, pageNo, pageSize);
         } else if (!"".equals(hw_name) && "".equals(end_time) && !"".equals(correct_status)) {
-            return queryForList(HomeworkStuManageInfo.class, sql,course_id, hw_name, correct_status, pageNo, pageSize);
+            return queryForList(HomeworkStuManageInfo.class, sql, course_id, homework_id, hw_name, correct_status, pageNo, pageSize);
         } else if (!"".equals(hw_name) && !"".equals(end_time) && "".equals(correct_status)) {
-            return queryForList(HomeworkStuManageInfo.class, sql,course_id, hw_name, "%" + end_time + "%", pageNo, pageSize);
+            return queryForList(HomeworkStuManageInfo.class, sql, course_id, homework_id, hw_name, "%" + end_time + "%", pageNo, pageSize);
         } else if ("".equals(hw_name) && "".equals(end_time) && !"".equals(correct_status)) {
             ;
-            return queryForList(HomeworkStuManageInfo.class, sql,course_id, correct_status, pageNo, pageSize);
+            return queryForList(HomeworkStuManageInfo.class, sql, course_id, homework_id, correct_status, pageNo, pageSize);
         } else if ("".equals(hw_name) && !"".equals(end_time) && "".equals(correct_status)) {
             ;
-            return queryForList(HomeworkStuManageInfo.class, sql,course_id, "%" + end_time + "%", pageNo, pageSize);
+            return queryForList(HomeworkStuManageInfo.class, sql, course_id, homework_id, "%" + end_time + "%", pageNo, pageSize);
         } else if (!"".equals(hw_name) && "".equals(end_time) && "".equals(correct_status)) {
             ;
-            return queryForList(HomeworkStuManageInfo.class, sql,course_id, hw_name, pageNo, pageSize);
+            return queryForList(HomeworkStuManageInfo.class, sql, course_id, homework_id, hw_name, pageNo, pageSize);
         } else if ("".equals(hw_name) && "".equals(end_time) && "".equals(correct_status)) {
             ;
-            return queryForList(HomeworkStuManageInfo.class, sql,course_id, pageNo, pageSize);
+            return queryForList(HomeworkStuManageInfo.class, sql, course_id, homework_id, pageNo, pageSize);
         } else {
             ;
             return null;

@@ -28,7 +28,7 @@ public class StuHomeWorkDaoText {
 //    }
     @Test
     public void query(){
-        List<HomeworkStuManageInfo> list=homeworkStuService.queryHomeworkStuByHwNameAndEndtimeAndStatus(1,10,"","","").getItems();
-        System.out.println(list);
+//        List<HomeworkStuManageInfo> list=homeworkStuService.queryHomeworkStuByHwNameAndEndtimeAndStatus(1,10,"","","").getItems();
+//        System.out.println(list);
     }
 }

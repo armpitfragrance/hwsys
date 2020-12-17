@@ -44,6 +44,7 @@
         var currentPage = 1;//当前页数
         var oldPageTotal = 0;//总页数
         var course_id=1;//传进来的课程id
+        var homework_id=<%=request.getParameter("homework_id")%>;
 
         $(function () {
             let hw_name = $("#search-if-hwname").val();
@@ -56,6 +57,7 @@
                     action: "queryHomeworkStuByHwNameAndEndtimeAndStatus",
                     pageNum: "1",
                     course_id:course_id,
+                    homework_id:homework_id,
                     hw_name:hw_name,
                     end_time: end_time,
                     correct_status:correct_status
@@ -104,6 +106,7 @@
                         action: "queryHomeworkStuByHwNameAndEndtimeAndStatus",
                         pageNum: 1,
                         course_id:course_id,
+                        homework_id:homework_id,
                         hw_name:hw_name,
                         end_time: end_time,
                         correct_status:correct_status
@@ -240,6 +243,7 @@
                     action: "queryHomeworkStuByHwNameAndEndtimeAndStatus",
                     pageNum: i,
                     course_id:course_id,
+                    homework_id:homework_id,
                     hw_name:hw_name,
                     end_time: end_time,
                     correct_status:correct_status
