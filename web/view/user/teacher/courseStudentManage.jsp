@@ -45,7 +45,7 @@
         var currentPage = 1;//当前页数
         var oldPageTotal = 0;//总页数
         var course_id=<%=request.getParameter("c_id")%>
-            console.log(course_id);
+            // console.log(course_id);
         $(function () {
             let stu_no = $("#search-if-sno").val();
             $.ajax({
@@ -60,7 +60,7 @@
             });
             <!--添加课程学生-->
             $("#button-add-handup").on("click", function () {
-                $("#addcourse_id").val("1");
+                $("#addcourse_id").val(course_id);
                 let formatter = $("#add-notice-form").serialize();
                 console.log($("#addcourse_id").val());
                 $.ajax({

@@ -70,8 +70,8 @@
 
             <!--布置作业-->
             $("#button-add-handup").on("click", function () {
-                $("#addcourse_id").val("1");
-                $("#addt_id").val("1");
+                $("#addcourse_id").val(course_id);
+                $("#addt_id").val(t_id);
                 let formatter = new FormData(document.getElementById("add-notice-form"));
                 console.log(formatter);
                 $.ajax({
@@ -96,8 +96,8 @@
 
             <!--修改布置作业,提交修改-->
             $("#button-update-handup").on("click", function () {
-                $("#updatecourse_id").val("1");
-                $("#updatet_id").val("1");
+                $("#updatecourse_id").val(course_id);
+                $("#updatet_id").val(t_id);
                 let formatter = new FormData(document.getElementById("update-notice-form"));
                 $.ajax({
                     url: "/upload.do",
@@ -261,7 +261,7 @@
             });
             $(".conmmentbtn").on("click",function () {
                 let homework_id = $($(this).parents("tr").children("td")[1]).html().trim();
-                location.href="homeworkStuManage.jsp?homework_id="+homework_id;
+                location.href="homeworkStuManage.jsp?homework_id="+homework_id+"&course_id="+course_id+"&t_id="+t_id;
             })
 
 
