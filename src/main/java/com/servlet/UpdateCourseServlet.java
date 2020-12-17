@@ -79,7 +79,7 @@ public class UpdateCourseServlet extends HttpServlet {
                         //上传的文件
 
                         if (!fileItem.getName().equals("")) {
-                            StringBuilder sb = new StringBuilder("D:\\upload\\");
+                            StringBuilder sb = new StringBuilder("C:\\upload\\");
                             sb.append(new Date().getTime());
                             sb.append(fileItem.getName());
                             String imgpath = sb.toString();

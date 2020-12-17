@@ -28,14 +28,14 @@ public class HomeworkStuServiceImpl implements HomeworkStuService {
     }
 
     @Override
-    public Page<HomeworkStuManageInfo> queryHomeworkStuByHwNameAndEndtimeAndStatus(int pageNo, int pageSize, String hw_name, String end_time, String correct_status) {
+    public Page<HomeworkStuManageInfo> queryHomeworkStuByHwNameAndEndtimeAndStatus(int pageNo, int pageSize, int course_id, int homework_id, String hw_name, String end_time, String correct_status) {
         Page<HomeworkStuManageInfo> page = new Page<>();
         //设置当前页码
         page.setPageNum(pageNo);
         //设置每页展示的数量
         page.setPageSize(pageSize);
         //求总记录数
-        Integer pageTotalCount = homeworkStuDao.queryPageTotalCountsByHwNameAndEndtimeAndStatus(hw_name, end_time, correct_status);
+        Integer pageTotalCount = homeworkStuDao.queryPageTotalCountsByHwNameAndEndtimeAndStatus(course_id, homework_id, hw_name, end_time, correct_status);
         //设置总记录数
         page.setPageTotalCount(pageTotalCount);
         //求总页码
@@ -54,7 +54,7 @@ public class HomeworkStuServiceImpl implements HomeworkStuService {
             begin = (page.getPageNum() - 1) * pageSize;
         }
         //获取分页显示的列表
-        List<HomeworkStuManageInfo> items = homeworkStuDao.queryHomeworkStuByHwNameAndEndtimeAndStatus(begin, pageSize, hw_name, end_time, correct_status);
+        List<HomeworkStuManageInfo> items = homeworkStuDao.queryHomeworkStuByHwNameAndEndtimeAndStatus(begin, pageSize, course_id, homework_id, hw_name, end_time, correct_status);
         //设置分页列表
         page.setItems(items);
         //返回page

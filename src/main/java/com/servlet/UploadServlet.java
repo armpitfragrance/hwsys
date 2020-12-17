@@ -121,7 +121,8 @@ public class UploadServlet extends HttpServlet {
                 String value = fileItem.getString("utf-8");
                 switch (filename) {
                     case "updateid":
-                        homework.setId(Integer.valueOf(value));
+//                        homework.setId(Integer.valueOf(value));
+                        homework=homeworkService.queryHomeworkById(Integer.parseInt(value));
                         break;
                     case "updatename":
                         homework.setName(value);
