@@ -9,6 +9,8 @@ import com.utils.Page;
  * 描述:
  */
 public interface UserTeacherService {
+    UserTeacher teacherLogin(String user_no, String password);
+
     Page<UserTeacher> queryForPage(int pageNum, int pageSize);
 
     UserTeacher queryByTId(int t_id);

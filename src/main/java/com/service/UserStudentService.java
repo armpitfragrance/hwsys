@@ -1,5 +1,7 @@
 package com.service;
 
+import com.entity.Admin;
+import com.entity.Student;
 import com.entity.UserStudent;
 import com.utils.Page;
 
@@ -9,6 +11,8 @@ import com.utils.Page;
  * 描述:
  */
 public interface UserStudentService {
+    UserStudent Login(String user_no, String password);
+
     Page<UserStudent> queryForPage(int pageNum, int pageSize);
 
     Page<UserStudent> queryUserStudentByPageByRealNameOrStuNo(int pageNo, int pageSize, String realname, String stu_no);

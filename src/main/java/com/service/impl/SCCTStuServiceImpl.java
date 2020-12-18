@@ -54,6 +54,7 @@ public class SCCTStuServiceImpl implements SCCTStuService {
         if (pageTotalCount % pageSize > 0) {
             pageTotal += 1;
         }
+
         page.setPageTotal(pageTotal);
         int begin = 0;
         if (page.getPageNum() == 0) {

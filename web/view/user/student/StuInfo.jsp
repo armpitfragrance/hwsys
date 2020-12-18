@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.entity.UserStudent" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2020/12/14
@@ -22,8 +22,14 @@
     <script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+
+    <%
+        HttpSession session1 = request.getSession();
+        UserStudent student = (UserStudent) session1.getAttribute("user");
+    %>
+
     <script>
-        var stu_id;
+        var stu_id=<%=student.getId()%>;
 
         $(function () {
             stu_id = $("#stu_id").html();
@@ -92,7 +98,7 @@
 </head>
 <body layadmin-themealias="default" style="">
 <%--隐藏标签：用于存放session中的值，用于js中使用--%>
-<s hidden id="stu_id">9</s>
+<s hidden id="stu_id"><%=student.getId()%></s>
 <div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">

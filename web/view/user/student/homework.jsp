@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.entity.UserStudent" %><%--
   Created by IntelliJ IDEA.
   User: youji
   Date: 2020/12/17
@@ -40,14 +40,19 @@
          */
     </script>
 
+    <%
+        HttpSession session1 = request.getSession();
+        UserStudent student = (UserStudent) session1.getAttribute("user");
+    %>
+
     <script type="text/javascript">
         var currentPage = 1;//当前页数
         var oldPageTotal = 0;//总页数
-        <%--var course_id=<%=request.getParameter("c_id")%>;--%>
-        <%--var t_id=<%=request.getParameter("t_id")%>--%>
-        var course_id = 1;
-        var t_id = 1;
-        var stu_id=50;
+        var course_id=<%=request.getParameter("c_id")%>;
+        var t_id=<%=request.getParameter("t_id")%>
+        // var course_id = 1;
+        // var t_id = 1;
+        var stu_id=<%=student.getId()%>;
         $(function () {
             let name = $("#search-if-hwname").val();
             let end_time = $("#search-if-endtime").val();

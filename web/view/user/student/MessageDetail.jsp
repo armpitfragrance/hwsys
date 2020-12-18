@@ -2,6 +2,7 @@
 <%@ page import="com.service.impl.MsgUserServiceImpl" %>
 <%@ page import="com.entity.Message" %>
 <%@ page import="com.entity.UserTeacher" %>
+<%@ page import="com.entity.UserStudent" %>
 
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -37,10 +38,10 @@
         msgUser.setReadFlag("1");
         msgUserService.isRead(msgUser);
         HttpSession session1 = request.getSession();
-        UserTeacher teacher = (UserTeacher) session1.getAttribute("user");
+        UserStudent student = (UserStudent) session1.getAttribute("user");
     %>
     <script>
-        var user_id = <%=teacher.getUser_id()%>;//todo:获取登入人id
+        var user_id = <%=student.getUser_id()%>;//todo:获取登入人id
     </script>
 
 
@@ -65,7 +66,7 @@
                 </div>
 
                 <div style="padding-top: 30px;">
-                    <a href="/Message.do?action=tback" layadmin-event="back" class="back layui-btn layui-btn-primary layui-btn-sm">返回上级</a>
+                    <a href="/Message.do?action=stuback" layadmin-event="back" class="back layui-btn layui-btn-primary layui-btn-sm">返回上级</a>
                     <script>
                         // $(".back").onclick(function () {
                         //     window.location.replace(-1);

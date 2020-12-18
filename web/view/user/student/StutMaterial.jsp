@@ -1,4 +1,5 @@
-<%@ page import="com.entity.UserTeacher" %><%--
+<%@ page import="com.entity.UserTeacher" %>
+<%@ page import="com.entity.UserStudent" %><%--
   Created by IntelliJ IDEA.
   User: youji
   Date: 2020/12/14
@@ -43,14 +44,14 @@
 
     <%
         HttpSession session1 = request.getSession();
-        UserTeacher teacher = (UserTeacher) session1.getAttribute("user");
+        UserStudent student = (UserStudent) session1.getAttribute("user");
     %>
 
     <script type="text/javascript">
         var currentPage = 1;//当前页数
         var oldPageTotal = 0;//总页数
         var course_id=<%=request.getParameter("c_id")%>;//todo 课程编号
-        var user_id=<%=teacher.getUser_id()%>; //上传人 id
+        var user_id=<%=student.getUser_id()%>; //上传人 id
         var date;
         var filename;
         $(function () {

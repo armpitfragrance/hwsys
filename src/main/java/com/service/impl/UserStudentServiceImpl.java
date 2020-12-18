@@ -15,6 +15,12 @@ import java.util.List;
  */
 public class UserStudentServiceImpl implements UserStudentService {
     UserStudentDao userStudentDao = new UserStudentDaoImpl();
+
+    @Override
+    public UserStudent Login(String user_no, String password) {
+        return userStudentDao.studentLogin(user_no, password);
+    }
+
     @Override
     public Page<UserStudent> queryForPage(int pageNum, int pageSize) {
         Page<UserStudent> page = new Page<>();

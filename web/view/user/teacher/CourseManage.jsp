@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.entity.UserTeacher" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2020/12/10
@@ -23,17 +23,20 @@
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
 
-
+    <%
+        HttpSession session1 = request.getSession();
+        UserTeacher teacher = (UserTeacher) session1.getAttribute("user");
+    %>
 
 
     <script type="text/javascript">
         var name;
-        var t_no;
+        var t_no=<%=teacher.getT_no()%>;
         var currentPage = 1;
         var oldPageTotal = 0;
         $(function () {
             name = "";
-            t_no = "";
+            // t_no = "";
             $.ajax({
                 url: "/SC.do",
                 data: {action: "queryNoPage", pageNo: "1", name: name, t_no: t_no},
@@ -143,7 +146,7 @@
                 createtime = createtime.substring(0, createtime.length - 2);
                 path = path.substring(2);
                 path = path.replaceAll("\\", "/");
-                path = "http://localhost:9109" + path;
+                path = "http://localhost:8080" + path;
                 let trNode = $("<div class=\"detail layui-table-header\"\n" +
                     "                             style=\"float: left;width: 240px;height: 280px;margin: 8.5px;border-radius: 7px;position: relative\">\n" +
                     "                            <h5 style=\"display: none\">"+jsonObj.items[i].id+"</h5>\n" +

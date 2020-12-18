@@ -1,210 +1,202 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lenovo
-  Date: 2020/12/9
-  Time: 16:25
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>管理员后台管理</title>
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <link rel="stylesheet" href="src/layuiadmin/layui/css/layui.css" media="all">
-  <link rel="stylesheet" href="src/layuiadmin/style/admin.css" media="all">
+    <meta charset="utf-8">
+    <title>登入</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <script src="../js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://www.huangwx.cn/css/sweetalert.css">
+    <script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="../src/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../src/layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="../src/layuiadmin/style/login.css" media="all">
+    <link id="layuicss-layer" rel="stylesheet"
+          href="https://www.layui.com/admin/std/dist/layuiadmin/layui/css/modules/layer/default/layer.css?v=3.1.1"
+          media="all">
 
 </head>
-<body class="layui-layout-body">
+<body layadmin-themealias="default">
 
-<div id="LAY_app">
-  <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-      <!-- 头部区域 -->
-      <ul class="layui-nav layui-layout-left">
-        <li class="layui-nav-item layadmin-flexible" lay-unselect>
-          <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
-            <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
-          </a>
-        </li>
-        <li class="layui-nav-item" lay-unselect>
-          <a href="javascript:;" layadmin-event="refresh" title="刷新">
-            <i class="layui-icon layui-icon-refresh-3"></i>
-          </a>
-        </li>
-      </ul>
-      <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
 
-        <li class="layui-nav-item" lay-unselect>
-          <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
-            <i class="layui-icon layui-icon-notice"></i>
-
-            <!-- 如果有新消息，则显示小圆点 -->
-            <span class="layui-badge-dot"></span>
-          </a>
-        </li>
-        <li class="layui-nav-item layui-hide-xs" lay-unselect>
-          <a href="javascript:;" layadmin-event="note">
-            <i class="layui-icon layui-icon-note"></i>
-          </a>
-        </li>
-        <li class="layui-nav-item layui-hide-xs" lay-unselect>
-          <a href="javascript:;" layadmin-event="fullscreen">
-            <i class="layui-icon layui-icon-screen-full"></i>
-          </a>
-        </li>
-        <li class="layui-nav-item" lay-unselect>
-          <a href="javascript:;">
-            <cite>管理员获取名字</cite>
-          </a>
-          <dl class="layui-nav-child">
-            <dd><a lay-href="set/user/info.html">基本资料</a></dd>
-            <dd><a lay-href="set/user/password.html">修改密码</a></dd>
-            <hr>
-            <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
-          </dl>
-        </li>
-
-        <li class="layui-nav-item layui-hide-xs" lay-unselect>
-          <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
-        </li>
-        <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
-          <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- 侧边菜单 -->
-    <div class="layui-side layui-side-menu">
-      <div class="layui-side-scroll">
-        <div class="layui-logo" lay-href="home/console.html">
-          <span>管理员控制台</span>
+    <div class="layadmin-user-login-main" style="width: 450px">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <h2>学生作业管理系统</h2>
         </div>
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-username"
+                       for="userNo"></label>
+                <input type="text" name="userNo" id="userNo" lay-verify="required" placeholder="请输入学号/工号"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password"
+                       for="password"></label>
+                <input type="password" name="password" id="password" lay-verify="required"
+                       placeholder="密码" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-row">
+                    <%--<div class="layui-col-xs7">--%>
+                    <%--<label class="layadmin-user-login-icon layui-icon layui-icon-vercode"--%>
+                    <%--for="LAY-user-login-vercode"></label>--%>
+                    <%--<input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required"--%>
+                    <%--placeholder="图形验证码" class="layui-input">--%>
+                    <%--</div>--%>
+                    <%--<div class="layui-col-xs5">--%>
+                    <%--<div style="margin-left: 10px;">--%>
+                    <%--<img src="https://www.oschina.net/action/user/captcha" class="layadmin-user-login-codeimg"--%>
+                    <%--id="LAY-user-get-vercode">--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所属职称：</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="role" value="admin" title="管理员">
+                    <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i>
+                        <div>管理员</div>
+                    </div>
+                    <input type="radio" name="role" value="t" title="教师">
+                    <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i>
+                        <div>教师</div>
+                    </div>
+                    <input type="radio" name="role" value="stu" title="学生" checked="">
+                    <div class="layui-unselect layui-form-radio layui-form-radioed"><i
+                            class="layui-anim layui-icon"></i>
+                        <div>学生</div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-bottom: 20px; height: 50px">
+                <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
+                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><span>记住密码</span><i
+                        class="layui-icon layui-icon-ok"></i></div>
+                <a href="forget.html" class="layadmin-user-jump-change layadmin-link"
+                   style="margin-top: 7px;margin-left: 8px">忘记密码？</a>
+                <a href="reg.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px">注册帐号</a>
+            </div>
+            <div class="layui-form-item">
+                <button class="login_btn layui-btn layui-btn-fluid" lay-submit="" lay-filter="LAY-user-login-submit">登 入</button>
+            <SCRIPT>
+                $(".login_btn").on("click", function () {
+                    var user_no=$("#userNo").val();
+                    var password = $("#password").val();
+                    var type= $("input[name='role']:checked").val();
 
-        <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-          <!--            <li data-name="home" class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:;" lay-tips="主页" lay-direction="2">
-                          <i class="layui-icon layui-icon-home"></i>
-                          <cite>主页</cite>
-                        </a>
-                        <dl class="layui-nav-child">
-
-                          <dd data-name="console">
-                            <a lay-href="home/homepage1.html">主页一</a>
-                          </dd>
-                          <dd data-name="console">
-                            <a lay-href="home/homepage2.html">主页二</a>
-                          </dd>
-                        </dl>
-                      </li>
-                      -->
-
-          <li data-name="home" class="layui-nav-item layui-this">
-            <a href="javascript:;" lay-href="home.html" >
-              <i class="layui-icon layui-icon-home"></i>
-              <cite>主页</cite>
-            </a>
-          </li>
-
-
-          <li data-name="get" class="layui-nav-item">
-            <a href="javascript:;" lay-href="view/admin/CourseInfoManage.jsp" lay-tips="课程信息管理" lay-direction="2">
-              <i class="layui-icon layui-icon-about"></i>
-              <cite>课程信息管理</cite>
-            </a>
-          </li>
-
-          <li data-name="get" class="layui-nav-item">
-            <a href="javascript:;" lay-href="view/admin/NoticeInfoManage.jsp" lay-tips="公告信息管理" lay-direction="2">
-              <i class="layui-icon layui-icon-chat"></i>
-              <cite>公告信息管理</cite>
-            </a>
-          </li>
-          <li data-name="user" class="layui-nav-item">
-            <a href="javascript:;" lay-tips="用户" lay-direction="2">
-              <i class="layui-icon layui-icon-user"></i>
-              <cite>用户</cite>
-            </a>
-            <dl class="layui-nav-child">
-              <dd>
-                <a lay-href="view/admin/StuInfoManage.jsp">学生管理</a>
-              </dd>
-              <dd>
-                <a lay-href="view/admin/TInfoManage.jsp">教师管理</a>
-              </dd>
-              <dd>
-                <a lay-href="view/user/teacher/CourseManage.jsp">课程管理</a>
-              </dd>
-              <dd>
-                <a lay-href="view/user/teacher/TInfo.jsp">个人中心</a>
-              </dd>
-
-            </dl>
-          </li>
-          <li data-name="set" class="layui-nav-item">
-            <a href="javascript:;" lay-tips="设置" lay-direction="2">
-              <i class="layui-icon layui-icon-set"></i>
-              <cite>设置</cite>
-            </a>
-
-            <dl class="layui-nav-child">
-              <dd><a lay-href="set/user/info.html">基本资料</a></dd>
-              <dd><a lay-href="set/user/password.html">修改密码</a></dd>
-            </dl>
-
-          </li>
-        </ul>
-      </div>
+                    console.log(user_no);
+                    console.log(password);
+                    console.log(type);
+                    $.ajax({
+                        url: "/login.do",
+                        data: { user_no: user_no, password:password,type: type},
+                        type: "POST",
+                        dataType: "text",
+                        success: function (data) {
+                            var user = JSON.parse(data);
+                            if (user != null) {
+                                if (type == "admin") {
+                                    window.location.href = "view/admin/adminView.jsp";
+                                } else if (type == "t") {
+                                    window.location.href = "view/user/teacher/Tindex.jsp";
+                                }else if (type == "stu") {
+                                    window.location.href = "view/user/student/stuView.jsp";
+                                }
+                            } else {
+                                swal("登入失败","请检查账号或者密码是否输入正确","error")
+                            }
+                        }
+                    })
+                });
+            </SCRIPT>
+            </div>
+            <div class="layui-trans layui-form-item layadmin-user-login-other">
+            </div>
+        </div>
     </div>
 
-    <!-- 页面标签 -->
-    <div class="layadmin-pagetabs" id="LAY_app_tabs">
-      <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
-      <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
-      <div class="layui-icon layadmin-tabs-control layui-icon-down">
-        <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
-          <li class="layui-nav-item" lay-unselect>
-            <a href="javascript:;"></a>
-            <dl class="layui-nav-child layui-anim-fadein">
-              <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
-              <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
-              <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
-            </dl>
-          </li>
-        </ul>
-      </div>
-      <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
-        <ul class="layui-tab-title" id="LAY_app_tabsheader">
-          <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
-        </ul>
-      </div>
+    <div class="layui-trans layadmin-user-login-footer">
     </div>
 
+    <!--<div class="ladmin-user-login-theme">
+      <script type="text/html" template>
+        <ul>
+          <li data-theme=""><img src="{{ layui.setter.base }}style/res/bg-none.jpg"></li>
+          <li data-theme="#03152A" style="background-color: #03152A;"></li>
+          <li data-theme="#2E241B" style="background-color: #2E241B;"></li>
+          <li data-theme="#50314F" style="background-color: #50314F;"></li>
+          <li data-theme="#344058" style="background-color: #344058;"></li>
+          <li data-theme="#20222A" style="background-color: #20222A;"></li>
+        </ul>
+      </script>
+    </div>-->
 
-    <!-- 主体内容 -->
-    <div class="layui-body" id="LAY_app_body">
-      <div class="layadmin-tabsbody-item layui-show">
-        <iframe src="home.html" frameborder="0" class="layadmin-iframe"></iframe>
-      </div>
-    </div>
-
-    <!-- 辅助元素，一般用于移动设备下遮罩 -->
-    <div class="layadmin-body-shade" layadmin-event="shade"></div>
-  </div>
 </div>
 
-<script src="src/layuiadmin/layui/layui.js"></script>
+<script src="../src/layuiadmin/layui/layui.js"></script>
 <script>
     layui.config({
-        base: 'src/layuiadmin/' //静态资源所在路径
+        base: '../src/layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use('index');
+    }).use(['index', 'user'], function () {
+        var $ = layui.$
+            , setter = layui.setter
+            , admin = layui.admin
+            , form = layui.form
+            , router = layui.router()
+            , search = router.search;
+
+        form.render();
+
+        //提交
+        // form.on('submit(LAY-user-login-submit)', function (obj) {
+        //
+        //     //请求登入接口
+        //     admin.req({
+        //         url: layui.setter.base + 'json/user/login.js' //实际使用请改成服务端真实接口
+        //         , data: obj.field
+        //         , done: function (res) {
+        //
+        //             //请求成功后，写入 access_token
+        //             layui.data(setter.tableName, {
+        //                 key: setter.request.tokenName
+        //                 , value: res.data.access_token
+        //             });
+        //
+        //             //登入成功的提示与跳转
+        //             layer.msg('登入成功', {
+        //                 offset: '15px'
+        //                 , icon: 1
+        //                 , time: 1000
+        //             }, function () {
+        //                 location.href = '../'; //后台主页
+        //             });
+        //         }
+        //     });
+        //
+        // });
+
+    });
 </script>
+
+<style id="LAY_layadmin_theme">.layui-side-menu, .layadmin-pagetabs .layui-tab-title li:after, .layadmin-pagetabs .layui-tab-title li.layui-this:after, .layui-layer-admin .layui-layer-title, .layadmin-side-shrink .layui-side-menu .layui-nav > .layui-nav-item > .layui-nav-child {
+    background-color: #20222A !important;
+}
+
+.layui-nav-tree .layui-this, .layui-nav-tree .layui-this > a, .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a {
+    background-color: #009688 !important;
+}
+
+.layui-layout-admin .layui-logo {
+    background-color: #20222A !important;
+}</style>
+<div class="layui-layer-move"></div>
 </body>
 </html>
-
-
-

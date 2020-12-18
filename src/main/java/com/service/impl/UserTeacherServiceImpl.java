@@ -15,6 +15,12 @@ import java.util.List;
  */
 public class UserTeacherServiceImpl implements UserTeacherService {
     UserTeacherDao userTeacherDao = new UserTeacherDaoImpl();
+
+    @Override
+    public UserTeacher teacherLogin(String user_no, String password) {
+        return userTeacherDao.teacherLogin(user_no, password);
+    }
+
     @Override
     public Page<UserTeacher> queryForPage(int pageNum, int pageSize) {
         Page<UserTeacher> page = new Page<>();

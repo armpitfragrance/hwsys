@@ -22,6 +22,8 @@ public interface AdminDao {
     //查询所有管理员信息
     List<Admin> queryAll();
 
+    Admin login(String user_no, String password);
+
     //根据id查询管理员信息
     Admin queryAdminById(Integer id);
 

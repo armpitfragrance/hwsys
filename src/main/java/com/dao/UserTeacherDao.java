@@ -10,6 +10,8 @@ import java.util.List;
  * 描述:
  */
 public interface UserTeacherDao {
+    UserTeacher teacherLogin(String user_no, String password);
+
     Integer queryPageTotalCounts();//查询当前表的总记录条数
     Integer queryPageTotalCountsByPageByRealNameOrStuNo(String realname,String t_no);//查询符合条件当前表的总记录条数
     List<UserTeacher> queryUserStudentByPage(int pageNo, int pageSize);

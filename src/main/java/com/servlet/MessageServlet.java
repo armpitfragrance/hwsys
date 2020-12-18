@@ -116,13 +116,17 @@ public class MessageServlet extends BaseServlet {
 //        response.getWriter().write(JsonStr);
 //    }
 
-    public void back(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void stuback(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
+        response.sendRedirect("view/user/student/StuMessage.jsp");
+    }
+
+    public void tback(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=UTF-8");
         response.sendRedirect("view/user/teacher/Message.jsp");
-
     }
-
     public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         int result = 0;

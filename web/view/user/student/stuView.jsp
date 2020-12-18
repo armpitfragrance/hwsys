@@ -1,5 +1,6 @@
 <%@ page import="com.entity.Teacher" %>
-<%@ page import="com.entity.UserTeacher" %><%--
+<%@ page import="com.entity.UserTeacher" %>
+<%@ page import="com.entity.UserStudent" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2020/12/9
@@ -10,7 +11,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>教师中心</title>
+    <title>学生中心</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -19,7 +20,7 @@
 
     <%
         HttpSession session1 = request.getSession();
-        UserTeacher teacher = (UserTeacher) session1.getAttribute("user");
+        UserStudent student = (UserStudent) session1.getAttribute("user");
     %>
 </head>
 <body class="layui-layout-body">
@@ -62,21 +63,21 @@
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;">
-                        <cite><%=teacher.getRealname()%></cite>
+                        <cite><%=student.getRealname()%></cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a lay-href="set/user/info.html">基本资料</a></dd>
+                        <dd><a lay-href="view/user/student/StuInfo.jsp">基本资料</a></dd>
                         <dd><a lay-href="set/user/password.html">修改密码</a></dd>
                         <hr>
-                        <dd style="text-align: center;"><a href="/Logout">退出</a></dd>
+                        <dd  style="text-align: center;"><a href="/Logout">退出</a></dd>
                     </dl>
                 </li>
 
                 <%--<li class="layui-nav-item layui-hide-xs" lay-unselect>--%>
-                    <%--<a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>--%>
+                <%--<a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>--%>
                 <%--</li>--%>
                 <%--<li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>--%>
-                    <%--<a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>--%>
+                <%--<a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>--%>
                 <%--</li>--%>
             </ul>
         </div>
@@ -85,7 +86,7 @@
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
                 <div class="layui-logo" lay-href="home/console.html">
-                    <span>教师管理</span>
+                    <span>学生管理</span>
                 </div>
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
@@ -115,14 +116,14 @@
 
 
                     <li data-name="get" class="layui-nav-item">
-                        <a href="javascript:;" lay-href="CourseManage.jsp" lay-tips="课程信息管理" lay-direction="2">
+                        <a href="javascript:;" lay-href="StuCourseManage.jsp" lay-tips="课程信息管理" lay-direction="2">
                             <i class="layui-icon layui-icon-about"></i>
-                            <cite>课程信息管理</cite>
+                            <cite>课程信息</cite>
                         </a>
                     </li>
 
                     <li data-name="get" class="layui-nav-item">
-                        <a href="javascript:;" lay-href="Message.jsp" lay-tips="公告信息管理" lay-direction="2">
+                        <a href="javascript:;" lay-href="StuMessage.jsp" lay-tips="公告信息管理" lay-direction="2">
                             <i class="layui-icon layui-icon-chat"></i>
                             <cite>信息中心</cite>
                         </a>
@@ -134,7 +135,7 @@
                         </a>
 
                         <dl class="layui-nav-child">
-                            <dd><a lay-href="TInfo.jsp">基本资料</a></dd>
+                            <dd><a lay-href="StuInfo.jsp">基本资料</a></dd>
                         </dl>
 
                     </li>

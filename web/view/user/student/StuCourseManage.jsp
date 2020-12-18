@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.entity.UserStudent" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2020/12/10
@@ -23,13 +23,16 @@
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
 
-
+    <%
+        HttpSession session1 = request.getSession();
+        UserStudent student = (UserStudent) session1.getAttribute("user");
+    %>
 
 
     <script type="text/javascript">
         var name;
         var stu_no;//暂时没用
-        var stu_id=9;//todo 之后通过session获取
+        var stu_id=<%=student.getId()%>;//todo 之后通过session获取
         var currentPage = 1;
         var oldPageTotal = 0;
         $(function () {
@@ -98,7 +101,7 @@
                 createtime = createtime.substring(0, createtime.length - 2);
                 path = path.substring(2);
                 path = path.replaceAll("\\", "/");
-                path = "http://localhost:9109" + path;
+                path = "http://localhost:8080" + path;
                 let trNode = $("<div class=\"detail layui-table-header\"\n" +
                     "                             style=\"float: left;width: 240px;height: 280px;margin: 8.5px;border-radius: 7px;position: relative\">\n" +
                     "                            <h5 style=\"display: none\">"+jsonObj.items[i].id+"</h5>\n" +

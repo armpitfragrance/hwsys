@@ -37,6 +37,12 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
     }
 
     @Override
+    public Admin login(String user_no, String password) {
+        String sql="SELECT * FROM `admin` WHERE `username`=? and `psw`=?";
+        return queryForOne(Admin.class,sql,user_no,password);
+    }
+
+    @Override
     public Admin queryAdminById(Integer id) {
         String sql="SELECT * FROM `admin` WHERE `id`=? ";
         return queryForOne(Admin.class,sql,id);

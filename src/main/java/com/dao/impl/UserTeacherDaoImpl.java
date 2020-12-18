@@ -13,6 +13,12 @@ import java.util.List;
  */
 public class UserTeacherDaoImpl extends BaseDao implements UserTeacherDao {
     @Override
+    public UserTeacher teacherLogin(String user_no, String password) {
+        String sql = "select t.id,t.user_id,t.t_no,u.psw,u.realname,u.sex,u.age from teacher t,user u  where t.user_id=u.id and u.type='老师' and t.t_no=? and u.psw=?";
+        return queryForOne(UserTeacher.class, sql, user_no, password);
+    }
+
+    @Override
     public Integer queryPageTotalCounts() {
         String sql = "SELECT COUNT(1) FROM `user` WHERE type='老师'";
         return Math.toIntExact((Long) queryForSingleValue(sql));

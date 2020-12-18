@@ -1,4 +1,5 @@
-<%@ page import="com.entity.UserTeacher" %><%--
+<%@ page import="com.entity.UserTeacher" %>
+<%@ page import="com.entity.UserStudent" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2020/12/10
@@ -35,12 +36,12 @@
 
     <%
         HttpSession session1 = request.getSession();
-        UserTeacher teacher = (UserTeacher) session1.getAttribute("user");
+        UserStudent student = (UserStudent) session1.getAttribute("user");
     %>
     <script type="text/javascript">
         var currentPage = 1;//当前页数
         var oldPageTotal = 0;//总页数
-        var user_id = <%=teacher.getUser_id()%>;//todo:获取登入人id
+        var user_id = <%=student.getUser_id()%>;//获取登入人id
         var readFlag="";
         var send_name="";
         var date="";
