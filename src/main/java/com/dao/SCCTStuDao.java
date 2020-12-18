@@ -20,6 +20,8 @@ public interface SCCTStuDao {
 
     Integer queryPageTotalCountsByNameOrTid(String name, String t_id);
 
-    List<SCCTStu> querySCCTStuByPageByNameorTid(String name, String t_id, Integer pageNO, Integer pageSize);
+    Integer queryPageTotalCountsByCourseName(String course_name,String stu_id);
+
+    List<SCCTStu> querySCCTStuByPageByNameorStuId(String name, String stu_id, Integer pageNO, Integer pageSize);
     List<SCCTStu> querySCCTStuByPageByNameorTid1(String name, String t_id, Integer pageNO, Integer pageSize);
 }

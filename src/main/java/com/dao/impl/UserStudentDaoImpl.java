@@ -81,4 +81,10 @@ public class UserStudentDaoImpl extends BaseDao implements UserStudentDao {
             return queryForList(UserStudent.class,sql,course_id,pageNo,pageSize);
         }
     }
+
+    @Override
+    public UserStudent queryByStuId(int stu_id) {
+        String sql = "select s.id,s.user_id,s.stu_no,s.classname,u.psw,u.realname,u.sex,u.age from student s,user u  where s.user_id=u.id and s.id=?";
+        return queryForOne(UserStudent.class, sql, stu_id);
+    }
 }

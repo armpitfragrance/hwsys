@@ -21,4 +21,6 @@ public interface UserStudentDao {
     List<UserStudent> queryUserStudentByPageByRealNameOrStuNo(int pageNo, int pageSize, String realname, String stu_no);
 
     List<UserStudent> queryUserStudentByCourseIdAndSno(int pageNo, int pageSize, Integer course_id, Integer stu_no);
+
+    UserStudent queryByStuId(int stu_id);
 }

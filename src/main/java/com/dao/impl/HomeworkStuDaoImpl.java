@@ -15,7 +15,7 @@ import java.util.List;
 public class HomeworkStuDaoImpl extends BaseDao implements HomeworkStuDao {
     @Override
     public int insert(HomeworkStu homeworkStu) {
-        String sql = "INSERT INTO `homework_stu`(`hw_id`,`stu_id`,`docu_name`,`path`,`handup_time`,`correct`,`t_id`,`score`,`correct_time`,`correct_status`)VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO `homework_stu`(`hw_id`,`stu_id`,`docu_name`,`path`,`handup_time`,`correct`,`t_id`,`score`,`correct_time`,`correct_status`)VALUES(?,?,?,?,?,?,?,?,?,?)";
         return update(sql, homeworkStu.getHw_id(), homeworkStu.getStu_id(), homeworkStu.getDocu_name(), homeworkStu.getPath(), homeworkStu.getHandup_time(), homeworkStu.getCorrect(), homeworkStu.getT_id(), homeworkStu.getScore(), homeworkStu.getCorrect_time(), homeworkStu.getCorrect_status());
     }
 
@@ -41,6 +41,12 @@ public class HomeworkStuDaoImpl extends BaseDao implements HomeworkStuDao {
     public HomeworkStu queryHomeworkStuById(Integer id) {
         String sql = "SELECT * FROM `homework_stu` WHERE `id`=? ";
         return queryForOne(HomeworkStu.class, sql, id);
+    }
+
+    @Override
+    public HomeworkStuManageInfo queryHomeworkStuByhw_idAndStu_id(int hw_id, int stu_id) {
+        String sql="SELECT hws.id,hw.name as hw_name,s.stu_no,su.realname as stu_name,hws.docu_name,hw.end_time,hws.handup_time,hws.correct,hws.score,hws.correct_status as status,hws.correct_time FROM homework_stu hws,homework hw,student s,user su WHERE hws.hw_id=hw.id AND hws.stu_id=s.id AND s.user_id=su.id  AND `hw_id`=? AND `stu_id`=?";
+        return queryForOne(HomeworkStuManageInfo.class,sql,hw_id,stu_id);
     }
 
     @Override

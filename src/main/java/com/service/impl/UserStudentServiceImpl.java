@@ -111,4 +111,9 @@ public class UserStudentServiceImpl implements UserStudentService {
         //返回page
         return page;
     }
+
+    @Override
+    public UserStudent queryByStuId(int stu_id) {
+        return userStudentDao.queryByStuId(stu_id);
+    }
 }

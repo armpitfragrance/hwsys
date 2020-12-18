@@ -55,6 +55,16 @@ public class HomeworkStuServlet extends BaseServlet{
         response.getWriter().write(JsonStr);
     }
 
+    public void queryHomeworkStuByhw_idAndStu_id(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer hw_id= Integer.valueOf(request.getParameter("hw_id"));
+        Integer stu_id= Integer.valueOf(request.getParameter("stu_id"));
+        HomeworkStuManageInfo homeworkStu=homeworkStuService.queryHomeworkStuByhw_idAndStu_id(hw_id,stu_id);
+        Gson gson = new Gson();
+        String JsonStr = gson.toJson(homeworkStu);
+        response.getWriter().write(JsonStr);
+
+    }
+
     public void queryForOne(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer id = Integer.valueOf(request.getParameter("id"));
         HomeworkStu homeworkStu = homeworkStuService.queryHomeworkStuById(id);

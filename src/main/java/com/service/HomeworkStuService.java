@@ -15,10 +15,13 @@ public interface HomeworkStuService {
 
     int update(HomeworkStu homeworkStu);
 
+    int insert(HomeworkStu homeworkStu);
+
     /**
      * 查询:
      * 1.初始化页面(无条件)
      * 2.按条件查询(if:作业名称、截止日期、评阅状态)
      */
     Page<HomeworkStuManageInfo> queryHomeworkStuByHwNameAndEndtimeAndStatus(int pageNo, int pageSize, int course_id, int homework_id, String hw_name, String end_time, String correct_status);
+    HomeworkStuManageInfo queryHomeworkStuByhw_idAndStu_id(int hw_id,int stu_id);
 }

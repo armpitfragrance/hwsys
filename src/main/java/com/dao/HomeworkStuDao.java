@@ -26,6 +26,8 @@ public interface HomeworkStuDao {
     //根据id查询学生作业信息
     HomeworkStu queryHomeworkStuById(Integer id);
 
+    HomeworkStuManageInfo queryHomeworkStuByhw_idAndStu_id(int hw_id, int stu_id);
+
     //查询总条数
     Integer queryPageTotalCounts();
 

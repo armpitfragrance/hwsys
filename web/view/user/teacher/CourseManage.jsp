@@ -398,7 +398,7 @@
                                 t_no=$("#t_no_q").val();
                                 $.ajax({
                                     url: "/SC.do",
-                                    data: {action:"query", name: name, t_no: t_no,pageNo: 1},
+                                    data: {action:"queryNoPage", name: name, t_no: t_no,pageNo: 1},
                                     type: "post",
                                     datatype: "text",
                                     success: function (data) {
