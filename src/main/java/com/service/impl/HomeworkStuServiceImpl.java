@@ -28,6 +28,11 @@ public class HomeworkStuServiceImpl implements HomeworkStuService {
     }
 
     @Override
+    public int insert(HomeworkStu homeworkStu) {
+        return homeworkStuDao.insert(homeworkStu);
+    }
+
+    @Override
     public Page<HomeworkStuManageInfo> queryHomeworkStuByHwNameAndEndtimeAndStatus(int pageNo, int pageSize, int course_id, int homework_id, String hw_name, String end_time, String correct_status) {
         Page<HomeworkStuManageInfo> page = new Page<>();
         //设置当前页码
@@ -59,5 +64,10 @@ public class HomeworkStuServiceImpl implements HomeworkStuService {
         page.setItems(items);
         //返回page
         return page;
+    }
+
+    @Override
+    public HomeworkStuManageInfo queryHomeworkStuByhw_idAndStu_id(int hw_id, int stu_id) {
+        return homeworkStuDao.queryHomeworkStuByhw_idAndStu_id(hw_id,stu_id);
     }
 }

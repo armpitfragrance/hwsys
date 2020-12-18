@@ -150,4 +150,11 @@ public class HomeworkServlet extends BaseServlet {
         response.getWriter().write(""+result);
     }
 
+    public void queryPath(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        Homework homework=homeworkService.queryHomeworkById(id);
+        String pathname=homework.getDocu_name();
+        response.getWriter().write(pathname);
+    }
+
 }
