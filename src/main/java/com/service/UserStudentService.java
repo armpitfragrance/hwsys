@@ -15,4 +15,6 @@ public interface UserStudentService {
 
     //课程学生查询(if:课程id,学号)
     Page<UserStudent> queryUserStudentByCourseIdAndSno(int pageNo, int pageSize, Integer course_id, Integer stu_no);
+
+    UserStudent queryByStuId(int stu_id);
 }

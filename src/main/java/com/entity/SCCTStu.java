@@ -7,6 +7,7 @@ package com.entity;
  */
 public class SCCTStu {
     private Integer id;//选课id
+    private Integer c_id;//课程id
     private String name;//选课名字
     private String realname;//授课老师姓名
     private Integer t_no;//授课老师工号
@@ -29,6 +30,7 @@ public class SCCTStu {
     public String toString() {
         return "SCCTStu{" +
                 "id=" + id +
+                ", c_id=" + c_id +
                 ", name='" + name + '\'' +
                 ", realname='" + realname + '\'' +
                 ", t_no=" + t_no +
@@ -36,6 +38,17 @@ public class SCCTStu {
                 ", count=" + count +
                 ", createtime='" + createtime + '\'' +
                 '}';
+    }
+
+    public SCCTStu(Integer id, Integer c_id, String name, String realname, Integer t_no, String path, Integer count, String createtime) {
+        this.id = id;
+        this.c_id = c_id;
+        this.name = name;
+        this.realname = realname;
+        this.t_no = t_no;
+        this.path = path;
+        this.count = count;
+        this.createtime = createtime;
     }
 
     public SCCTStu(Integer id, String name, String realname, Integer t_no, String path, Integer count, String createtime) {
@@ -95,5 +108,13 @@ public class SCCTStu {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public Integer getC_id() {
+        return c_id;
+    }
+
+    public void setC_id(Integer c_id) {
+        this.c_id = c_id;
     }
 }

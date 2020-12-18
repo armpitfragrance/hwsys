@@ -143,7 +143,7 @@
                 createtime = createtime.substring(0, createtime.length - 2);
                 path = path.substring(2);
                 path = path.replaceAll("\\", "/");
-                path = "http://localhost:80" + path;
+                path = "http://localhost:9109" + path;
                 let trNode = $("<div class=\"detail layui-table-header\"\n" +
                     "                             style=\"float: left;width: 240px;height: 280px;margin: 8.5px;border-radius: 7px;position: relative\">\n" +
                     "                            <h5 style=\"display: none\">"+jsonObj.items[i].id+"</h5>\n" +
@@ -398,7 +398,7 @@
                                 t_no=$("#t_no_q").val();
                                 $.ajax({
                                     url: "/SC.do",
-                                    data: {action:"query", name: name, t_no: t_no,pageNo: 1},
+                                    data: {action:"queryNoPage", name: name, t_no: t_no,pageNo: 1},
                                     type: "post",
                                     datatype: "text",
                                     success: function (data) {

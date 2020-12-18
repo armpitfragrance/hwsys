@@ -19,6 +19,8 @@ public interface SCService {
 
     //将选中某门课的信息都删除
     int deleteByCId(int c_id);
+    //删除某个学生选择某门课的信息
+    int deleteByCIdAndStuId(int c_id,int stu_id);
 
     int update(SC sc);
 

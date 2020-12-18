@@ -96,6 +96,7 @@ public class StudentServlet extends BaseServlet {
         String sex = req.getParameter("sex");
         Integer age = Integer.valueOf(req.getParameter("age"));
         String classname = req.getParameter("classname");
+
         User user = new User(user_id,type, psw, realname, sex, age);
         Integer result1 = userService.update(user);
 //        Integer user_id = userService.getMaxId();
@@ -135,5 +136,15 @@ public class StudentServlet extends BaseServlet {
         Gson gson = new Gson();
         String JsonStr = gson.toJson(page);
         response.getWriter().write(JsonStr);
+    }
+    public void queryOne(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=UTF-8");
+        Integer stu_id = Integer.valueOf(req.getParameter("stu_id"));
+        UserStudent userStudent = userStudentService.queryByStuId(stu_id);
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(userStudent);
+        System.out.println(jsonStr);
+        resp.getWriter().write(jsonStr);
     }
 }
