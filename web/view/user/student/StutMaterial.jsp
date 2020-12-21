@@ -127,6 +127,24 @@
             location.href = "/download.do?path=" + path;
         };
 
+        function filepreview(path) {
+            console.log(path);
+            // location.href = "/preview?path=" + path;
+            $.ajax({
+                url: "/preview?path=" + path,
+                type: "GET",
+                dataType: "text",
+                success: function (data) {
+                    // changepage(1);
+                    if (data != "") {
+                        window.open(data, 'PDF', 'width:50%;height:50%;top:100;left:100;');
+                    } else {
+                        swal("失败了", "暂时不支持预览该类型文件", "error");
+                    }
+                }
+            });
+        };
+
         <!--初始化页面-->
         function datainit(data) {
             let index = 1;
@@ -198,10 +216,13 @@
                 trNode.append("<td>" + jsonObj.items[a].name + "</td>");
                 trNode.append("<td>" + jsonObj.items[a].handup_time + "</td>");
                 trNode.append("<td style='text-align: center'>" +
+
+                    "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+jsonObj.items[a].name+"\")'>" +
+                    "<i class='layui-icon layui-icon-tips'></i>预览</button>\n" +
                     "<button class='downloadbtn layui-btn layui-btn-normal layui-btn-xs' onclick='download(\""+jsonObj.items[a].name+"\")'>" +
                     "<i class='layui-icon layui-icon-layim-download'></i>下载</button>\n" +
-                    "<button class='delbtn layui-btn layui-btn-danger layui-btn-xs' lay-event='del'>" +
-                    "<i class='layui-icon layui-icon-delete'></i>删除</button>\n" +
+                    // "<button class='delbtn layui-btn layui-btn-danger layui-btn-xs' lay-event='del'>" +
+                    // "<i class='layui-icon layui-icon-delete'></i>删除</button>\n" +
                     "</td>");
 //data-toggle="modal" data-target="#addModal"
                 $("#tbody1").append(trNode);
@@ -210,27 +231,27 @@
             <!--表格内操作-->
 
 
-            $(".delbtn").on("click", function () {
-                let id = $($(this).parents("tr").children("td")[1]).html().trim();
-                $.ajax({
-                    url: "/tMaterial.do",
-                    data: {action: "delete", tMaterialId: id},
-                    type: "GET",
-                    dataType: "text",
-                    success: function (data) {
-                        console.log(currentPage);
-                        // let newid = $($(this).parents("tr").children("td")[0]).html().trim();
-                        // alert(data);
-                        if (data > 0) {
-                            swal("删除成功", "", "success");
-                        }
-                        if (data < 0) {
-                            swal("删除失败", "", "failed");
-                        }
-                        changepage(currentPage);
-                    }
-                });
-            });
+            // $(".delbtn").on("click", function () {
+            //     let id = $($(this).parents("tr").children("td")[1]).html().trim();
+            //     $.ajax({
+            //         url: "/tMaterial.do",
+            //         data: {action: "delete", tMaterialId: id},
+            //         type: "GET",
+            //         dataType: "text",
+            //         success: function (data) {
+            //             console.log(currentPage);
+            //             // let newid = $($(this).parents("tr").children("td")[0]).html().trim();
+            //             // alert(data);
+            //             if (data > 0) {
+            //                 swal("删除成功", "", "success");
+            //             }
+            //             if (data < 0) {
+            //                 swal("删除失败", "", "failed");
+            //             }
+            //             changepage(currentPage);
+            //         }
+            //     });
+            // });
         };
 
         <!--跳转页面-->

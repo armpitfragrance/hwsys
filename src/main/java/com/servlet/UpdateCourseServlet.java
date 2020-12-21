@@ -6,6 +6,7 @@ import com.service.CourseService;
 import com.service.TCService;
 import com.service.impl.CourseServiceImpl;
 import com.service.impl.TCServiceImpl;
+import com.utils.AsposeUtil;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -80,6 +81,7 @@ public class UpdateCourseServlet extends HttpServlet {
 
                         if (!fileItem.getName().equals("")) {
                             StringBuilder sb = new StringBuilder("C:\\upload\\");
+
                             sb.append(new Date().getTime());
                             sb.append(fileItem.getName());
                             String imgpath = sb.toString();

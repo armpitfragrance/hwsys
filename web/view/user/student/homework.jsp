@@ -170,6 +170,8 @@
                 trNode.append("<td>" + dataObj.items[a].c_name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].end_time + "</td>");
                 trNode.append("<td style=\"text-align: center\">\n" +
+                    "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+jsonObj.items[a].name+"\")'>" +
+                    "<i class='layui-icon layui-icon-tips'></i>预览</button>\n" +
                     "<button class=\"download-btn layui-btn-primary layui-btn-xs\" lay-event=\"edit\"  >" +
                     "<i class=\"layui-icon layui-icon-download-circle\"></i>下载附件</button>\n" +
                     "<button class=\"handup-btn layui-btn layui-btn-xs\" lay-event=\"edit\"  >" +
@@ -178,6 +180,23 @@
                 $("#page-body").append(trNode);
             }
 
+            function filepreview(path) {
+                console.log(path);
+                // location.href = "/preview?path=" + path;
+                $.ajax({
+                    url: "/preview?path=" + path,
+                    type: "GET",
+                    dataType: "text",
+                    success: function (data) {
+                        // changepage(1);
+                        if (data != "") {
+                            window.open(data, 'PDF', 'width:50%;height:50%;top:100;left:100;');
+                        } else {
+                            swal("失败了", "暂时不支持预览该类型文件", "error");
+                        }
+                    }
+                });
+            };
             <!--表格内操作-->
             <!--下载附件-->
             $(".download-btn").on("click", function () {

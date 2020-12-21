@@ -126,6 +126,24 @@
             location.href = "/download.do?path=" + path;
         };
 
+        function filepreview(path) {
+            console.log(path);
+            // location.href = "/preview?path=" + path;
+            $.ajax({
+                url: "/preview?path=" + path,
+                type: "GET",
+                dataType: "text",
+                success: function (data) {
+                        // changepage(1);
+                    if (data != "") {
+                        window.open(data, 'PDF', 'width:50%;height:50%;top:100;left:100;');
+                    } else {
+                        swal("失败了", "暂时不支持预览该类型文件", "error");
+                    }
+                }
+            });
+        };
+
         <!--初始化页面-->
         function datainit(data) {
             let index = 1;
@@ -197,6 +215,8 @@
                 trNode.append("<td>" + jsonObj.items[a].name + "</td>");
                 trNode.append("<td>" + jsonObj.items[a].handup_time + "</td>");
                 trNode.append("<td style='text-align: center'>" +
+                    "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+jsonObj.items[a].name+"\")'>" +
+                    "<i class='layui-icon layui-icon-tips'></i>预览</button>\n" +
                     "<button class='downloadbtn layui-btn layui-btn-normal layui-btn-xs' onclick='download(\""+jsonObj.items[a].name+"\")'>" +
                     "<i class='layui-icon layui-icon-layim-download'></i>下载</button>\n" +
                     "<button class='delbtn layui-btn layui-btn-danger layui-btn-xs' lay-event='del'>" +

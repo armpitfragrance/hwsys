@@ -201,6 +201,8 @@
                 trNode.append("<td>" + dataObj.items[a].correct_time + "</td>");
 
                 trNode.append("<td style=\"text-align: center\">\n" +
+                    "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+jsonObj.items[a].name+"\")'>" +
+                    "<i class='layui-icon layui-icon-tips'></i>预览</button>\n" +
                     "<button class=\"upbtn layui-btn layui-btn-normal layui-btn-xs\" lay-event=\"edit\"  >" +
                     "<i class=\"layui-icon layui-icon-edit\"></i>评阅</button>\n"
                     + "<button class=\"download-btn layui-btn-primary layui-btn-xs\" lay-event=\"edit\"  >" +
@@ -209,6 +211,23 @@
                 $("#page-body").append(trNode);
             }
 
+            function filepreview(path) {
+                console.log(path);
+                // location.href = "/preview?path=" + path;
+                $.ajax({
+                    url: "/preview?path=" + path,
+                    type: "GET",
+                    dataType: "text",
+                    success: function (data) {
+                        // changepage(1);
+                        if (data != "") {
+                            window.open(data, 'PDF', 'width:50%;height:50%;top:100;left:100;');
+                        } else {
+                            swal("失败了", "暂时不支持预览该类型文件", "error");
+                        }
+                    }
+                });
+            };
             <!--表格内操作-->
             <!--评阅(修改)-->
             $(".upbtn").on("click", function () {

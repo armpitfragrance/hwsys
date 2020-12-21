@@ -5,6 +5,8 @@ import com.entity.Homework;
 //import com.service.impl.HomeworkServiceImpl;
 import com.entity.TMaterial;
 import com.service.impl.TMaterialServiceImpl;
+import com.utils.AsposeUtil;
+import com.utils.File2Pdf;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -84,11 +86,15 @@ public class TMaterialUploadServlet extends HttpServlet {
                 String imgpath = "";
                 if (!fileItem.getName().equals("")) {
                     StringBuffer sb = new StringBuffer("C:\\upload\\");
+                    String pdfpath = "c:\\transpdf\\";
                     sb.append(fileItem.getName());
                     String imgPath = sb.toString();
                     fileItem.write(new File(imgPath));
                     tMaterial.setName(fileItem.getName());
                     tMaterial.setPath(imgPath);
+                    String type = fileItem.getContentType();
+
+
                 }
             }
         }
