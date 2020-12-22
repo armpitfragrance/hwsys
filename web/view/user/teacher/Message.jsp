@@ -138,24 +138,19 @@
             $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(' + jsonObj.pageTotal + ')">\>>最后一页</a>');
 
             for (var a = 0; a < jsonObj.items.length; a++) {
+                var str = jsonObj.items[a].message_time;
+                str = str.substring(0, str.length - 2);
                 var trNode = $("<tr></tr>");
-                trNode.append("                                <td>\n" +
-                    "                                    <div class=\"layui-table-cell laytable-cell-2-0 laytable-cell-checkbox\">\n" +
-                    "                                        <input type=\"checkbox\" name=\"layTableCheckbox\" lay-skin=\"primary\" lay-filter=\"layTableAllChoose\">\n" +
-                    "                                        <div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\">\n" +
-                    "                                            <i class=\"layui-icon layui-icon-ok\"></i>\n" +
-                    "                                        </div>\n" +
-                    "                                    </div>\n" +
-                    "                                </td>")
+
                 if (jsonObj.items[a].readFlag == 1) {
                     trNode.append("<td style='text-align: center'>" + "<button class=\"layui-btn layui-btn-primary layui-btn-xs\">已读</button>"+ "</td>");
                 }else {
                     trNode.append("<td style='text-align: center'>" + "<button class=\"layui-btn layui-btn-xs\">未读</button>"+ "</td>");
                 }
-                trNode.append("<td>" + jsonObj.items[a].id + "</td>");
+                trNode.append("<td style='text-align: center'>" + jsonObj.items[a].id + "</td>");
                 trNode.append("<td>" + jsonObj.items[a].send_name + "</td>");
                 trNode.append("<td>" + jsonObj.items[a].content + "</td>");
-                trNode.append("<td>" + jsonObj.items[a].message_time + "</td>");
+                trNode.append("<td>" + str + "</td>");
                 trNode.append("<td style=\"text-align: center\">\n" +
                     "<button class=\"detailbtn layui-btn layui-btn-normal layui-btn-xs\">" +
                     "<i class=\"layui-icon layui-icon-edit\"></i>详情</button>\n" +
@@ -169,7 +164,7 @@
             <!--表格内操作-->
 
             $(".detailbtn").on("click", function () {
-                let id = $($(this).parents("tr").children("td")[2]).html().trim();
+                let id = $($(this).parents("tr").children("td")[1]).html().trim();
                 // console.log(id);
                 window.location.href = "MessageDetail.jsp?id=" + id;
                 // $("#updateModal").modal('show');
@@ -177,7 +172,7 @@
             <!--删除-->
 
             $(".delbtn").on("click", function () {
-                let id = $($(this).parents("tr").children("td")[2]).html().trim();
+                let id = $($(this).parents("tr").children("td")[1]).html().trim();
                 $.ajax({
                     url: "/Message.do",
                     data: {action: "delete", messageId: id},
@@ -236,51 +231,56 @@
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">发送人</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline">
                         <input type="text" name="t_no" placeholder="请输入" autocomplete="off" class="layui-input"
                                id="send_name">
                     </div>
-                </div>
+                    <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+                        <label class="layui-form-label">时间</label>
+                        <div class="layui-inline">
+                            <input type="text" placeholder="请选择" class="layui-input" id="search-if-time">
+                        </div>
+                        <div class="layui-inline">
+                            <!--查询图片按钮-->
+                            <button class=" layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search" type="button" id="querybutton">
+                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            </button>
+                            <script>
+                                $("#querybutton").click(function () {
+                                    // var formData = new FormData(document.getElementById("queryform"));
+                                    send_name = $("#send_name").val();
+                                    date = $("#search-if-time").val();
+                                    $.ajax({
+                                        url: "/Message.do",
+                                        data:{action: "query", pageNo: currentPage,receive_id:user_id, readFlag: readFlag,send_name:send_name, date: date},
+                                        // data: formData,
+                                        type: "POST",
+                                        dataType: "text",
+                                        success: function (data) {
+                                            datainit(data);
+                                        }
+                                    });
+                                });
 
-                <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
-                    <label class="layui-form-label">时间</label>
-                    <div class="layui-input-block">
-                        <input type="text" placeholder="请选择" class="layui-input" id="search-if-time">
+                            </script>
+                    </div>
+
                     </div>
                 </div>
-                <div class="layui-inline">
-                    <!--查询图片按钮-->
-                    <button class=" layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search" type="button" id="querybutton">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                    </button>
-                    <script>
-                        $("#querybutton").click(function () {
-                            // var formData = new FormData(document.getElementById("queryform"));
-                            send_name = $("#send_name").val();
-                            date = $("#search-if-time").val();
-                            $.ajax({
-                                url: "/Message.do",
-                                data:{action: "query", pageNo: currentPage,receive_id:user_id, readFlag: readFlag,send_name:send_name, date: date},
-                                // data: formData,
-                                type: "POST",
-                                dataType: "text",
-                                success: function (data) {
-                                    datainit(data);
-                                }
-                            });
-                        });
 
-                    </script>
-                </div>
+
+
             </div>
         </div>
 
         <div class="layui-card-body">
             <div style="padding-bottom: 10px;">
-                <button class="button-delete layui-btn layui-btn-danger" data-toggle="modal">删除(暂无)</button>
-                <button class="queryAll layui-btn layui-btn-primary" data-toggle="modal">查看全部</button>
-                <button class="queryRead layui-btn layui-btn-primary" data-toggle="modal">查看已读</button>
-                <button class="queryUnRead layui-btn layuiadmin-btn-admin" data-toggle="modal">查看未读</button>
+                <div class="layui-btn-group">
+                    <button class="queryAll layui-btn layui-btn-primary" data-toggle="modal">查看全部</button>
+                    <button class="queryRead layui-btn layui-btn-primary" data-toggle="modal">查看已读</button>
+                    <button class="queryUnRead layui-btn layui-btn-primary" data-toggle="modal">查看未读</button>
+                </div>
+                <button class="button-add layui-btn layui-btn-admin" data-toggle="modal" data-target="#addModal">写留言</button>
                 <script>
                     $(".queryAll").on("click", function () {
                         send_name = "";
@@ -357,7 +357,7 @@
                     });
                 </script>
                 <!--添加按钮-->
-                <button class="button-add layui-btn layuiadmin-btn-admin" data-toggle="modal" data-target="#addModal">写留言</button>
+
             </div>
             <!--发布公告(模态框)-->
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -485,37 +485,26 @@
                         <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%">
                             <thead>
                             <tr>
-                                <th data-field="0" data-unresize="true" style="text-align: center">
-                                    <div class="layui-table-cell laytable-cell-2-0 laytable-cell-checkbox"><input
-                                            type="checkbox" name="layTableCheckbox" lay-skin="primary"
-                                            lay-filter="layTableAllChoose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
-                                            <i class="layui-icon layui-icon-ok"></i>
-                                        </div>
-                                    </div>
-                                </th>
+
                                 <th data-field="id" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-id" style="align-items: center">
                                         <i class="layui-icon layui-icon-email"></i>
                                     </div>
                                 </th>
                                 <th data-field="id" style="text-align: center">
-                                    <div class="layui-table-cell laytable-cell-2-id"><span>ID</span>
+                                    <div class="layui-table-cell laytable-cell-2-id"><span>编号</span>
                                     </div>
                                 </th>
 
-                                <th data-field="title">
+                                <th data-field="title" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-fromname"><span>发件人</span></div>
                                 </th>
-                                <th data-field="content">
+                                <th data-field="content" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-content"><span>主题</span></div>
                                 </th>
-                                <th data-field="notice_time">
+                                <th data-field="notice_time" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-time"><span>时间</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
+
                                     </div>
                                 </th>
                                 <th data-field="8">
@@ -541,7 +530,7 @@
                     }
 
                     .laytable-cell-2-id {
-                        width: 20px;
+                        width: 60px;
                     }
 
                     .laytable-cell-2-fromname {
@@ -549,14 +538,14 @@
                     }
 
                     .laytable-cell-2-content {
-                        width: 280px;
+                        width:372px;
                     }
                     .laytable-cell-2-time{
-                        width: 100px;
+                        width: 261px;
                     }
 
                     .laytable-cell-2-operate {
-                        width: 100px;
+                        width: 231px;
                     }</style>
                 </div>
                 <div align="center">

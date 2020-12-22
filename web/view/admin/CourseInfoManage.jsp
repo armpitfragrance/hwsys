@@ -131,15 +131,7 @@
 
             for (let i = 0; i < jsonObj.items.length; i++) {
                 let trNode = $("<tr></tr>");
-                trNode.append("                                <td>\n" +
-                    "                                    <div class=\"layui-table-cell laytable-cell-2-0 laytable-cell-checkbox\">\n" +
-                    "                                        <input type=\"checkbox\" name=\"layTableCheckbox\" lay-skin=\"primary\" lay-filter=\"layTableAllChoose\">\n" +
-                    "                                        <div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\">\n" +
-                    "                                            <i class=\"layui-icon layui-icon-ok\"></i>\n" +
-                    "                                        </div>\n" +
-                    "                                    </div>\n" +
-                    "                                </td>")
-                trNode.append("<td>" + jsonObj.items[i].id + "</td>");
+                trNode.append("<td style=\"text-align: center\">" + jsonObj.items[i].id + "</td>");
                 trNode.append("<td>" + jsonObj.items[i].name + "</td>");
                 trNode.append("<td>" + jsonObj.items[i].realname + "</td>");
                 trNode.append("<td>" + jsonObj.items[i].t_no + "</td>");
@@ -153,10 +145,10 @@
             }
 
             $(".delbtn").on("click", function () {
-                let id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let id = $($(this).parents("tr").children("td")[0]).html().trim();
                 $.ajax({
                     url: "/SC.do",
-                    data: {action: "delete", userId: id},
+                    data: {action: "deleteSCCTStu", userId: id},
                     type: "GET",
                     dataType: "text",
                     success: function (data) {
@@ -188,40 +180,41 @@
                     <%--<input type="hidden" name="action" value="query">--%>
                 <div class="layui-inline">
                     <label class="layui-form-label">课程名</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline">
                         <input type="text" id="name" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">工号</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline">
                         <input type="text" id="t_no" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search" type="button" id="querybutton">
+                            <i class="submit layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                        <script>
+                            $("#querybutton").click(function () {
+                                // var formData = new FormData(document.getElementById("queryform"));
+                                name = $("#name").val();
+                                t_no = $("#t_no").val();
+                                $.ajax({
+                                    url: "/SC.do",
+                                    data:{action:"query",name:name, t_no: t_no,pageNo:1},
+                                    // data: formData,
+                                    type: "POST",
+                                    dataType: "text",
+                                    success: function (data) {
+                                        datainit(data);
+                                    }
+                                });
+                            });
+
+                        </script>
                     </div>
                 </div>
 
-                <div class="layui-inline">
-                    <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search" type="button" id="querybutton">
-                        <i class="submit layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                    </button>
-                    <script>
-                        $("#querybutton").click(function () {
-                            // var formData = new FormData(document.getElementById("queryform"));
-                             name = $("#name").val();
-                             t_no = $("#t_no").val();
-                            $.ajax({
-                                url: "/SC.do",
-                                data:{action:"query",name:name, t_no: t_no,pageNo:1},
-                                // data: formData,
-                                type: "POST",
-                                dataType: "text",
-                                success: function (data) {
-                                    datainit(data);
-                                }
-                            });
-                        });
 
-                    </script>
-                </div>
                 </form>
             </div>
         </div>
@@ -235,43 +228,27 @@
                         <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%">
                             <thead>
                             <tr>
-                                <th data-field="0" data-unresize="true">
-                                    <div class="layui-table-cell laytable-cell-2-0 laytable-cell-checkbox"><input
-                                            type="checkbox" name="layTableCheckbox" lay-skin="primary"
-                                            lay-filter="layTableAllChoose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
-                                            <i class="layui-icon layui-icon-ok"></i>
-                                        </div>
+                                <th data-field="id" class="layui-table-cell laytable-cell-2-id">
+                                    <div class="layui-table-cell laytable-cell-2-id" ><span>编号</span>
                                     </div>
                                 </th>
-                                <th data-field="id">
-                                    <div class="layui-table-cell laytable-cell-2-id"><span>ID</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
-                                    </div>
-                                </th>
-                                <th data-field="name">
+                                <th data-field="name" class="layui-table-cell laytable-cell-2-loginname">
                                     <div class="layui-table-cell laytable-cell-2-loginname"><span>课程名</span></div>
                                 </th>
-                                <th data-field="t_name">
+                                <th data-field="t_name" class="layui-table-cell laytable-cell-2-telphone">
                                     <div class="layui-table-cell laytable-cell-2-telphone"><span>授课老师姓名</span></div>
                                 </th>
-                                <th data-field="t_no">
+                                <th data-field="t_no" class="layui-table-cell laytable-cell-2-telphone">
                                     <div class="layui-table-cell laytable-cell-2-telphone"><span>授课老师工号</span></div>
                                 </th>
-                                <th data-field="stu_counts">
+                                <th data-field="stu_counts" class="layui-table-cell laytable-cell-2-telphone">
                                     <div class="layui-table-cell laytable-cell-2-telphone"><span>选课人数</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
+
                                     </div>
 
                                 </th>
-                                <th data-field="8">
-                                    <div class="layui-table-cell laytable-cell-2-8" align="center"><span>操作</span></div>
+                                <th data-field="8" class="layui-table-cell laytable-cell-2-8" >
+                                    <div class="layui-table-cell laytable-cell-2-8" ><span>操作</span></div>
                                 </th>
                             </tr>
                             </thead>
@@ -288,18 +265,22 @@
                     </div>
                     <style>.laytable-cell-2-0 {
                         width: 45px;
+                        text-align: center;
                     }
-
+                    .layui-table-cell{
+                        text-align: center;
+                    }
                     .laytable-cell-2-id {
-                        width: 80px;
+                        width: 75px;
+
                     }
 
                     .laytable-cell-2-loginname {
-                        width: 150px;
+                        width: 250px;
                     }
 
                     .laytable-cell-2-telphone {
-                        width: 150px;
+                        width: 180px;
                     }
 
                     .laytable-cell-2-email {
@@ -319,7 +300,7 @@
                     }
 
                     .laytable-cell-2-8 {
-                        width: 190px;
+                        width: 200px;
                     }</style>
                 </div>
             </div>

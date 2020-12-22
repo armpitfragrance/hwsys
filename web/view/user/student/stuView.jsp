@@ -44,7 +44,7 @@
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
 
                 <li class="layui-nav-item" lay-unselect>
-                    <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+                    <a lay-href="StuMessage.jsp" layadmin-event="message" lay-text="消息中心">
                         <i class="layui-icon layui-icon-notice"></i>
 
                         <!-- 如果有新消息，则显示小圆点 -->
@@ -66,8 +66,8 @@
                         <cite><%=student.getRealname()%></cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a lay-href="view/user/student/StuInfo.jsp">基本资料</a></dd>
-                        <dd><a lay-href="set/user/password.html">修改密码</a></dd>
+                        <dd><a lay-href="StuInfo.jsp">基本资料</a></dd>
+
                         <hr>
                         <dd  style="text-align: center;"><a href="/Logout">退出</a></dd>
                     </dl>

@@ -161,8 +161,7 @@
             <!--添加公告数据-->
             for (var a = 0; a < dataObj.items.length; a++) {
                 var trNode = $("<tr></tr>");
-                trNode.append("<td></td>");
-                trNode.append("<td>" + dataObj.items[a].id + "</td>");
+                trNode.append("<td style='text-align: center'>" + dataObj.items[a].id + "</td>");
                 trNode.append("<td>" + dataObj.items[a].stu_no + "</td>");
                 trNode.append("<td>" + dataObj.items[a].realname + "</td>");
                 trNode.append("<td>" + dataObj.items[a].sex + "</td>");
@@ -179,7 +178,7 @@
             <!--踢人-->
             $(".delbtn").on("click", function () {
                 //获取要删除的数据的id
-                let stu_id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let stu_id = $($(this).parents("tr").children("td")[0]).html().trim();
                 console.log(stu_id);
                 $.ajax({
                     url: "/sc.do",
@@ -234,19 +233,20 @@
             <div class="layui-form-item">
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
                     <label class="layui-form-label">学号</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline">
                         <input type="text" name="t_no" placeholder="请输入" autocomplete="off" class="layui-input"
                                id="search-if-sno">
                     </div>
+                    <div class="layui-inline">
+                        <!--查询图片按钮-->
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
+                                id="button-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="layui-inline">
-                    <!--查询图片按钮-->
-                    <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
-                            id="button-search">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                    </button>
-                </div>
+
             </div>
         </div>
 
@@ -293,46 +293,32 @@
                         <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%">
                             <thead>
                             <tr>
-                                <th data-field="0" data-unresize="true">
-                                    <div class="layui-table-cell laytable-cell-2-0 laytable-cell-checkbox"><input
-                                            type="checkbox" name="layTableCheckbox" lay-skin="primary"
-                                            lay-filter="layTableAllChoose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
-                                            <i class="layui-icon layui-icon-ok"></i>
-                                        </div>
+
+
+                                <th data-field="id" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-0"><span>编号</span>
+
                                     </div>
                                 </th>
 
-                                <th data-field="id">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>编号</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
-                                    </div>
-                                </th>
-
-                                <th data-field="sno">
+                                <th data-field="sno" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-sno"><span>学号</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
+
                                     </div>
                                 </th>
-                                <th data-field="title">
+                                <th data-field="title" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-name"><span>姓名</span></div>
                                 </th>
-                                <th data-field="content">
+                                <th data-field="content" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-sex"><span>性别</span></div>
                                 </th>
-                                <th data-field="notice_time">
+                                <th data-field="notice_time" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-age"><span>年龄</span></div>
                                 </th>
-                                <th data-field="">
+                                <th data-field="" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-classname"><span>班级</span></div>
                                 </th>
-                                <th data-field="8">
+                                <th data-field="8" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-8" align="center"><span>操作</span></div>
                                 </th>
                             </tr>
@@ -346,7 +332,7 @@
                     </div>
 
                     <style>.laytable-cell-2-0 {
-                        width: 45px;
+                        width: 60px;
                     }
                     .laytable-cell-2-standard {
                         width: 150px;

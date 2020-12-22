@@ -138,9 +138,6 @@
               <dd>
                 <a lay-href="TInfoManage.jsp">教师管理</a>
               </dd>
-              <dd>
-                <a lay-href="TInfo.jsp">个人中心</a>
-              </dd>
 
             </dl>
           </li>
@@ -150,10 +147,7 @@
               <cite>设置</cite>
             </a>
 
-            <dl class="layui-nav-child">
-              <dd><a lay-href="set/user/info.html">基本资料</a></dd>
-              <dd><a lay-href="set/user/password.html">修改密码</a></dd>
-            </dl>
+
 
           </li>
         </ul>

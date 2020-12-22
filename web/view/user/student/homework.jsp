@@ -97,7 +97,23 @@
             });
 
         });
-
+        function filepreview(path) {
+            console.log(path);
+            // location.href = "/preview?path=" + path;
+            $.ajax({
+                url: "/preview?path=" + path,
+                type: "GET",
+                dataType: "text",
+                success: function (data) {
+                    // changepage(1);
+                    if (data != "") {
+                        window.open(data, 'PDF', 'width:50%;height:50%;top:100;left:100;');
+                    } else {
+                        swal("失败了", "暂时不支持预览该类型文件", "error");
+                    }
+                }
+            });
+        };
         <!--初始化页面-->
         function initDate(data) {
 
@@ -161,46 +177,31 @@
 
             <!--添加作业数据-->
             for (var a = 0; a < dataObj.items.length; a++) {
+                var str = dataObj.items[a].end_time;
+                str = str.substring(0, str.length - 2);
                 var trNode = $("<tr></tr>");
-                trNode.append("<td></td>");
-                trNode.append("<td>" + dataObj.items[a].id + "</td>");
+                trNode.append("<td style='text-align: center'>" + dataObj.items[a].id + "</td>");
                 trNode.append("<td>" + dataObj.items[a].name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].docu_name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].t_name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].c_name + "</td>");
-                trNode.append("<td>" + dataObj.items[a].end_time + "</td>");
+                trNode.append("<td>" + str + "</td>");
                 trNode.append("<td style=\"text-align: center\">\n" +
-                    "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+dataObj.items[a].name+"\")'>" +
+                    "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+dataObj.items[a].docu_name+"\")'>" +
                     "<i class='layui-icon layui-icon-tips'></i>预览</button>\n" +
-                    "<button class=\"download-btn layui-btn-primary layui-btn-xs\" lay-event=\"edit\"  >" +
-                    "<i class=\"layui-icon layui-icon-download-circle\"></i>下载附件</button>\n" +
+                    "<button class=\"download-btn layui-btn layui-btn-primary layui-btn-xs\" lay-event=\"edit\"  >" +
+                    "<i class=\"layui-icon layui-icon-download-circle\"></i>下载</button>\n" +
                     "<button class=\"handup-btn layui-btn layui-btn-xs\" lay-event=\"edit\"  >" +
-                    "<i class=\"layui-icon layui-icon-edit\"></i>提交作业</button>\n" +
+                    "<i class=\"layui-icon layui-icon-edit\"></i>提交</button>\n" +
                     "</td>");
                 $("#page-body").append(trNode);
             }
 
-            function filepreview(path) {
-                console.log(path);
-                // location.href = "/preview?path=" + path;
-                $.ajax({
-                    url: "/preview?path=" + path,
-                    type: "GET",
-                    dataType: "text",
-                    success: function (data) {
-                        // changepage(1);
-                        if (data != "") {
-                            window.open(data, 'PDF', 'width:50%;height:50%;top:100;left:100;');
-                        } else {
-                            swal("失败了", "暂时不支持预览该类型文件", "error");
-                        }
-                    }
-                });
-            };
+
             <!--表格内操作-->
             <!--下载附件-->
             $(".download-btn").on("click", function () {
-                let id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let id = $($(this).parents("tr").children("td")[0]).html().trim();
                 $.ajax({
                     url: "/homework.do",
                     data: {action: "queryPath", id: id},
@@ -214,7 +215,7 @@
             })
             <!--跳转至提交作业页面-->
             $(".handup-btn").on("click", function () {
-                let hw_id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let hw_id = $($(this).parents("tr").children("td")[0]).html().trim();
                 location.href = "homeworkStu.jsp?hw_id=" + hw_id + "&course_id=" + course_id + "&stu_id=" + stu_id;
             })
 
@@ -269,27 +270,28 @@
             <div class="layui-form-item">
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
                     <label class="layui-form-label layform-label-2-0">作业名称</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline ">
                         <input type="text" name="t_no" placeholder="请输入" autocomplete="off" class="layui-input"
                                id="search-if-hwname">
                     </div>
                 </div>
 
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
-                    <label class="layui-form-label layform-label-2-0">截至日期</label>
-                    <div class="layui-input-block">
+                    <label class="layui-form-label layform-label-2-0">截止日期</label>
+                    <div class="layui-inline">
                         <input type="text" name="search-if-endtime" placeholder="请输入" autocomplete="off" class="layui-input"
                                id="search-if-endtime">
                     </div>
+                    <div class="layui-inline">
+                        <!--查询图片按钮-->
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
+                                id="button-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="layui-inline">
-                    <!--查询图片按钮-->
-                    <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
-                            id="button-search">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                    </button>
-                </div>
+
             </div>
         </div>
 
@@ -297,41 +299,30 @@
             <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
             <div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-2" style=" ">
                 <div class="layui-table-box">
-                    <div class="layui-table-header">
+                    <div class="layui-table-header" style="overflow-x: auto">
                         <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%">
                             <thead>
                             <tr>
-                                <th data-field="0" data-unresize="true">
-                                    <div class="layui-table-cell laytable-cell-2-0 laytable-cell-checkbox"><input
-                                            type="checkbox" name="layTableCheckbox" lay-skin="primary"
-                                            lay-filter="layTableAllChoose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
-                                            <i class="layui-icon layui-icon-ok"></i>
-                                        </div>
-                                    </div>
-                                </th>
+
                                 <th data-field="id">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>编号</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
+
                                     </div>
                                 </th>
-                                <th data-field="hw_name">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>作业名称</span></div>
+                                <th data-field="hw_name" class="layui-table-cell laytable-cell-2-sno" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-sno"><span>作业名称</span></div>
                                 </th>
-                                <th data-field="docu_name">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>文档名</span></div>
+                                <th data-field="docu_name" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-sno"><span>文档名</span></div>
                                 </th>
                                 <th data-field="teacher_name">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>授课教师</span></div>
+                                    <div class="layui-table-cell laytable-cell-2-0"><span>授课教师</span></div>
                                 </th>
                                 <th data-field="course_name">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>课程名称</span></div>
+                                    <div class="layui-table-cell laytable-cell-2-0"><span>课程名称</span></div>
                                 </th>
-                                <th data-field="end_time">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>截至提交时间</span></div>
+                                <th data-field="end_time" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-name"><span>截止日期</span></div>
                                 </th>
                                 <th data-field="8">
                                     <div class="layui-table-cell laytable-cell-2-8" align="center"><span>操作</span></div>
@@ -352,15 +343,15 @@
                         }
 
                         .laytable-cell-2-0 {
-                            width: 45px;
+                            width: 100px;
                         }
 
                         .laytable-cell-2-standard {
-                            width: 150px;
+                            width: 60px;
                         }
 
                         .laytable-cell-2-sno {
-                            width: 150px;
+                            width: 250px;
                         }
 
                         .laytable-cell-2-name {

@@ -57,9 +57,9 @@
                     success: function (data) {
                         // console.log(data);
                         if (data > 0) {
-                            swal("添加成功", "", "success");
+                            swal("发布成功", "", "success");
                         } else {
-                            swal("添加失败", "", "error");
+                            swal("发布失败", "", "error");
                         }
                         $("#button-add-close").click();
                         changePage(oldPageTotal);
@@ -169,12 +169,13 @@
 
             <!--添加公告数据-->
             for (var a = 0; a < dataObj.items.length; a++) {
+                var str = dataObj.items[a].notice_time;
+                str = str.substring(0, str.length - 2);
                 var trNode = $("<tr></tr>");
-                trNode.append("<td></td>");
-                trNode.append("<td>" + dataObj.items[a].id + "</td>");
+                trNode.append("<td style=\"text-align: center\">" + dataObj.items[a].id + "</td>");
                 trNode.append("<td>" + dataObj.items[a].title + "</td>");
                 trNode.append("<td>" + dataObj.items[a].content + "</td>");
-                trNode.append("<td>" + dataObj.items[a].notice_time + "</td>");
+                trNode.append("<td>" + str + "</td>");
                 trNode.append("<td style=\"text-align: center\">\n" +
                     "<button class=\"upbtn layui-btn layui-btn-normal layui-btn-xs\" lay-event=\"edit\"  >" +
                     "<i class=\"layui-icon layui-icon-edit\"></i>编辑</button>\n" +
@@ -188,7 +189,7 @@
             <!--表格内操作-->
             <!--编辑-->
             $(".upbtn").on("click", function () {
-                let id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let id = $($(this).parents("tr").children("td")[0]).html().trim();
                 console.log(id);
                 updateinitData(id);
                 $("#updateModal").modal('show');
@@ -196,7 +197,7 @@
             <!--删除-->
             $(".delbtn").on("click", function () {
                 //获取要删除的数据的id
-                let id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let id = $($(this).parents("tr").children("td")[0]).html().trim();
                 // console.log(id);
                 $.ajax({
                     url: "/notice.do",
@@ -275,7 +276,7 @@
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">标题</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline">
                         <input type="text" name="t_no" placeholder="请输入" autocomplete="off" class="layui-input"
                                id="search-if-title">
                     </div>
@@ -283,26 +284,27 @@
 
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
                     <label class="layui-form-label">时间</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline">
                         <input type="text" placeholder="请选择" class="layui-input" id="search-if-time">
                     </div>
+                    <div class="layui-inline">
+                        <!--查询图片按钮-->
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
+                                id="button-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="layui-inline">
-                    <!--查询图片按钮-->
-                    <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
-                            id="button-search">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                    </button>
-                </div>
+
             </div>
         </div>
 
         <div class="layui-card-body">
             <div style="padding-bottom: 10px;">
-                <button class="button-delete layui-btn layuiadmin-btn-admin" data-toggle="modal">删除</button>
+
                 <!--添加按钮-->
                 <button class="button-add layui-btn layuiadmin-btn-admin" data-toggle="modal" data-target="#addModal">
-                    添加
+                    发布新公告
                 </button>
             </div>
             <!--发布公告(模态框)-->
@@ -375,38 +377,24 @@
                         <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%">
                             <thead>
                             <tr>
-                                <th data-field="0" data-unresize="true">
-                                    <div class="layui-table-cell laytable-cell-2-0 laytable-cell-checkbox"><input
-                                            type="checkbox" name="layTableCheckbox" lay-skin="primary"
-                                            lay-filter="layTableAllChoose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
-                                            <i class="layui-icon layui-icon-ok"></i>
-                                        </div>
+
+                                <th data-field="id"  style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-id"><span>编号</span>
+
                                     </div>
                                 </th>
-                                <th data-field="id">
-                                    <div class="layui-table-cell laytable-cell-2-id"><span>ID</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
-                                    </div>
-                                </th>
-                                <th data-field="title">
+                                <th data-field="title"  style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-loginname"><span>标题</span></div>
                                 </th>
-                                <th data-field="content">
+                                <th data-field="content"  style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-telphone"><span>内容</span></div>
                                 </th>
-                                <th data-field="notice_time">
-                                    <div class="layui-table-cell laytable-cell-2-telphone"><span>发布时间</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
+                                <th data-field="notice_time"  style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-email"><span>发布时间</span>
+
                                     </div>
                                 </th>
-                                <th data-field="8">
+                                <th data-field="8" style="text-align: center" >
                                     <div class="layui-table-cell laytable-cell-2-8" align="center"><span>操作</span></div>
                                 </th>
                             </tr>
@@ -424,15 +412,15 @@
                     }
 
                     .laytable-cell-2-id {
-                        width: 80px;
+                        width: 60px;
                     }
 
                     .laytable-cell-2-loginname {
-                        width: 150px;
+                        width: 100px;
                     }
 
                     .laytable-cell-2-telphone {
-                        width: 150px;
+                        width: 450px;
                     }
 
                     .laytable-cell-2-email {

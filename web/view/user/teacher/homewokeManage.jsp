@@ -206,20 +206,22 @@
 
             <!--添加作业数据-->
             for (var a = 0; a < dataObj.items.length; a++) {
+                var str = dataObj.items[a].end_time;
+                str = str.substring(0, str.length - 2);
+                console.log(str);
                 var trNode = $("<tr></tr>");
-                trNode.append("<td></td>");
-                trNode.append("<td>" + dataObj.items[a].id + "</td>");
+                trNode.append("<td style='text-align: center'>" + dataObj.items[a].id + "</td>");
                 trNode.append("<td>" + dataObj.items[a].name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].docu_name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].t_name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].c_name + "</td>");
-                trNode.append("<td>" + dataObj.items[a].end_time + "</td>");
+                trNode.append("<td>" + str + "</td>");
                 trNode.append("<td style=\"text-align: center\">\n" +
                     "<button class=\"upbtn layui-btn layui-btn-normal layui-btn-xs\" lay-event=\"edit\"  >" +
                     "<i class=\"layui-icon layui-icon-edit\"></i>编辑</button>\n" +
                     "<button class=\"delbtn layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"del\">" +
                     "<i class=\"layui-icon layui-icon-delete\"></i>删除</button>\n" +
-                    "<button class=\"conmmentbtn layui-btn layui-btn-normal layui-btn-xs\" lay-event=\"edit\"  >" +
+                    "<button class=\"conmmentbtn layui-btn layui-btn-success layui-btn-xs\" lay-event=\"edit\"  >" +
                     "<i class=\"layui-icon layui-icon-edit\"></i>评阅</button>\n"+
                     "</td>");
                 $("#page-body").append(trNode);
@@ -228,7 +230,7 @@
             <!--表格内操作-->
             <!--编辑-->
             $(".upbtn").on("click", function () {
-                let id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let id = $($(this).parents("tr").children("td")[0]).html().trim();
                 console.log(id);
                 updateinitData(id);
                 $("#updateModal").modal('show');
@@ -236,7 +238,7 @@
             <!--删除-->
             $(".delbtn").on("click", function () {
                 //获取要删除的数据的id
-                let homework_id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let homework_id = $($(this).parents("tr").children("td")[0]).html().trim();
                 console.log(homework_id);
                 $.ajax({
                     url: "/homework.do",
@@ -260,7 +262,7 @@
                 });
             });
             $(".conmmentbtn").on("click",function () {
-                let homework_id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let homework_id = $($(this).parents("tr").children("td")[0]).html().trim();
                 location.href="homeworkStuManage.jsp?homework_id="+homework_id+"&course_id="+course_id+"&t_id="+t_id;
             })
 
@@ -305,11 +307,13 @@
                 dataType: "text",
                 success: function (data) {
                     let dataObj = JSON.parse(data);
+                    var str = dataObj.end_time;
+                    str = str.substring(0, str.length - 11);
                     console.log(dataObj);
                     $("#updateid").val(dataObj.id);
                     $("#updatet_id").val(dataObj.t_id);
                     $("#updatename").val(dataObj.name);
-                    $("#updateend_time").val(dataObj.end_time);
+                    $("#updateend_time").val(str);
                 }
             });
         }
@@ -323,27 +327,28 @@
             <div class="layui-form-item">
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
                     <label class="layui-form-label layform-label-2-0">作业名称</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline">
                         <input type="text" name="t_no" placeholder="请输入" autocomplete="off" class="layui-input"
                                id="search-if-hwname">
                     </div>
                 </div>
 
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
-                    <label class="layui-form-label layform-label-2-0">截至日期</label>
-                    <div class="layui-input-block">
+                    <label class="layui-form-label layform-label-2-0">截止日期</label>
+                    <div class="layui-inline">
                         <input type="text" name="t_no" placeholder="请输入" autocomplete="off" class="layui-input"
                                id="search-if-endtime">
                     </div>
+                    <div class="layui-inline">
+                        <!--查询图片按钮-->
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
+                                id="button-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="layui-inline">
-                    <!--查询图片按钮-->
-                    <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
-                            id="button-search">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                    </button>
-                </div>
+
             </div>
         </div>
 
@@ -379,9 +384,9 @@
                                 <input type="file" name="addfile" id="addfile" class="form-control"
                                        placeholder=""/><br/>
 
-                                <label for="addend_time">截至提交时间</label>
+                                <label for="addend_time">截止日期</label>
                                 <input type="text" name="addend_time" id="addend_time" class="form-control"
-                                       placeholder="请输入截至提交时间"/><br/>
+                                       placeholder="请输入截止提交时间"/><br/>
 
 
                             </form>
@@ -421,9 +426,9 @@
                                 <input type="file" name="updatefile" id="updatefile" class="form-control"
                                        placeholder=""/><br/>
 
-                                <label for="updateend_time">截至提交时间</label>
+                                <label for="updateend_time">截止提交时间</label>
                                 <input type="text" name="updateend_time" id="updateend_time" class="form-control"
-                                       placeholder="请输入截至提交时间"/><br/>
+                                       placeholder="请输入截止提交时间"/><br/>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -442,41 +447,30 @@
             <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
             <div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-2" style=" ">
                 <div class="layui-table-box">
-                    <div class="layui-table-header">
+                    <div class="layui-table-header" style="overflow-x: auto">
                         <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%">
                             <thead>
                             <tr>
-                                <th data-field="0" data-unresize="true">
-                                    <div class="layui-table-cell laytable-cell-2-0 laytable-cell-checkbox"><input
-                                            type="checkbox" name="layTableCheckbox" lay-skin="primary"
-                                            lay-filter="layTableAllChoose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
-                                            <i class="layui-icon layui-icon-ok"></i>
-                                        </div>
+
+                                <th data-field="id" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-0"><span>编号</span>
+
                                     </div>
                                 </th>
-                                <th data-field="id">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>编号</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
-                                    </div>
-                                </th>
-                                <th data-field="hw_name">
+                                <th data-field="hw_name" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>作业名称</span></div>
                                 </th>
-                                <th data-field="docu_name">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>文档名</span></div>
+                                <th data-field="docu_name" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-name"><span>文档名</span></div>
                                 </th>
-                                <th data-field="teacher_name">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>授课教师</span></div>
+                                <th data-field="teacher_name" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-sno"><span>授课教师</span></div>
                                 </th>
-                                <th data-field="course_name">
+                                <th data-field="course_name" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>课程名称</span></div>
                                 </th>
-                                <th data-field="end_time">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>截至提交时间</span></div>
+                                <th data-field="end_time" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-standard"><span>截止日期</span></div>
                                 </th>
                                 <th data-field="8">
                                     <div class="layui-table-cell laytable-cell-2-8" align="center"><span>操作</span></div>
@@ -497,7 +491,7 @@
                         }
 
                         .laytable-cell-2-0 {
-                            width: 45px;
+                            width: 60px;
                         }
 
                         .laytable-cell-2-standard {
@@ -505,11 +499,11 @@
                         }
 
                         .laytable-cell-2-sno {
-                            width: 150px;
+                            width: 120px;
                         }
 
                         .laytable-cell-2-name {
-                            width: 150px;
+                            width: 300px;
                         }
 
                         .laytable-cell-2-sex {
@@ -551,6 +545,7 @@
         layui.use('laydate', function () {
             var laydate = layui.laydate;
             var laydate2 = layui.laydate;
+            var laydate3=layui.laydate;
             //执行一个laydate实例
             laydate.render({//指定元素
                 elem: '#addend_time'
@@ -558,6 +553,10 @@
             laydate2.render({
                 elem: '#search-if-endtime'
             })
+            laydate3.render({
+                elem:'#updateend_time'
+            })
+
         });
     </script>
 

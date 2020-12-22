@@ -121,7 +121,23 @@
             });
 
         });
-
+        function filepreview(path) {
+            console.log(path);
+            // location.href = "/preview?path=" + path;
+            $.ajax({
+                url: "/preview?path=" + path,
+                type: "GET",
+                dataType: "text",
+                success: function (data) {
+                    // changepage(1);
+                    if (data != "") {
+                        window.open(data, 'PDF', 'width:50%;height:50%;top:100;left:100;');
+                    } else {
+                        swal("失败了", "暂时不支持预览该类型文件", "error");
+                    }
+                }
+            });
+        };
         <!--初始化页面-->
         function initDate(data) {
 
@@ -185,59 +201,52 @@
 
             <!--添加作业数据-->
             for (var a = 0; a < dataObj.items.length; a++) {
+                var end_time = dataObj.items[a].end_time;
+                end_time = end_time.substring(0, end_time.length - 2);
+                var handuptime = dataObj.items[a].handup_time;
+                handuptime = handuptime.substring(0, handuptime.length - 2);
+                var correct_time = dataObj.items[a].correct_time;
+                if(correct_time==null){
+                    correct_time="";
+                }else{
+                    correct_time = correct_time.substring(0, correct_time.length - 2);
+                }
                 var trNode = $("<tr></tr>");
-                trNode.append("<td></td>");
-                trNode.append("<td>" + dataObj.items[a].id + "</td>");
+                trNode.append("<td style='text-align: center'>" + dataObj.items[a].id + "</td>");
                 trNode.append("<td>" + dataObj.items[a].hw_name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].stu_no + "</td>");
                 trNode.append("<td>" + dataObj.items[a].stu_name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].docu_name + "</td>");
-                trNode.append("<td>" + dataObj.items[a].end_time + "</td>");
-                trNode.append("<td>" + dataObj.items[a].handup_time + "</td>");
+                trNode.append("<td>" + end_time + "</td>");
+                trNode.append("<td>" + handuptime + "</td>");
                 trNode.append("<td>" + dataObj.items[a].t_name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].correct + "</td>");
                 trNode.append("<td>" + dataObj.items[a].score + "</td>");
                 trNode.append("<td>" + dataObj.items[a].status + "</td>");
-                trNode.append("<td>" + dataObj.items[a].correct_time + "</td>");
+                trNode.append("<td>" + correct_time + "</td>");
 
                 trNode.append("<td style=\"text-align: center\">\n" +
-                    "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+jsonObj.items[a].name+"\")'>" +
+                    "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+dataObj.items[a].docu_name+"\")'>" +
                     "<i class='layui-icon layui-icon-tips'></i>预览</button>\n" +
-                    "<button class=\"upbtn layui-btn layui-btn-normal layui-btn-xs\" lay-event=\"edit\"  >" +
+                    "<button class=\"upbtn layui-btn layui-btn-success layui-btn-xs\" lay-event=\"edit\"  >" +
                     "<i class=\"layui-icon layui-icon-edit\"></i>评阅</button>\n"
-                    + "<button class=\"download-btn layui-btn-primary layui-btn-xs\" lay-event=\"edit\"  >" +
-                    "<i class=\"layui-icon layui-icon-download-circle\"></i></button>\n"
+                    + "<button class=\"download-btn layui-btn layui-btn-primary layui-btn-xs\" lay-event=\"edit\"  >" +
+                    "<i class=\"layui-icon layui-icon-download-circle\"></i>下载</button>\n"
                     + "</td>");
                 $("#page-body").append(trNode);
             }
 
-            function filepreview(path) {
-                console.log(path);
-                // location.href = "/preview?path=" + path;
-                $.ajax({
-                    url: "/preview?path=" + path,
-                    type: "GET",
-                    dataType: "text",
-                    success: function (data) {
-                        // changepage(1);
-                        if (data != "") {
-                            window.open(data, 'PDF', 'width:50%;height:50%;top:100;left:100;');
-                        } else {
-                            swal("失败了", "暂时不支持预览该类型文件", "error");
-                        }
-                    }
-                });
-            };
+
             <!--表格内操作-->
             <!--评阅(修改)-->
             $(".upbtn").on("click", function () {
-                let id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let id = $($(this).parents("tr").children("td")[0]).html().trim();
                 updateinitData(id);
                 $("#correctModal").modal('show');
             });
             <!--下载附件-->
             $(".download-btn").on("click",function () {
-                let id = $($(this).parents("tr").children("td")[1]).html().trim();
+                let id = $($(this).parents("tr").children("td")[0]).html().trim();
                 $.ajax({
                     url: "/homeworkstu.do",
                     data: {action: "queryPath", id: id},
@@ -301,19 +310,21 @@
         }
         function download(pathname) {
             console.log(pathname)
-            location.href="http://localhost/download.do?path="+pathname;
+            location.href="http://localhost:9109/download.do?path="+pathname;
         }
     </script>
 </head>
 
 <body layadmin-themealias="default" style="">
 <div class="layui-fluid">
+    <a href="javascript:history.go(-1);" style="font-size: 22px;text-decoration: none;">&lt;返回上级</a>
     <div class="layui-card">
+
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item">
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
                     <label class="layui-form-label layform-label-2-0">作业名称</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline">
                         <input type="text" name="t_no" placeholder="请输入" autocomplete="off" class="layui-input"
                                id="search-if-hwname">
                     </div>
@@ -321,7 +332,7 @@
 
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
                     <label class="layui-form-label layform-label-2-0">截止日期</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline">
                         <input type="text" name="t_no" placeholder="请输入" autocomplete="off" class="layui-input"
                                id="search-if-endtime">
                     </div>
@@ -329,22 +340,23 @@
 
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
                     <label class="layui-form-label layform-label-2-0">评阅状态</label>
-                    <div class="layui-input-block" style="width: 100px;">
+                    <div class="layui-inline" style="width: 100px;">
                         <select name="status" class="select-status" lay-verify="" id="search-if-status">
                             <option value="correct">请选择</option>
                             <option value="is_correct">已评阅</option>
                             <option value="is_not_correct">未评阅</option>
                         </select>
                     </div>
+                    <div class="layui-inline">
+                        <!--查询图片按钮-->
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
+                                id="button-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="layui-inline">
-                    <!--查询图片按钮-->
-                    <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
-                            id="button-search">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                    </button>
-                </div>
+
 
                 <!--编辑模态框-->
                 <div class="modal fade" id="correctModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -360,6 +372,7 @@
                                 <form id="correct-form" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="action" value="homework-stu-action-update"/>
                                     <input type="hidden" name="homework_stu_id" id="homework_stu_id" value=""/>
+                                    <input type="hidden" name="updatet_id" id="updatet_id" value=""/>
                                     <label for="correct">评阅意见</label>
                                     <input type="text" name="correct" id="correct" class="form-control"
                                            placeholder="请输入评阅意见"/><br/>
@@ -368,9 +381,7 @@
                                     <input type="text" name="correct_score" id="correct_score" class="form-control"
                                            placeholder="请打分"/><br/>
 
-                                    <label for="correct_time">评阅时间</label>
-                                    <input type="text" name="correct_time" id="correct_time" class="form-control"
-                                           placeholder="请输入截至提交时间"/><br/>
+
 
                                 </form>
                             </div>
@@ -391,62 +402,51 @@
             <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
             <div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-2" style=" ">
                 <div class="layui-table-box">
-                    <div class="layui-table-header">
+                    <div class="layui-table-header" style="overflow-x: auto">
                         <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%">
                             <thead>
                             <tr>
-                                <th data-field="0" data-unresize="true">
-                                    <div class="layui-table-cell laytable-cell-2-0 laytable-cell-checkbox"><input
-                                            type="checkbox" name="layTableCheckbox" lay-skin="primary"
-                                            lay-filter="layTableAllChoose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
-                                            <i class="layui-icon layui-icon-ok"></i>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-field="id">
+
+                                <th data-field="id" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>编号</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
+
                                     </div>
                                 </th>
-                                <th data-field="hw_name">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>作业名称</span></div>
+                                <th data-field="hw_name" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-sno"><span>作业名称</span></div>
                                 </th>
-                                <th data-field="student_sno">
+                                <th data-field="student_sno" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>学号</span></div>
                                 </th>
-                                <th data-field="student_name">
+                                <th data-field="student_name" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>学生姓名</span></div>
                                 </th>
-                                <th data-field="docu_name">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>提交文档名</span></div>
+                                <th data-field="docu_name" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-sno"><span>提交文档名</span></div>
                                 </th>
-                                <th data-field="end_time">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>截止提交时间</span></div>
+                                <th data-field="end_time" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-sex"><span>截止日期</span></div>
                                 </th>
-                                <th data-field="handup_time">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>提交时间</span></div>
+                                <th data-field="handup_time" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-sex"><span>提交时间</span></div>
                                 </th>
-                                <th data-field="teacher_time">
+                                <th data-field="teacher_time" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>评阅教师姓名</span></div>
                                 </th>
-                                <th data-field="correct">
+                                <th data-field="correct" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>评阅意见</span></div>
                                 </th>
-                                <th data-field="correct_score">
+                                <th data-field="correct_score" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>评阅分数</span></div>
                                 </th>
-                                <th data-field="correct_status">
+                                <th data-field="correct_status" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>评阅状态</span></div>
                                 </th>
-                                <th data-field="correct_time">
-                                    <div class="layui-table-cell laytable-cell-2-standard"><span>评阅时间</span></div>
+                                <th data-field="correct_time" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-sex"><span>评阅时间</span></div>
                                 </th>
                                 </th>
-                                <th data-field="8">
+                                <th data-field="8" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-8" align="center"><span>操作</span></div>
                                 </th>
                             </tr>
@@ -469,7 +469,7 @@
                         }
 
                         .laytable-cell-2-sno {
-                            width: 150px;
+                            width: 350px;
                         }
 
                         .laytable-cell-2-name {
@@ -514,18 +514,15 @@
     <script>
         layui.use('laydate', function () {
             var laydate = layui.laydate;
-            var laydate2=layui.laydate;
             //执行一个laydate实例
             laydate.render({
                 elem: '#search-if-endtime' //指定元素
             });
-            laydate2.render({
-                elem: '#correct_time'
-            })
+
         });
         layui.use('form', function () {
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-
+            // form.render();
             //……
 
             //但是，如果你的HTML是动态生成的，自动渲染就会失效

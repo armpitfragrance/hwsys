@@ -53,7 +53,7 @@
             <div class="layui-card-header">
                 <h1><%=msgUser.getTitle()%></h1>
                 <p>
-                    <span><%=msgUser.getMessage_time()%></span>
+                    <span><%=msgUser.getMessage_time().substring(0,msgUser.getMessage_time().length()-2)%></span>
                 </p>
                 <p>
                     <span><%=msgUser.getSend_name()%></span>
@@ -66,13 +66,14 @@
                 </div>
 
                 <div style="padding-top: 30px;">
-                    <a href="/Message.do?action=stuback" layadmin-event="back" class="back layui-btn layui-btn-primary layui-btn-sm">返回上级</a>
+                    <a href="/Message.do?action=stuback" layadmin-event="back" class="back layui-btn layui-btn-primary layui-btn-sm" style="text-decoration: none">返回上级</a>
                     <script>
                         // $(".back").onclick(function () {
                         //     window.location.replace(-1);
                         // });
                     </script>
-                    <button class="button-add layui-btn layuiadmin-btn-admin" data-toggle="modal" data-target="#addModal">回信</button>
+                    <a href=""  class="back layui-btn layui-btn-success layui-btn-sm" data-toggle="modal" data-target="#addModal" style="text-decoration: none">回信</a>
+                    <%--<button class="button-add layui-btn layuiadmin-btn-admin" data-toggle="modal" data-target="#addModal">回信</button>--%>
                 </div>
                 <!--发布公告(模态框)-->
                 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
