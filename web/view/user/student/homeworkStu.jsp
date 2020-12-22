@@ -140,14 +140,13 @@
 <s hidden id="t_id">25</s>
 <div class="layui-fluid">
     <div class="layui-card">
-        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-            <div class="layui-form-item">
 
-            </div>
-        </div>
 
         <div class="layui-card-body">
+            <a href="javascript:history.go(-1);" style="font-size: 22px;text-decoration: none">&lt;返回上级</a>
+            <hr>
             <div style="padding-bottom: 10px;text-align: center">
+
                 <%--<button class="layui-btn layuiadmin-btn-admin" data-type="batchdel">删除</button>--%>
                 <%--<button class="layui-btn layuiadmin-btn-admin" data-type="add" data-toggle="modal"--%>
                 <%--data-target="#myModal">添加--%>

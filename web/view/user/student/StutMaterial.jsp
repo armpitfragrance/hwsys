@@ -203,18 +203,13 @@
             $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(' + jsonObj.pageTotal + ')">\>>最后一页</a>');
 
             for (var a = 0; a < jsonObj.items.length; a++) {
+                var str = jsonObj.items[a].handup_time;
+                str = str.substring(0, str.length - 2);
                 var trNode = $("<tr></tr>");
-                trNode.append("                                <td>\n" +
-                    "                                    <div class=\"layui-table-cell laytable-cell-2-0 laytable-cell-checkbox\">\n" +
-                    "                                        <input type=\"checkbox\" name=\"layTableCheckbox\" lay-skin=\"primary\" lay-filter=\"layTableAllChoose\">\n" +
-                    "                                        <div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\">\n" +
-                    "                                            <i class=\"layui-icon layui-icon-ok\"></i>\n" +
-                    "                                        </div>\n" +
-                    "                                    </div>\n" +
-                    "                                </td>")
-                trNode.append("<td>" + jsonObj.items[a].id + "</td>");
+
+                trNode.append("<td style='text-align: center'>" + jsonObj.items[a].id + "</td>");
                 trNode.append("<td>" + jsonObj.items[a].name + "</td>");
-                trNode.append("<td>" + jsonObj.items[a].handup_time + "</td>");
+                trNode.append("<td>" + str + "</td>");
                 trNode.append("<td style='text-align: center'>" +
 
                     "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+jsonObj.items[a].name+"\")'>" +
@@ -288,7 +283,7 @@
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item">
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
-                    <label class="layui-form-label" for="search-if-hwname">教学资料名称</label>
+                    <label class="layui-form-label layform-label-2-0" for="search-if-hwname">教资名称</label>
                     <div class="layui-input-block">
                         <input type="text" name="tMaterialname" placeholder="请输入关键词" autocomplete="off" class="tMaterialname layui-input"
                                id="search-if-hwname">
@@ -297,28 +292,27 @@
 
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
                     <label class="layui-form-label layform-label-2-0" for="search-if-endtime">上传日期</label>
-                    <div class="layui-input-block">
+                    <div class="layui-inline">
                         <input type="text" name="t_no" placeholder="请输入" autocomplete="off" class="layui-input"
                                id="search-if-endtime">
                     </div>
+                    <div class="layui-inline">
+                        <!--查询图片按钮-->
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
+                                id="button-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="layui-inline">
-                    <!--查询图片按钮-->
-                    <button class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search"
-                            id="button-search">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                    </button>
-                </div>
+
             </div>
         </div>
 
         <div class="layui-card-body">
             <div style="padding-bottom: 10px;">
                 <!--布置作业-->
-                <button class="button_upload button-add layui-btn layuiadmin-btn-admin" data-toggle="modal" data-target="#addModal">
-                    教学资料上传
-                </button>
+
             </div>
             <script>
                 $(".button_upload").on("click",function () {
@@ -362,34 +356,23 @@
                         <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%">
                             <thead>
                             <tr>
-                                <th data-field="0" data-unresize="true">
-                                    <div class="layui-table-cell laytable-cell-2-0 laytable-cell-checkbox"><input
-                                            type="checkbox" name="layTableCheckbox" lay-skin="primary"
-                                            lay-filter="layTableAllChoose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
-                                            <i class="layui-icon layui-icon-ok"></i>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th data-field="id">
+
+                                <th data-field="id" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-1"><span>编号</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
+
                                     </div>
                                 </th>
 
-                                <th data-field="docu_name">
+                                <th data-field="docu_name" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-2"><span>文档名</span></div>
                                 </th>
                                 <%--<th data-field="course_name">--%>
                                     <%--<div class="layui-table-cell laytable-cell-2-4"><span>大小</span></div>--%>
                                 <%--</th>--%>
-                                <th data-field="end_time">
+                                <th data-field="end_time" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-5"><span>创建日期</span></div>
                                 </th>
-                                <th data-field="8">
+                                <th data-field="8" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-6"><span>操作</span></div>
                                 </th>
                             </tr>
@@ -413,7 +396,7 @@
                 </div>
                     <style>
                         .layform-label-2-0 {
-                            width: 70px;
+                            width: 110px;
                         }
 
                         .laytable-cell-2-1 {

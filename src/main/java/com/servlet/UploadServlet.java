@@ -182,12 +182,15 @@ public class UploadServlet extends HttpServlet {
                     case "correct_score":
                         homeworkStu.setScore(Integer.valueOf(value));
                         break;
-                    case "correct_time":
-                        homeworkStu.setCorrect_time(value);
+                    case "updatet_id":
+                        homeworkStu.setT_id(Integer.valueOf(value));
                         break;
                 }
             }
         }
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        homeworkStu.setCorrect_time(dateFormat.format(date));
         homeworkStu.setCorrect_status("已评阅");
         int result = homeworkStuService.update(homeworkStu);
         resp.getWriter().write("" + result);
@@ -233,6 +236,10 @@ public class UploadServlet extends HttpServlet {
                 }
             }
         }
+        homeworkStu.setScore(0);
+        homeworkStu.setCorrect("");
+//        homeworkStu.setCorrect_time("");
+        homeworkStu.setCorrect_status("未评阅");
         homeworkStuManageInfo=homeworkStuService.queryHomeworkStuByhw_idAndStu_id(hw_id,stu_id);
         if(homeworkStuManageInfo!=null){
             resp.getWriter().write("2");

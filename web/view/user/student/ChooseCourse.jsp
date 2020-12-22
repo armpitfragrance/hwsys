@@ -110,7 +110,7 @@
                         createtime = createtime.substring(0, createtime.length - 2);
                         path = path.substring(2);
                         path = path.replaceAll("\\", "/");
-                        path = "http://localhost:8080" + path;
+                        path = "http://localhost:9109" + path;
                         var str = "<div class=\"detail layui-table-header\"\n" +
                             "                             style=\"float: left;width: 240px;height: 280px;margin: 8.5px;border-radius: 7px;position: relative\">\n" +
                             "                            <h5 style=\"display: none\">" + jsonObj.items[i].id + "</h5>\n" +
@@ -122,7 +122,7 @@
                         }
                         if (isSignUp == 1) {//已参加
                             str+="                                <a class=\"signUped layui-btn layui-btn layui-btn-xs\" lay-event=\"del\"\n" +
-                                "                                   style=\"margin: 1px\">\n" +
+                                "                                   style=\"margin: 1px;text-decoration: none\">\n" +
                                 "                                    <i class=\"layui-icon layui-icon-ok-circle\"></i>已报名</a>\n" +
                                 "                            </div>\n" +
                                 "                            <div class=\"coursedetail\">\n" +
@@ -139,7 +139,7 @@
                                 "                        </div>"
                         } else {
                             str+="                                <a class=\"signUp layui-btn layui-btn-normal layui-btn-xs\" lay-event=\"del\"\n" +
-                                "                                   style=\"margin: 1px\">\n" +
+                                "                                   style=\"margin: 1px;text-decoration: none\">\n" +
                                 "                                    <i class=\"layui-icon layui-icon-add-circle-fine\"></i>报名</a>\n" +
                                 "                            </div>\n" +
                                 "                            <div class=\"coursedetail\">\n" +
@@ -237,41 +237,42 @@
 
                     <div class="layui-inline">
                         <label class="layui-form-label">课程名</label>
-                        <div class="layui-input-block">
+                        <div class="layui-inline">
                             <input id="coursename_q" type="text" name="realname" placeholder="请输入课程名" autocomplete="off"
                                    class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">工号</label>
-                        <div class="layui-input-block">
+                        <div class="layui-inline">
                             <input id="t_no_q" type="text" name="stu_no" placeholder="请输入授课老师工号" autocomplete="off"
                                    class="layui-input">
                         </div>
+                        <div class="layui-inline">
+                            <button id="btn_query" type="button" class="layui-btn layuiadmin-btn-admin" lay-submit=""
+                                    lay-filter="LAY-user-back-search">
+                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            </button>
+                            <script>
+                                $("#btn_query").click(function () {
+                                    name=$("#coursename_q").val();
+                                    t_no=$("#t_no_q").val();
+                                    $.ajax({
+                                        url: "/SC.do",
+                                        data: {action:"queryNoPage", name: name, t_no: t_no,pageNo: 1},
+                                        type: "post",
+                                        datatype: "text",
+                                        success: function (data) {
+                                            // alert(data);
+                                            initData(data);
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
                     </div>
 
-                    <div class="layui-inline">
-                        <button id="btn_query" type="button" class="layui-btn layuiadmin-btn-admin" lay-submit=""
-                                lay-filter="LAY-user-back-search">
-                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                        </button>
-                        <script>
-                            $("#btn_query").click(function () {
-                                name=$("#coursename_q").val();
-                                t_no=$("#t_no_q").val();
-                                $.ajax({
-                                    url: "/SC.do",
-                                    data: {action:"queryNoPage", name: name, t_no: t_no,pageNo: 1},
-                                    type: "post",
-                                    datatype: "text",
-                                    success: function (data) {
-                                        // alert(data);
-                                        initData(data);
-                                    }
-                                });
-                            });
-                        </script>
-                    </div>
+
                 </form>
             </div>
         </div>
@@ -293,6 +294,7 @@
 
 
                     <style>
+
                         .detail:hover {
                             box-shadow: 2px 2px 10px #909090;
                         }

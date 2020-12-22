@@ -155,15 +155,7 @@
             $("#a" + currentPage).attr("class", "pagebtn btn btn-primary");
             for(let i=0;i<jsonObj.items.length;i++) {
                 let trNode = $("<tr></tr>");
-                trNode.append("<td>\n" +
-                    "                                    <div class=\"layui-table-cell laytable-cell-2-0 laytable-cell-checkbox\">\n" +
-                    "                                        <input type=\"checkbox\" name=\"layTableCheckbox\" lay-skin=\"primary\" lay-filter=\"layTableAllChoose\">\n" +
-                    "                                        <div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\">\n" +
-                    "                                            <i class=\"layui-icon layui-icon-ok\"></i>\n" +
-                    "                                        </div>\n" +
-                    "                                    </div>\n" +
-                    "                                </td>");
-                trNode.append("<td>" + jsonObj.items[i].id + "</td>");
+                trNode.append("<td style=\"text-align: center\">" + jsonObj.items[i].id + "</td>");
                 trNode.append("<td>" + jsonObj.items[i].user_id + "</td>");
                 trNode.append("<td>" + jsonObj.items[i].stu_no + "</td>");
                 trNode.append("<td>" + jsonObj.items[i].psw + "</td>");
@@ -180,7 +172,7 @@
                 $("#tbody1").append(trNode);
             };
             $(".delbtn").on("click",function(){
-                var user_id = $($(this).parents("tr").children("td")[2]).html().trim();
+                var user_id = $($(this).parents("tr").children("td")[1]).html().trim();
                 console.log(user_id);
                 $.ajax({
                     url: "/student.do",
@@ -199,14 +191,14 @@
                 });
             });
             $(".upbtn").on("click",function(){
-                var id = $($(this).parents("tr").children("td")[1]).html().trim();
-                var user_id=$($(this).parents("tr").children("td")[2]).html().trim();
-                var stu_no=$($(this).parents("tr").children("td")[3]).html().trim();
-                var psw=$($(this).parents("tr").children("td")[4]).html().trim();
-                var classname=$($(this).parents("tr").children("td")[5]).html().trim();
-                var realname=$($(this).parents("tr").children("td")[6]).html().trim();
-                var sex=$($(this).parents("tr").children("td")[7]).html().trim();
-                var age=$($(this).parents("tr").children("td")[8]).html().trim();
+                var id = $($(this).parents("tr").children("td")[0]).html().trim();
+                var user_id=$($(this).parents("tr").children("td")[1]).html().trim();
+                var stu_no=$($(this).parents("tr").children("td")[2]).html().trim();
+                var psw=$($(this).parents("tr").children("td")[3]).html().trim();
+                var classname=$($(this).parents("tr").children("td")[4]).html().trim();
+                var realname=$($(this).parents("tr").children("td")[5]).html().trim();
+                var sex=$($(this).parents("tr").children("td")[6]).html().trim();
+                var age=$($(this).parents("tr").children("td")[7]).html().trim();
                 $("#id1").val(id);
                 $("#user_id1").val(user_id);
 
@@ -346,13 +338,13 @@
 
                     <div class="layui-inline">
                         <label class="layui-form-label">姓名</label>
-                        <div class="layui-input-block">
+                        <div class="layui-inline">
                             <input id="realname_q" type="text" name="realname" placeholder="请输入" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">学号</label>
-                        <div class="layui-input-block">
+                        <div class="layui-inline">
                             <input id="stu_no_q" type="text" name="stu_no" placeholder="请输入" autocomplete="off" class="layui-input">
                         </div>
                     </div>
@@ -384,7 +376,6 @@
 
         <div class="layui-card-body">
             <div style="padding-bottom: 10px;">
-                <button class="layui-btn layuiadmin-btn-admin" data-type="batchdel">删除</button>
                 <button class="layui-btn layuiadmin-btn-admin" data-toggle="modal" data-target="#myModal">添加</button>
             </div>
 
@@ -395,50 +386,36 @@
                         <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%">
                             <thead>
                             <tr>
-                                <th data-field="0" data-unresize="true">
-                                    <div class="layui-table-cell laytable-cell-2-0 laytable-cell-checkbox">
-                                        <%--<input type="checkbox" name="layTableCheckbox" lay-skin="primary" lay-filter="layTableAllChoose">--%>
-                                        <%--<div class="layui-unselect layui-form-checkbox" lay-skin="primary">--%>
-                                        <%--<i class="layui-icon layui-icon-ok"></i>--%>
-                                        <%--</div>--%>
-                                        <input type="checkbox">
+
+                                <th data-field="id" style="text-align: center">
+                                    <div class="layui-table-cell laytable-cell-2-id"><span>编号</span>
+
                                     </div>
                                 </th>
-                                <th data-field="id">
-                                    <div class="layui-table-cell laytable-cell-2-id"><span>ID</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
-                                    </div>
-                                </th>
-                                <th data-field="user_id">
+                                <th data-field="user_id" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-loginname"><span>用户编号</span></div>
                                 </th>
-                                <th data-field="stu_no">
+                                <th data-field="stu_no" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-telphone"><span>学号</span></div>
                                 </th>
-                                <th data-field="psw">
+                                <th data-field="psw" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-telphone"><span>密码</span></div>
                                 </th>
-                                <th data-field="classname">
+                                <th data-field="classname" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-telphone"><span>班级</span></div>
                                 </th>
-                                <th data-field="realname">
+                                <th data-field="realname" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-email"><span>姓名</span></div>
                                 </th>
-                                <th data-field="sex">
+                                <th data-field="sex" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-role"><span>性别</span></div>
                                 </th>
-                                <th data-field="age">
+                                <th data-field="age" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-jointime"><span>年龄</span>
-                                        <span class="layui-table-sort layui-inline">
-                                            <i class="layui-edge layui-table-sort-asc"></i>
-                                            <i class="layui-edge layui-table-sort-desc"></i>
-                                        </span>
+
                                     </div>
                                 </th>
-                                <th data-field="8">
+                                <th data-field="8" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-8" align="center"><span>操作</span></div>
                                 </th>
                             </tr>

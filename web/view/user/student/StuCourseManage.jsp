@@ -100,8 +100,8 @@
                 var createtime=jsonObj.items[i].createtime;
                 createtime = createtime.substring(0, createtime.length - 2);
                 path = path.substring(2);
-                path = path.replaceAll("\\", "/");
-                path = "http://localhost:8080" + path;
+                path = path.replace("/\/g","/");
+                path = "http://localhost:9109" + path;
                 let trNode = $("<div class=\"detail layui-table-header\"\n" +
                     "                             style=\"float: left;width: 240px;height: 280px;margin: 8.5px;border-radius: 7px;position: relative\">\n" +
                     "                            <h5 style=\"display: none\">"+jsonObj.items[i].id+"</h5>\n" +
@@ -110,7 +110,7 @@
                     // "                                   data-toggle=\"modal\" data-target=\"#myModal1\" style=\"margin: 1px\">\n" +
                     // "                                    <i class=\"upbtn layui-icon layui-icon-edit\" data-toggle=\"modal\" data-target=\"#myModal1\"></i>编辑</a>\n" +
                     "                                <a class=\"delbtn layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"del\"\n" +
-                    "                                   style=\"margin: 1px\">\n" +
+                    "                                   style=\"margin: 1px;text-decoration: none\">\n" +
                     "                                    <i class=\"layui-icon layui-icon-delete\"></i>退选</a>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"coursedetail\">\n" +
@@ -238,9 +238,32 @@
 
                     <div class="layui-inline">
                         <label class="layui-form-label">课程名</label>
-                        <div class="layui-input-block">
+                        <div class="layui-inline">
                             <input id="coursename_q" type="text" name="realname" placeholder="请输入课程名" autocomplete="off"
                                    class="layui-input">
+                        </div>
+                        <div class="layui-inline">
+                            <button id="btn_query" type="button" class="layui-btn layuiadmin-btn-admin" lay-submit=""
+                                    lay-filter="LAY-user-back-search">
+                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            </button>
+                            <script>
+                                $("#btn_query").click(function () {
+                                    name=$("#coursename_q").val();
+                                    // console.log(name);
+                                    // stu_no=$("#stu_no_q").val();
+                                    $.ajax({
+                                        url: "/SC.do",
+                                        data: {action:"querySC", name: name, stu_no: 2,pageNo: 1,stu_id,stu_id},
+                                        type: "post",
+                                        datatype: "text",
+                                        success: function (data) {
+                                            // alert(data);
+                                            initData(data);
+                                        }
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
                     <%--<div class="layui-inline">--%>
@@ -251,29 +274,7 @@
                         <%--</div>--%>
                     <%--</div>--%>
 
-                    <div class="layui-inline">
-                        <button id="btn_query" type="button" class="layui-btn layuiadmin-btn-admin" lay-submit=""
-                                lay-filter="LAY-user-back-search">
-                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                        </button>
-                        <script>
-                            $("#btn_query").click(function () {
-                                name=$("#coursename_q").val();
-                                // console.log(name);
-                                // stu_no=$("#stu_no_q").val();
-                                $.ajax({
-                                    url: "/SC.do",
-                                    data: {action:"querySC", name: name, stu_no: 2,pageNo: 1,stu_id,stu_id},
-                                    type: "post",
-                                    datatype: "text",
-                                    success: function (data) {
-                                        // alert(data);
-                                        initData(data);
-                                    }
-                                });
-                            });
-                        </script>
-                    </div>
+
                 </form>
             </div>
         </div>

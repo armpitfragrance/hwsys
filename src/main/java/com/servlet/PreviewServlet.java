@@ -41,15 +41,22 @@ public class PreviewServlet extends HttpServlet {
         String filepath = "C:\\upload\\" + path;
 
         String filename = FileUtil.getFilePrefix(path);
-        String pdfpath = "c:\\transpdf\\" + filename;
-//        System.out.println("文件名"+filename);
-        if (File2Pdf.convertToPdfAsAspose(filepath, pdfpath + ".pdf")) {
-            String local = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort() + "/transpdf/" + filename + ".pdf";
-            // http://localhost:8080/transpdf/2017%E7%BA%A7%E9%9D%9E%E5%B8%88%E5%AE%9E%E4%B9%A0%E6%89%8B%E5%86%8C%EF%BC%88%E4%BF%AE%E6%94%B9%EF%BC%89.pdf
-            System.out.println(local);
+        String type = FileUtil.getFileSufix(path);
+
+        if (type.equals("pdf")) {
+            String local = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort() + "/upload/" + filename + ".pdf";
             response.getWriter().write(local);
-        } else {
-            response.getWriter().write("");
+        } else{
+            String pdfpath = "c:\\transpdf\\" + filename;
+//        System.out.println("文件名"+filename);
+            if (File2Pdf.convertToPdfAsAspose(filepath, pdfpath + ".pdf")) {
+                String local = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort() + "/transpdf/" + filename + ".pdf";
+                // http://localhost:8080/transpdf/2017%E7%BA%A7%E9%9D%9E%E5%B8%88%E5%AE%9E%E4%B9%A0%E6%89%8B%E5%86%8C%EF%BC%88%E4%BF%AE%E6%94%B9%EF%BC%89.pdf
+                System.out.println(local);
+                response.getWriter().write(local);
+            } else {
+                response.getWriter().write("");
+            }
         }
     }
 }

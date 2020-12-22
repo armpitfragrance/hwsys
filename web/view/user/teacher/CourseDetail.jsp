@@ -25,14 +25,14 @@
     System.out.println(t_id);
     System.out.println(c_id);
 %>
-<div style="float: left;margin-left:20px;margin-top: 10px;width: 500px;" class="layui-breadcrumb" lay-separator="|"> <a href="CourseManage.jsp" style="font-size: 22px">&lt;&lt;返回</a></div>
-<div style="float:right;margin-top: 10px;width: 500px;" class="layui-breadcrumb" lay-separator="|" >
-  <a href="coursedetail1.jsp" target="myFrame" style="font-size: 22px">课程详情</a>
-  <a href="courseStudentManage.jsp?c_id=<%=c_id%>" target="myFrame" style="font-size: 22px">学生管理</a>
-  <a href="homewokeManage.jsp?c_id=<%=c_id%>&t_id=<%=t_id%>" target="myFrame" style="font-size: 22px">作业管理</a>
-  <a href="tMaterial.jsp?c_id=<%=c_id%>" target="myFrame" style="font-size: 22px">教学资料</a>
+<div style="float: left;margin-left:20px;margin-top: 10px;width: 500px;" class="layui-breadcrumb" lay-separator="|"> <a href="CourseManage.jsp" style="font-size: 22px;text-decoration: none;">&lt;&lt;返回</a>&nbsp;</div>
+<div style="float:right;margin-right:20px;margin-top: 10px;" class="layui-breadcrumb" lay-separator="|" >
+    <a href="homewokeManage.jsp?c_id=<%=c_id%>&t_id=<%=t_id%>" target="myFrame" style="font-size: 22px;text-decoration: none;">作业管理</a>
+  <a href="courseStudentManage.jsp?c_id=<%=c_id%>" target="myFrame" style="font-size: 22px;text-decoration: none;">学生管理</a>
+
+  <a href="tMaterial.jsp?c_id=<%=c_id%>" target="myFrame" style="font-size: 22px;text-decoration: none;">教学资料</a>
 </div><hr>
-<iframe name="myFrame" width="100%" height="100%" style="border: medium none" src="coursedetail1.jsp"></iframe>
+<iframe name="myFrame" width="100%" height="100%" style="border: medium none" src="homewokeManage.jsp?c_id=<%=c_id%>&t_id=<%=t_id%>"></iframe>
 
 
 
@@ -42,6 +42,7 @@
 
 
 
+<
 
 <script src="../../../src/layuiadmin/layui/layui.js" charset="utf-8"></script>
 <script>
