@@ -259,7 +259,7 @@
                 url: "/tMaterial.do",
                 data: {
                     action: "queryTMaterial",
-                    pageNo: "1",
+                    pageNo: currentPage,
                     course_id: course_id,
                     date: date,
                     filename: filename

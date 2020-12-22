@@ -53,13 +53,13 @@
                     trNode.append("<div class='pad-btm'>" +
                         "<p class='layuiadmin-big-font'>\n" +
                         "<h3 align='center'>" + dataObj.items[a].title + "</h3>"+
-                    "<span  class='layui-breadcrumb' lay-separator='-' style='visibility: visible;'>" +
-                    "<a href='javascript:;'>" + dataObj.items[a].notice_time + "</a>" +
-                    "</span>" +
-                    "</p>" +
-                    "</div>" +
-                    "<p class='message-text'>" + dataObj.items[a].content + "</p>"
-                );
+                        "<span  class='layui-breadcrumb' lay-separator='-' style='visibility: visible;'>" +
+                        "<a href='javascript:;'>" + dataObj.items[a].notice_time + "</a>" +
+                        "</span>" +
+                        "</p>" +
+                        "</div>" +
+                        "<p class='message-text'>" + dataObj.items[a].content + "</p>"
+                    );
                     $("#notice").append(trNode);
                 }
             };
@@ -91,16 +91,16 @@
 <body layadmin-themealias="default">
 
 <div class="layui-fluid layadmin-message-fluid">
-        <div class="layui-col-md12 layadmin-homepage-list-imgtxt message-content" id="notice" style="">
-
-        </div>
-
-            <div class="layui-row message-content-btn">
-                <a href="#" class="more-btn layui-btn">更多</a>
-            </div>
-
+    <div class="layui-col-md12 layadmin-homepage-list-imgtxt message-content" id="notice" style="">
 
     </div>
+
+    <div class="layui-row message-content-btn">
+        <a href="#" class="more-btn layui-btn">更多</a>
+    </div>
+
+
+</div>
 
 
 <script src="../../../src/layuiadmin/layui/layui.js" charset="utf-8"></script>

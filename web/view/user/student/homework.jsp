@@ -170,7 +170,7 @@
                 trNode.append("<td>" + dataObj.items[a].c_name + "</td>");
                 trNode.append("<td>" + dataObj.items[a].end_time + "</td>");
                 trNode.append("<td style=\"text-align: center\">\n" +
-                    "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+jsonObj.items[a].name+"\")'>" +
+                    "<button class='previewbtn layui-btn layui-btn-normal layui-btn-xs' onclick='filepreview(\""+dataObj.items[a].name+"\")'>" +
                     "<i class='layui-icon layui-icon-tips'></i>预览</button>\n" +
                     "<button class=\"download-btn layui-btn-primary layui-btn-xs\" lay-event=\"edit\"  >" +
                     "<i class=\"layui-icon layui-icon-download-circle\"></i>下载附件</button>\n" +

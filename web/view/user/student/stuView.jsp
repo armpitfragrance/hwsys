@@ -85,7 +85,7 @@
         <!-- 侧边菜单 -->
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
-                <div class="layui-logo" lay-href="home/console.html">
+                <div class="layui-logo" lay-href="stuhome.jsp">
                     <span>学生管理</span>
                 </div>
 
@@ -108,7 +108,7 @@
                                 -->
 
                     <li data-name="home" class="layui-nav-item layui-this">
-                        <a href="javascript:;" lay-href="home.html" >
+                        <a href="javascript:;" lay-href="stuhome.jsp" >
                             <i class="layui-icon layui-icon-home"></i>
                             <cite>主页</cite>
                         </a>
@@ -161,7 +161,7 @@
             </div>
             <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
                 <ul class="layui-tab-title" id="LAY_app_tabsheader">
-                    <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                    <li lay-id="home/console.html" lay-attr="stuhome.jsp" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
                 </ul>
             </div>
         </div>
@@ -170,7 +170,7 @@
         <!-- 主体内容 -->
         <div class="layui-body" id="LAY_app_body">
             <div class="layadmin-tabsbody-item layui-show">
-                <iframe src="Thome.jsp" frameborder="0" class="layadmin-iframe"></iframe>
+                <iframe src="stuhome.jsp" frameborder="0" class="layadmin-iframe"></iframe>
             </div>
         </div>
 

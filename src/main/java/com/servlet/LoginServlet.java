@@ -51,6 +51,7 @@ public class LoginServlet extends HttpServlet {
             UserTeacher user = userTeacherService.teacherLogin(user_no, password);
             session.setAttribute("user", user);
 //            response.sendRedirect("/Tindex.jsp");
+            session.setMaxInactiveInterval(10);
             String JsonStr = gson.toJson(user);
             response.getWriter().write(JsonStr);
 

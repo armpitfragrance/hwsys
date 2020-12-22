@@ -50,7 +50,7 @@ public class NoticeDaoImpl extends BaseDao implements NoticeDao {
 
     @Override
     public List<Notice> queryNoticeByTitleAndNoticeTime(String title, String noticeTime,Integer pageNO, Integer pageSize) {
-        String sql = "select * from `notice` where `title` like ? and `notice_time` like ? LIMIT ?,?";
+        String sql = "select * from `notice` where `title` like ? and `notice_time` like ? ORDER BY notice.notice_time DESC LIMIT ?,?";
         return queryForList(Notice.class, sql,"%"+title+"%","%"+noticeTime+"%", pageNO, pageSize);
     }
 

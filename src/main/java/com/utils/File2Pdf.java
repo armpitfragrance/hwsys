@@ -78,7 +78,10 @@ public class File2Pdf {
         } else if (suffix.equalsIgnoreCase("png") || suffix.equalsIgnoreCase("jpg")
                 || suffix.equalsIgnoreCase("jpeg")) {
             return img2PDF(inputFile, pdfFile);
+        } else if (suffix.equalsIgnoreCase("ppt") || "pptx".equalsIgnoreCase(suffix)) {
+            return ppt2pdf(inputFile, pdfFile);
         } else {
+
             return false;
         }
     }
@@ -221,11 +224,11 @@ public class File2Pdf {
      * @param inPath
      * @param outPath
      */
-    public static void ppt2pdf(String inPath,String outPath) {
+    public static boolean ppt2pdf(String inPath,String outPath) {
 
         // 验证License
         if (!getPptLicense()) {
-            return;
+            return false;
         }
         FileOutputStream fileOS = null ;
         try {
@@ -238,9 +241,11 @@ public class File2Pdf {
 
             long now = System.currentTimeMillis();
             System.out.println("共耗时：" + ((now - old) / 1000.0) + "秒\n\n" + "文件保存在:" + file.getPath()); //转化过程耗时
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     //img转pdf

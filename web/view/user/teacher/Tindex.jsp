@@ -1,5 +1,6 @@
 <%@ page import="com.entity.Teacher" %>
-<%@ page import="com.entity.UserTeacher" %><%--
+<%@ page import="com.entity.UserTeacher" %>
+<%@ page import="com.entity.User" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2020/12/9
@@ -20,7 +21,7 @@
     <%
         HttpSession session1 = request.getSession();
         UserTeacher teacher = (UserTeacher) session1.getAttribute("user");
-    %>
+    %>}
 </head>
 <body class="layui-layout-body">
 
@@ -62,7 +63,8 @@
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;">
-                        <cite><%=teacher.getRealname()%></cite>
+                        <cite><%=teacher.getRealname()%>
+                        </cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a lay-href="set/user/info.html">基本资料</a></dd>
@@ -73,10 +75,10 @@
                 </li>
 
                 <%--<li class="layui-nav-item layui-hide-xs" lay-unselect>--%>
-                    <%--<a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>--%>
+                <%--<a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>--%>
                 <%--</li>--%>
                 <%--<li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>--%>
-                    <%--<a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>--%>
+                <%--<a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>--%>
                 <%--</li>--%>
             </ul>
         </div>
@@ -88,7 +90,8 @@
                     <span>教师管理</span>
                 </div>
 
-                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
+                    lay-filter="layadmin-system-side-menu">
                     <!--            <li data-name="home" class="layui-nav-item layui-nav-itemed">
                                   <a href="javascript:;" lay-tips="主页" lay-direction="2">
                                     <i class="layui-icon layui-icon-home"></i>
@@ -107,7 +110,7 @@
                                 -->
 
                     <li data-name="home" class="layui-nav-item layui-this">
-                        <a href="javascript:;" lay-href="home.html" >
+                        <a href="javascript:;" lay-href="Thome.jsp">
                             <i class="layui-icon layui-icon-home"></i>
                             <cite>主页</cite>
                         </a>
@@ -160,7 +163,8 @@
             </div>
             <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
                 <ul class="layui-tab-title" id="LAY_app_tabsheader">
-                    <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                    <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i
+                            class="layui-icon layui-icon-home"></i></li>
                 </ul>
             </div>
         </div>
