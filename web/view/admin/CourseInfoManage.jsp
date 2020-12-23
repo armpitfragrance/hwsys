@@ -271,16 +271,16 @@
                         text-align: center;
                     }
                     .laytable-cell-2-id {
-                        width: 75px;
+                        width: 114px;
 
                     }
 
                     .laytable-cell-2-loginname {
-                        width: 250px;
+                        width: 384px;
                     }
 
                     .laytable-cell-2-telphone {
-                        width: 180px;
+                        width: 277px;
                     }
 
                     .laytable-cell-2-email {
@@ -300,7 +300,7 @@
                     }
 
                     .laytable-cell-2-8 {
-                        width: 200px;
+                        width: 308px;
                     }</style>
                 </div>
             </div>

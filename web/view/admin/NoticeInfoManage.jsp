@@ -412,19 +412,19 @@
                     }
 
                     .laytable-cell-2-id {
-                        width: 60px;
+                        width: 102px;
                     }
 
                     .laytable-cell-2-loginname {
-                        width: 100px;
+                        width: 173px;
                     }
 
                     .laytable-cell-2-telphone {
-                        width: 450px;
+                        width: 774px;
                     }
 
                     .laytable-cell-2-email {
-                        width: 150px;
+                        width: 259px;
                     }
 
                     .laytable-cell-2-role {
@@ -440,7 +440,7 @@
                     }
 
                     .laytable-cell-2-8 {
-                        width: 190px;
+                        width: 329px;
                     }</style>
                 </div>
                 <div align="center">

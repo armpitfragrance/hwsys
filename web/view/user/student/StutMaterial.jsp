@@ -256,7 +256,7 @@
                 url: "/tMaterial.do",
                 data: {
                     action: "queryTMaterial",
-                    pageNo: "1",
+                    pageNo: currentPage,
                     course_id: course_id,
                     date: date,
                     filename: filename
@@ -400,11 +400,11 @@
                         }
 
                         .laytable-cell-2-1 {
-                            width: 90px;
+                            width: 159px;
                         }
 
                         .laytable-cell-2-2 {
-                            width: 500px;
+                            width: 889px;
                         }
 
                         .laytable-cell-2-3 {
@@ -414,10 +414,10 @@
                             width: 70px;
                         }
                         .laytable-cell-2-5 {
-                            width: 95px;
+                            width: 232px;
                         }
                         .laytable-cell-2-6 {
-                            width: 190px;
+                            width: 340px;
                         }
                     </style>
                 </div>

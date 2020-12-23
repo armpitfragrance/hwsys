@@ -491,23 +491,23 @@
                         }
 
                         .laytable-cell-2-0 {
-                            width: 60px;
+                            width: 86px;
                         }
 
                         .laytable-cell-2-standard {
-                            width: 150px;
+                            width: 217px;
                         }
 
                         .laytable-cell-2-sno {
-                            width: 120px;
+                            width: 174px;
                         }
 
                         .laytable-cell-2-name {
-                            width: 300px;
+                            width: 433px;
                         }
 
                         .laytable-cell-2-sex {
-                            width: 150px;
+                            width: 217px;
                         }
 
                         .laytable-cell-2-age {
@@ -527,7 +527,7 @@
                         }
 
                         .laytable-cell-2-8 {
-                            width: 190px;
+                            width: 276px;
                         }</style>
                 </div>
                 <div align="center">

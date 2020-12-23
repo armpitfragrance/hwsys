@@ -273,15 +273,48 @@
                                 <input type="hidden" name="addcourse_id" id="addcourse_id" value=""/>
                                 <label for="addstu_no">学号</label>
                                 <input type="text" name="addstu_no" id="addstu_no" class="form-control"
-                                       placeholder="请输入学号"/><br/>
+                                       autocomplete="off"  placeholder="请输入学号" style="width: 350px;display: inline"/>
+                                <input type="text" disabled="true" id="checked" class="layui-input-inline" placeholder="">
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="button-add-close">
+                            <button type="button" class="layui-btn layui-btn-primary" data-dismiss="modal" id="button-add-close">
                                 关闭
                             </button>
-                            <button type="button" class="btn btn-primary" id="button-add-handup">添加</button>
+                            <button type="button" class="layui-btn layui-btn-primary layui-btn-disabled" id="button-add-handup">添加</button>
                         </div>
+
+                        <script>
+
+
+                            $("#addstu_no").on("keyup", function () {
+                                //获取要删除的数据的id
+                                var receive_no = $("#addstu_no").val();
+                                var type= "stu"
+                                console.log(type);
+                                $.ajax({
+                                    url: "/Message.do",
+                                    data: {action: "rcvsearch", receive_no: receive_no, type: type},
+                                    type: "GET",
+                                    dataType: "text",
+                                    success: function (data) {
+                                        // console.log(data);
+                                        var user = JSON.parse(data);
+                                        if (user == null) {
+                                            $("#checked").attr("placeholder","查询不到该学生/老师");
+                                            $("#button-add-handup").toggleClass("layui-btn-primary");
+                                            // $("#button-add-handup").removeAttr("class","className");
+                                            $("#button-add-handup").addClass("layui-btn-disabled")
+                                        }else {
+                                            $("#checked").attr("placeholder",user.realname);
+                                            $("#button-add-handup").toggleClass("layui-btn-disabled");
+                                            $("#button-add-handup").addClass("layui-btn-primary")
+                                        }
+                                    }
+                                });
+                            });
+
+                        </script>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->
             </div>
@@ -332,30 +365,30 @@
                     </div>
 
                     <style>.laytable-cell-2-0 {
-                        width: 60px;
+                        width: 96px;
                     }
                     .laytable-cell-2-standard {
                         width: 150px;
                     }
 
                     .laytable-cell-2-sno {
-                        width: 150px;
+                        width: 243px;
                     }
 
                     .laytable-cell-2-name {
-                        width: 150px;
+                        width: 243px;
                     }
 
                     .laytable-cell-2-sex {
-                        width: 150px;
+                        width: 243px;
                     }
 
                     .laytable-cell-2-age {
-                        width: 150px;
+                        width: 243px;
                     }
 
                     .laytable-cell-2-classname {
-                        width: 150px;
+                        width: 243px;
                     }
 
                     .laytable-cell-2-jointime {
@@ -367,7 +400,7 @@
                     }
 
                     .laytable-cell-2-8 {
-                        width: 190px;
+                        width: 309px;
                     }</style>
                 </div>
                 <div align="center">

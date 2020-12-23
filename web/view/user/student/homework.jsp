@@ -304,7 +304,7 @@
                             <thead>
                             <tr>
 
-                                <th data-field="id">
+                                <th data-field="id" style="text-align: center">
                                     <div class="layui-table-cell laytable-cell-2-standard"><span>编号</span>
 
                                     </div>
@@ -343,19 +343,19 @@
                         }
 
                         .laytable-cell-2-0 {
-                            width: 100px;
+                            width: 161px;
                         }
 
                         .laytable-cell-2-standard {
-                            width: 60px;
+                            width: 96px;
                         }
 
                         .laytable-cell-2-sno {
-                            width: 250px;
+                            width: 401px;
                         }
 
                         .laytable-cell-2-name {
-                            width: 150px;
+                            width: 242px;
                         }
 
                         .laytable-cell-2-sex {
@@ -379,7 +379,7 @@
                         }
 
                         .laytable-cell-2-8 {
-                            width: 190px;
+                            width: 307px;
                         }</style>
                 </div>
                 <div align="center">

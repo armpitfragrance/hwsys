@@ -310,7 +310,7 @@
         }
         function download(pathname) {
             console.log(pathname)
-            location.href="http://localhost:9109/download.do?path="+pathname;
+            location.href="/download.do?path="+pathname;
         }
     </script>
 </head>

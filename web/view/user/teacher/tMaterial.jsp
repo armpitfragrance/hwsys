@@ -399,11 +399,11 @@
                         }
 
                         .laytable-cell-2-1 {
-                            width: 60px;
+                            width: 100px;
                         }
 
                         .laytable-cell-2-2 {
-                            width: 500px;
+                            width: 843px;
                         }
 
                         .laytable-cell-2-3 {
@@ -413,10 +413,10 @@
                             width: 70px;
                         }
                         .laytable-cell-2-5 {
-                            width: 150px;
+                            width: 254px;
                         }
                         .laytable-cell-2-6 {
-                            width: 250px;
+                            width: 423px;
                         }
                     </style>
                 </div>

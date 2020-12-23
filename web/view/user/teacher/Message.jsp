@@ -400,9 +400,15 @@
                                                     var user = JSON.parse(data);
                                                     if (user == null) {
                                                         $("#receive_name").val("查询不到该学生/老师");
+                                                        $("#button-add-handup").toggleClass("layui-btn-primary");
+                                                        // $("#button-add-handup").removeAttr("class","className");
+                                                        $("#button-add-handup").addClass("layui-btn-disabled")
                                                     }else {
                                                         $("#receive_name").val(user.realname);
                                                         $("#receive_id").val(user.id);
+                                                        $("#button-add-handup").toggleClass("layui-btn-disabled");
+                                                        // $("#button-add-handup").removeAttr("class","className");
+                                                        $("#button-add-handup").addClass("layui-btn-primary")
                                                     }
                                                 }
                                             });
@@ -424,9 +430,15 @@
                                                     var user = JSON.parse(data);
                                                     if (user == null) {
                                                         $("#receive_name").val("查询不到该学生/老师");
+                                                        $("#button-add-handup").toggleClass("layui-btn");
+                                                        // $("#button-add-handup").removeAttr("class","className");
+                                                        $("#button-add-handup").addClass("layui-btn-disabled")
                                                     }else {
                                                         $("#receive_name").val(user.realname);
                                                         $("#receive_id").val(user.id);
+                                                        $("#button-add-handup").toggleClass("layui-btn-disabled");
+                                                        // $("#button-add-handup").removeAttr("class","className");
+                                                        $("#button-add-handup").addClass("layui-btn")
                                                     }
                                                 }
                                             });
@@ -444,10 +456,10 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="button-add-close">
+                            <button type="button" class="layui-btn layui-btn-primary" data-dismiss="modal" id="button-add-close">
                                 关闭
                             </button>
-                            <button type="button" class="send btn btn-primary" id="button-add-handup">发送</button>
+                            <button type="button" class="send layui-btn layui-btn layui-btn-disabled" id="button-add-handup">发送</button>
                             <script>
                                 $(".send").on("click", function () {
                                     var receive_id = $("#receive_id").val();
@@ -530,22 +542,22 @@
                     }
 
                     .laytable-cell-2-id {
-                        width: 60px;
+                        width: 91px;
                     }
 
                     .laytable-cell-2-fromname {
-                        width: 90px;
+                        width: 138px;
                     }
 
                     .laytable-cell-2-content {
-                        width:372px;
+                        width:566px;
                     }
                     .laytable-cell-2-time{
-                        width: 261px;
+                        width: 397px;
                     }
 
                     .laytable-cell-2-operate {
-                        width: 231px;
+                        width: 353px;
                     }</style>
                 </div>
                 <div align="center">

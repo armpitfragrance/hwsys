@@ -130,7 +130,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
 //            response.sendRedirect("/Tindex.jsp");
-            session.setMaxInactiveInterval(10);
+//            session.setMaxInactiveInterval(10);
             String JsonStr = gson.toJson(user);
             response.getWriter().write(JsonStr);
 
