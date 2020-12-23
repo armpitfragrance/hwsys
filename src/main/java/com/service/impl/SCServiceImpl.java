@@ -71,6 +71,11 @@ public class SCServiceImpl implements SCService {
     }
 
     @Override
+    public int unique(int stu_no,int course_id) {
+        return scDao.queryCountsByStuSC(stu_no,course_id);
+    }
+
+    @Override
     public SC queryByC_idAndStu_id(int c_id, int stu_id) {
         return scDao.queryByC_idAndStu_id(c_id,stu_id);
     }

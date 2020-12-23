@@ -257,7 +257,7 @@
                     添加
                 </button>
             </div>
-            <!--发布公告(模态框)-->
+            <!--添加学生(模态框)-->
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
@@ -273,7 +273,7 @@
                                 <input type="hidden" name="addcourse_id" id="addcourse_id" value=""/>
                                 <label for="addstu_no">学号</label>
                                 <input type="text" name="addstu_no" id="addstu_no" class="form-control"
-                                       autocomplete="off"  placeholder="请输入学号" style="width: 350px;display: inline"/>
+                                       autocomplete="off"  placeholder="请输入学号" lay-verify="stu_no" style="width: 350px;display: inline"/>
                                 <input type="text" disabled="true" id="checked" class="layui-input-inline" placeholder="">
                             </form>
                         </div>
@@ -286,12 +286,24 @@
 
                         <script>
 
-
                             $("#addstu_no").on("keyup", function () {
                                 //获取要删除的数据的id
+                                var course_id=<%=request.getParameter("c_id")%>
                                 var receive_no = $("#addstu_no").val();
-                                var type= "stu"
-                                console.log(type);
+                                var type= "stu";
+                                var result=0;
+                                // console.log(type);
+                                $.ajax({
+                                    url: "/sc.do",
+                                    data: {action: "unique", receive_no: receive_no,course_id:course_id},
+                                    type: "GET",
+                                    dataType: "text",
+                                    success: function (data) {
+                                        if (data == 1) {
+                                            result=1;
+                                        }
+                                    }
+                                });
                                 $.ajax({
                                     url: "/Message.do",
                                     data: {action: "rcvsearch", receive_no: receive_no, type: type},
@@ -300,7 +312,12 @@
                                     success: function (data) {
                                         // console.log(data);
                                         var user = JSON.parse(data);
-                                        if (user == null) {
+                                        if(result==1){
+                                            $("#checked").attr("placeholder", "该学生已报名");
+                                            $("#button-add-handup").toggleClass("layui-btn-primary");
+                                            // $("#button-add-handup").removeAttr("class","className");
+                                            $("#button-add-handup").addClass("layui-btn-disabled")
+                                        }else if (user == null) {
                                             $("#checked").attr("placeholder","查询不到该学生/老师");
                                             $("#button-add-handup").toggleClass("layui-btn-primary");
                                             // $("#button-add-handup").removeAttr("class","className");
@@ -312,8 +329,15 @@
                                         }
                                     }
                                 });
-                            });
 
+                                <%--var course_id=<%=request.getParameter("c_id")%>--%>
+                                    //获取要删除的数据的id
+                                    // var receive_no = $("#addstu_no").val();
+
+                            });
+                            $("#addstu_no").on("keyup", function () {
+
+                            });
                         </script>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->

@@ -24,5 +24,7 @@ public interface TeacherDao {
 
     Integer queryPageTotalCounts();//查询当前表的总记录条数
 
+    Integer queryTnoCounts(int t_no);//根据工号查询
+
     List<Teacher> queryTeacherByPage(int pageNo, int pageSize);
 }

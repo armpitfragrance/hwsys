@@ -58,4 +58,9 @@ public class TeacherServiceImpl implements TeacherService {
     public Integer insert(Teacher teacher) {
         return teacherDao.insert(teacher);
     }
+
+    @Override
+    public Integer unique(int t_no) {
+        return teacherDao.queryTnoCounts(t_no);
+    }
 }

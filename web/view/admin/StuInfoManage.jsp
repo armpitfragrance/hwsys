@@ -27,48 +27,101 @@
     <script type="text/javascript">
         var realname;
         var stu_no;
-        var currentPage=1;
-        var oldPageTotal=0;
+        var currentPage = 1;
+        var oldPageTotal = 0;
+        var verifysno = 0;
 
         $(function () {
             realname = "";
             stu_no = "";
+            $.ajax({
+                url: "/student.do",
+                data: {action: "query", pageNum: "1", realname: realname, stu_no: stu_no},
+                type: "get",
+                datatype: "text",
+                success: function (data) {
+                    // console.log(data);
+                    initData(data);
+                }
+            });
+
+            $("#stu_no").on("blur", function () {
+                var stu_no = $("#stu_no").val();
                 $.ajax({
-                    url:"/student.do",
-                    data:{action:"query", pageNum: "1",realname:realname,stu_no:stu_no},
+                    url: "/student.do",
+                    data: {action: "unique", stu_no: stu_no,},
                     type: "get",
                     datatype: "text",
                     success: function (data) {
-                        // console.log(data);
-
-                        initData(data);
+                        if (data > 0) {
+                            verifysno = 1;
+                            // $("#verify-sno").val("学号已存在");
+                        } else {
+                            verifysno = 0;
+                        }
+                        console.log(data);
+                        console.log(verifysno);
                     }
                 });
+            });
 
-
-            $("#btn_add").on("click",function () {
-                // var userform = document.getElementById("userform");
-                // var formData = new FormData(userform);
-                var action=$("#action").val();
-                var type=$("#type").val();
-                var realname=$("#realname").val();
-                var stu_no=$("#stu_no").val();
-                var psw=$("#psw").val();
-                var sex=$("#sex").val();
-                var age=$("#age").val();
-                var classname=$("#classname").val();
+            $("#stu_no1").on("blur", function () {
+                var stu_no = $("#stu_no1").val();
                 $.ajax({
                     url: "/student.do",
-                    data: {action:action, type: type, realname: realname, stu_no: stu_no, psw: psw, sex: sex, age: age, classname: classname},
+                    data: {action: "unique", stu_no: stu_no,},
+                    type: "get",
+                    datatype: "text",
+                    success: function (data) {
+                        if (data > 0) {
+                            verifysno = 1;
+                            // $("#verify-sno").val("学号已存在");
+                        } else {
+                            verifysno = 0;
+                        }
+                        console.log(data);
+                        console.log(verifysno);
+                    }
+                });
+            });
+
+            $("#btn_add").on("click", function () {
+                // var userform = document.getElementById("userform");
+                // var formData = new FormData(userform);
+                var action = $("#action").val();
+                var type = $("#type").val();
+                var realname = $("#realname").val();
+                var stu_no = $("#stu_no").val();
+                var psw = $("#psw").val();
+                var sex = $("#sex").val();
+                var age = $("#age").val();
+                var classname = $("#classname").val();
+
+                $.ajax({
+                    url: "/student.do",
+                    data: {
+                        action: action,
+                        type: type,
+                        realname: realname,
+                        stu_no: stu_no,
+                        psw: psw,
+                        sex: sex,
+                        age: age,
+                        classname: classname,
+                        verifysno: verifysno
+                    },
                     type: "post",
                     datatype: "text",
 
                     success: function (data) {
-                        if (data > 0) {
+                        if (data == 1) {
                             swal("添加成功", "", "success");
+                        } else if (data == 2) {
+                            swal("添加失败:学号已存在", "", "error");
                         } else {
                             swal("添加失败", "", "error");
                         }
+
 
                         $("#myModal").modal("hide");
                         changePage(currentPage);
@@ -76,28 +129,42 @@
                 });
 
             });
-            $("#btn_update").on("click",function () {
+            $("#btn_update").on("click", function () {
                 // var userform = document.getElementById("userform");
                 // var formData = new FormData(userform);
-                var action=$("#action1").val();
-                var type=$("#type1").val();
-                var realname=$("#realname1").val();
-                var stu_no=$("#stu_no1").val();
-                var psw=$("#psw1").val();
-                var sex=$("#sex1").val();
-                var age=$("#age1").val();
-                var classname=$("#classname1").val();
-                var id=$("#id1").val();
-                var user_id=$("#user_id1").val();
+                var action = $("#action1").val();
+                var type = $("#type1").val();
+                var realname = $("#realname1").val();
+                var stu_no = $("#stu_no1").val();
+                var psw = $("#psw1").val();
+                var sex = $("#sex1").val();
+                var age = $("#age1").val();
+                var classname = $("#classname1").val();
+                var id = $("#id1").val();
+                var user_id = $("#user_id1").val();
                 $.ajax({
                     url: "/student.do",
-                    data: {action:action, type: type, realname: realname, stu_no: stu_no, psw: psw, sex: sex, age: age, classname: classname, id: id, user_id: user_id},
+                    data: {
+                        action: action,
+                        type: type,
+                        realname: realname,
+                        stu_no: stu_no,
+                        psw: psw,
+                        sex: sex,
+                        age: age,
+                        classname: classname,
+                        id: id,
+                        user_id: user_id,
+                        verifysno: verifysno
+                    },
                     type: "post",
                     datatype: "text",
 
                     success: function (data) {
-                        if (data > 0) {
+                        if (data == 1) {
                             swal("修改成功", "", "success");
+                        } else if (data == 2) {
+                            swal("修改失败:学号已存在", "", "error");
                         } else {
                             swal("修改失败", "", "error");
                         }
@@ -110,8 +177,9 @@
             });
 
         });
+
         function initData(data) {
-            let index=1;
+            let index = 1;
             $("#tbody1").empty();
             $("#pageBtn").empty()
 
@@ -119,33 +187,33 @@
             console.log(data);
             oldPageTotal = jsonObj.pageTotal;
             $("#pageBtn").append("<b id='pageTotal'></b>");
-            $("#pageTotal").html("共"+jsonObj.pageTotal+"页")
+            $("#pageTotal").html("共" + jsonObj.pageTotal + "页")
 
-            let nextbutton="<button type='button' class='btn btn-default' id='next' onclick='changePage(currentPage+1)'>下一页</button> ";
-            let lastbutton="<button type='button' class='btn btn-default' id='last' onclick='changePage(currentPage-1)'>上一页</button> ";
+            let nextbutton = "<button type='button' class='btn btn-default' id='next' onclick='changePage(currentPage+1)'>下一页</button> ";
+            let lastbutton = "<button type='button' class='btn btn-default' id='last' onclick='changePage(currentPage-1)'>上一页</button> ";
 
-            if(currentPage!=1){
+            if (currentPage != 1) {
                 $("#pageBtn").append(lastbutton);
             }
 
             if (oldPageTotal < 5) {
-                for (i=index; i <= index+oldPageTotal-1; i++) {
-                    $("#pageBtn").append("<a id=\"a"+i+"\" class=\"pagebtn btn btn-default\"  onclick=\"changePage("+i+")\">"+i+"</a>");
+                for (i = index; i <= index + oldPageTotal - 1; i++) {
+                    $("#pageBtn").append("<a id=\"a" + i + "\" class=\"pagebtn btn btn-default\"  onclick=\"changePage(" + i + ")\">" + i + "</a>");
                 }
             } else {
-                if(currentPage<=3){
+                if (currentPage <= 3) {
                     index = 1;
-                }else if(currentPage>3&&currentPage<(jsonObj.pageTotal - 2)){
+                } else if (currentPage > 3 && currentPage < (jsonObj.pageTotal - 2)) {
                     index = currentPage - 2;
-                }else if (currentPage >= (jsonObj.pageTotal - 2)) {
-                    index=jsonObj.pageTotal - 4;
+                } else if (currentPage >= (jsonObj.pageTotal - 2)) {
+                    index = jsonObj.pageTotal - 4;
                 }
-                for (i=index; i <= index+4; i++) {
-                    $("#pageBtn").append("<a id=\"a"+i+"\" class=\"pagebtn btn btn-default\"  onclick=\"changePage("+i+")\">"+i+"</a>");
+                for (i = index; i <= index + 4; i++) {
+                    $("#pageBtn").append("<a id=\"a" + i + "\" class=\"pagebtn btn btn-default\"  onclick=\"changePage(" + i + ")\">" + i + "</a>");
                 }
             }
 
-            if(currentPage!=jsonObj.pageTotal){
+            if (currentPage != jsonObj.pageTotal) {
                 $("#pageBtn").append(nextbutton);
             }
             // $("#pageBtn").append(nextbutton);
@@ -153,7 +221,7 @@
 
             $(".pagebtn").attr("class", "pagebtn btn btn-default");
             $("#a" + currentPage).attr("class", "pagebtn btn btn-primary");
-            for(let i=0;i<jsonObj.items.length;i++) {
+            for (let i = 0; i < jsonObj.items.length; i++) {
                 let trNode = $("<tr></tr>");
                 trNode.append("<td style=\"text-align: center\">" + jsonObj.items[i].id + "</td>");
                 trNode.append("<td>" + jsonObj.items[i].user_id + "</td>");
@@ -170,14 +238,15 @@
                     "                                            class=\"layui-icon layui-icon-delete\"></i>删除</a>" +
                     "</td>")
                 $("#tbody1").append(trNode);
-            };
-            $(".delbtn").on("click",function(){
+            }
+            ;
+            $(".delbtn").on("click", function () {
                 var user_id = $($(this).parents("tr").children("td")[1]).html().trim();
                 console.log(user_id);
                 $.ajax({
                     url: "/student.do",
-                    data:{action:"deleteStu", user_id: user_id},
-                    type:"post",
+                    data: {action: "deleteStu", user_id: user_id},
+                    type: "post",
                     dataType: "text",
                     success: function (data) {
                         if (data > 0) {
@@ -190,15 +259,15 @@
                     }
                 });
             });
-            $(".upbtn").on("click",function(){
+            $(".upbtn").on("click", function () {
                 var id = $($(this).parents("tr").children("td")[0]).html().trim();
-                var user_id=$($(this).parents("tr").children("td")[1]).html().trim();
-                var stu_no=$($(this).parents("tr").children("td")[2]).html().trim();
-                var psw=$($(this).parents("tr").children("td")[3]).html().trim();
-                var classname=$($(this).parents("tr").children("td")[4]).html().trim();
-                var realname=$($(this).parents("tr").children("td")[5]).html().trim();
-                var sex=$($(this).parents("tr").children("td")[6]).html().trim();
-                var age=$($(this).parents("tr").children("td")[7]).html().trim();
+                var user_id = $($(this).parents("tr").children("td")[1]).html().trim();
+                var stu_no = $($(this).parents("tr").children("td")[2]).html().trim();
+                var psw = $($(this).parents("tr").children("td")[3]).html().trim();
+                var classname = $($(this).parents("tr").children("td")[4]).html().trim();
+                var realname = $($(this).parents("tr").children("td")[5]).html().trim();
+                var sex = $($(this).parents("tr").children("td")[6]).html().trim();
+                var age = $($(this).parents("tr").children("td")[7]).html().trim();
                 $("#id1").val(id);
                 $("#user_id1").val(user_id);
 
@@ -211,23 +280,24 @@
                 $("#classname1").val(classname);
             });
         }
+
         function query() {
 
         }
 
         function changePage(i) {
 
-            currentPage=i;
+            currentPage = i;
 
             $.ajax({
                 url: "/student.do",
-                data: {action: "query", pageNum: i,realname:realname,stu_no:stu_no},
+                data: {action: "query", pageNum: i, realname: realname, stu_no: stu_no},
                 type: "get",
                 datatype: "text",
                 success: function (data) {
                     let jsonObj = JSON.parse(data);
                     if (currentPage > jsonObj.pageTotal) {
-                        currentPage = currentPage-1;
+                        currentPage = currentPage - 1;
                         changePage(currentPage);
                     }
                     initData(data);
@@ -256,7 +326,7 @@
                     <label for="realname">姓名</label>
                     <input type="text" name="realname" class="form-control" id="realname" placeholder="请输入真实姓名"><br>
                     <!--<span style="width: 80px;display:inline-block">密码：</span>-->
-                    <label for="stu_no">学号</label>
+                    <label for="stu_no">学号</label><label id="verify-sno"></label>
                     <input type="text" name="stu_no" class="form-control" id="stu_no" placeholder="请输入学号"><br>
                     <label for="psw">密码</label>
                     <input type="password" name="psw" class="form-control" id="psw" placeholder="请输入密码"><br>
@@ -339,27 +409,30 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">姓名</label>
                         <div class="layui-inline">
-                            <input id="realname_q" type="text" name="realname" placeholder="请输入" autocomplete="off" class="layui-input">
+                            <input id="realname_q" type="text" name="realname" placeholder="请输入" autocomplete="off"
+                                   class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">学号</label>
                         <div class="layui-inline">
-                            <input id="stu_no_q" type="text" name="stu_no" placeholder="请输入" autocomplete="off" class="layui-input">
+                            <input id="stu_no_q" type="text" name="stu_no" placeholder="请输入" autocomplete="off"
+                                   class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-inline">
-                        <button id="btn_query" type="button" class="layui-btn layuiadmin-btn-admin" lay-submit="" lay-filter="LAY-user-back-search">
+                        <button id="btn_query" type="button" class="layui-btn layuiadmin-btn-admin" lay-submit=""
+                                lay-filter="LAY-user-back-search">
                             <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                         </button>
                         <script>
                             $("#btn_query").click(function () {
-                                realname=$("#realname_q").val();
-                                stu_no=$("#stu_no_q").val();
+                                realname = $("#realname_q").val();
+                                stu_no = $("#stu_no_q").val();
                                 $.ajax({
                                     url: "/student.do",
-                                    data: {action:"query", realname: realname, stu_no: stu_no,pageNum: 1},
+                                    data: {action: "query", realname: realname, stu_no: stu_no, pageNum: 1},
                                     type: "post",
                                     datatype: "text",
                                     success: function (data) {

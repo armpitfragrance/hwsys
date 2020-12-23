@@ -17,5 +17,5 @@ public interface TeacherService {
 
     Integer insert(Teacher teacher);
 
-    
+    Integer unique(int t_no);//工号唯一性判断
 }

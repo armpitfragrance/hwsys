@@ -64,4 +64,9 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.queryStudentByStu_no(stu_no);
     }
 
+    @Override
+    public Integer unique(int stu_no) {
+        return studentDao.querySnoCounts(stu_no);
+    }
+
 }

@@ -48,6 +48,12 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         return Math.toIntExact((Long) queryForSingleValue(sql));
     }
 
+    @Override
+    public Integer queryTnoCounts(int t_no) {
+        String sql = "SELECT COUNT(1) FROM `teacher` WHERE t_no="+t_no;
+        return Math.toIntExact((Long) queryForSingleValue(sql));
+    }
+
     public List<Teacher> queryTeacherByPage(int pageNo, int pageSize) {
         String sql = "SELECT `id`,`user_id`,`t_no`,`create_time`,`update_time` FROM `teacher` LIMIT ?,? ";
         return queryForList(Teacher.class, sql, pageNo, pageSize);

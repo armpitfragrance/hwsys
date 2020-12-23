@@ -61,6 +61,12 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
     }
 
     @Override
+    public Integer querySnoCounts(int stu_no) {
+        String sql="SELECT COUNT(1) FROM student WHERE stu_no="+stu_no;
+        return Math.toIntExact((Long)queryForSingleValue(sql));
+    }
+
+    @Override
     public List<Student> queryStudentByPage(Integer pageNO, Integer pageSize) {
             String sql = "select * from student LIMIT ?,?";
             return queryForList(Student.class, sql, pageNO, pageSize);

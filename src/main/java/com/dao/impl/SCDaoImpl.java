@@ -66,6 +66,12 @@ public class SCDaoImpl extends BaseDao implements SCDao {
     }
 
     @Override
+    public Integer queryCountsByStuSC(int stu_no,int course_id) {
+        String sql="SELECT COUNT(1) FROM sc sc,student s,course c WHERE sc.stu_id=s.id AND sc.c_id=c.id AND s.stu_no="+stu_no+" AND sc.c_id="+course_id;
+        return Math.toIntExact((Long)queryForSingleValue(sql));
+    }
+
+    @Override
     public List<SC> querySCByPage(Integer pageNO, Integer pageSize) {
         String sql = "select * from sc LIMIT ?,?";
         return queryForList(SC.class,sql,pageNO, pageSize);

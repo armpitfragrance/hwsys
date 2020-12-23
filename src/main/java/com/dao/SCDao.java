@@ -28,5 +28,8 @@ public interface SCDao {
 
     Integer queryPageTotalCounts();
 
+    //学生选课唯一性
+    Integer queryCountsByStuSC(int stu_no,int course_id);
+
     List<SC> querySCByPage(Integer pageNO, Integer pageSize);
 }

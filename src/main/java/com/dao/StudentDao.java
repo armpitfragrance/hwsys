@@ -26,5 +26,7 @@ public interface StudentDao {
 
     Integer queryPageTotalCounts();
 
+    Integer querySnoCounts(int stu_no);//根据学号查询
+
     List<Student> queryStudentByPage(Integer pageNO, Integer pageSize);
 }

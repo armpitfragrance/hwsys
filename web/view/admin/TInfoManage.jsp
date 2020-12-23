@@ -28,13 +28,14 @@
         var t_no;
         var currentPage = 1;
         var oldPageTotal = 0;
+        var verifytno = 0;
 
         $(function () {
             realname = "";
             t_no = "";
             $.ajax({
                 url: "/teacher.do",
-                data: {action: "query", pageNum: "1",realname:realname,t_no:t_no},
+                data: {action: "query", pageNum: "1", realname: realname, t_no: t_no},
                 type: "get",
                 datatype: "text",
                 success: function (data) {
@@ -42,6 +43,42 @@
 
                     initData(data);
                 }
+            });
+            $("#t_no").on("blur", function () {
+                var t_no = $("#t_no").val();
+                $.ajax({
+                    url: "/teacher.do",
+                    data: {action: "unique", t_no: t_no,},
+                    type: "get",
+                    datatype: "text",
+                    success: function (data) {
+                        // console.log(data);
+                        if (data > 0) {
+                            verifytno = 1;
+                            // $("#verify-sno").val("学号已存在");
+                        } else {
+                            verifytno = 0;
+                        }
+                    }
+                });
+            });
+            $("#t_no1").on("blur", function () {
+                var t_no = $("#t_no1").val();
+                $.ajax({
+                    url: "/teacher.do",
+                    data: {action: "unique", t_no: t_no,},
+                    type: "get",
+                    datatype: "text",
+                    success: function (data) {
+                        console.log(data);
+                        if (data > 0) {
+                            verifytno = 1;
+                            // $("#verify-sno").val("学号已存在");
+                        } else {
+                            verifytno = 0;
+                        }
+                    }
+                });
             });
             $("#btn_add").on("click", function () {
                 // var userform = document.getElementById("userform");
@@ -55,13 +92,24 @@
                 var age = $("#age").val();
                 $.ajax({
                     url: "/teacher.do",
-                    data: {action: action, type: type, realname: realname, t_no: t_no, psw: psw, sex: sex, age: age},
+                    data: {
+                        action: action,
+                        type: type,
+                        realname: realname,
+                        t_no: t_no,
+                        psw: psw,
+                        sex: sex,
+                        age: age,
+                        verifytno: verifytno
+                    },
                     type: "post",
                     datatype: "text",
 
                     success: function (data) {
-                        if (data > 0) {
+                        if (data == 1) {
                             swal("添加成功", "", "success");
+                        } else if (data == 2) {
+                            swal("添加失败:工号已存在", "", "error");
                         } else {
                             swal("添加失败", "", "error");
                         }
@@ -95,14 +143,17 @@
                         sex: sex,
                         age: age,
                         id: id,
-                        user_id: user_id
+                        user_id: user_id,
+                        verifytno: verifytno
                     },
                     type: "post",
                     datatype: "text",
 
                     success: function (data) {
-                        if (data > 0) {
+                        if (data == 1) {
                             swal("修改成功", "", "success");
+                        } else if (data == 2) {
+                            swal("修改失败:工号已存在", "", "error");
                         } else {
                             swal("修改失败", "", "error");
                         }
@@ -226,7 +277,7 @@
 
             $.ajax({
                 url: "/teacher.do",
-                data: {action: "query", pageNum: i,realname:realname,t_no:t_no},
+                data: {action: "query", pageNum: i, realname: realname, t_no: t_no},
                 type: "get",
                 datatype: "text",
                 success: function (data) {
@@ -340,13 +391,15 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">姓名</label>
                         <div class="layui-inline">
-                            <input type="text" name="realname" id="realname_q" placeholder="请输入" autocomplete="off" class="layui-input">
+                            <input type="text" name="realname" id="realname_q" placeholder="请输入" autocomplete="off"
+                                   class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">工号</label>
                         <div class="layui-inline    ">
-                            <input type="text" name="t_no" id="t_no_q" placeholder="请输入" autocomplete="off" class="layui-input">
+                            <input type="text" name="t_no" id="t_no_q" placeholder="请输入" autocomplete="off"
+                                   class="layui-input">
                         </div>
                     </div>
 
@@ -357,11 +410,11 @@
                         </button>
                         <script>
                             $("#btn_query").click(function () {
-                                realname=$("#realname_q").val();
-                                t_no=$("#t_no_q").val();
+                                realname = $("#realname_q").val();
+                                t_no = $("#t_no_q").val();
                                 $.ajax({
                                     url: "/teacher.do",
-                                    data: {action:"query", realname: realname, t_no: t_no,pageNum: 1},
+                                    data: {action: "query", realname: realname, t_no: t_no, pageNum: 1},
                                     type: "post",
                                     datatype: "text",
                                     success: function (data) {

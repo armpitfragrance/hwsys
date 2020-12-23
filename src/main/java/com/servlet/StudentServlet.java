@@ -63,6 +63,9 @@ public class StudentServlet extends BaseServlet {
     public void addStu(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("text/html;charset=UTF-8");
+        String result;
+        int verifysno= Integer.parseInt(req.getParameter("verifysno"));
+//        System.out.println(verifysno);
         String type = req.getParameter("type");
         String realname = req.getParameter("realname");
         Integer stu_no = Integer.valueOf(req.getParameter("stu_no"));
@@ -70,24 +73,34 @@ public class StudentServlet extends BaseServlet {
         String sex = req.getParameter("sex");
         Integer age = Integer.valueOf(req.getParameter("age"));
         String classname = req.getParameter("classname");
-        User user = new User(type, psw, realname, sex, age);
-        Integer result1 = userService.insert(user);
-        Integer user_id = userService.getMaxId();
-        Student student = new Student(user_id, stu_no, classname);
-        Integer result2 =studentService.insert(student);
-        String result;
-        if (result1 > 0 && result2 > 0) {
-            result = "1";
-        } else {
-            result = "-1";
+        if(verifysno==1){
+            result="2";
+        }else{
+            User user = new User(type, psw, realname, sex, age);
+            Integer result1 = userService.insert(user);
+            Integer user_id = userService.getMaxId();
+            Student student = new Student(user_id, stu_no, classname);
+            Integer result2 =studentService.insert(student);
+
+
+            if (result1 > 0 && result2 > 0) {
+                result = "1";
+            } else {
+                result = "-1";
+            }
         }
+
+
 
         resp.getWriter().write(result);
     }
     public void updateStu(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("text/html;charset=UTF-8");
+        String result;
+        int verifysno= Integer.parseInt(req.getParameter("verifysno"));
         Integer id = Integer.valueOf(req.getParameter("id"));
+        System.out.println(verifysno);
         Integer user_id = Integer.valueOf(req.getParameter("user_id"));
         String type = req.getParameter("type");
         String realname = req.getParameter("realname");
@@ -96,18 +109,24 @@ public class StudentServlet extends BaseServlet {
         String sex = req.getParameter("sex");
         Integer age = Integer.valueOf(req.getParameter("age"));
         String classname = req.getParameter("classname");
+        UserStudent userStudent = userStudentService.queryByStuId(id);
 
-        User user = new User(user_id,type, psw, realname, sex, age);
-        Integer result1 = userService.update(user);
+
+        if((userStudent.getStu_no()!=stu_no)&&verifysno==1){
+            result="2";
+        }else{
+            User user = new User(user_id,type, psw, realname, sex, age);
+            Integer result1 = userService.update(user);
 //        Integer user_id = userService.getMaxId();
-        Student student = new Student(id,user_id, stu_no, classname);
-        Integer result2 =studentService.update(student);
-        String result;
-        if (result1 > 0 && result2 > 0) {
-            result = "1";
-        } else {
-            result = "-1";
+            Student student = new Student(id,user_id, stu_no, classname);
+            Integer result2 =studentService.update(student);
+            if (result1 > 0 && result2 > 0) {
+                result = "1";
+            } else {
+                result = "-1";
+            }
         }
+
 
         resp.getWriter().write(result);
     }
@@ -146,5 +165,12 @@ public class StudentServlet extends BaseServlet {
         String jsonStr = gson.toJson(userStudent);
         System.out.println(jsonStr);
         resp.getWriter().write(jsonStr);
+    }
+
+    //学号唯一性判断
+    public void unique(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int stu_no= Integer.parseInt(request.getParameter("stu_no"));
+        int result=studentService.unique(stu_no);
+        response.getWriter().write(""+result);
     }
 }

@@ -18,4 +18,6 @@ public interface StudentService {
     Integer insert(Student student);
 
     Student queryStudentByStu_no(int stu_no);//根据学号查询学生信息
+
+    Integer unique(int stu_no);//学号唯一性判断
 }

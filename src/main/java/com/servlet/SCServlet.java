@@ -54,4 +54,12 @@ public class SCServlet extends BaseServlet {
         int result=scService.delete(sc.getId());
         response.getWriter().write("" + result);
     }
+    //按学号添加学生选课,唯一性判断
+    public void unique(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int stu_no= Integer.parseInt(request.getParameter("receive_no"));
+        int course_id= Integer.parseInt(request.getParameter("course_id"));
+        int result=scService.unique(stu_no,course_id);
+        response.getWriter().write(""+result);
+
+    }
 }
