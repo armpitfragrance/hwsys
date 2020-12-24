@@ -92,7 +92,9 @@
             $("#pagebutton").empty();
             $("#pagebutton").html("<b id=\"totalPageCount\">共页</b>\n")
             $("#totalPageCount").html("共" + jsonObj.pageTotal + "页");
-            $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(1)">首页\<<</a>');
+            if (jsonObj.pageTotal != 1 && currentPage != 1) {
+                $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(1)">首页\<<</a>');
+            }
 
             if (currentPage!=1) {
                 $("#pagebutton").append(lastbutton);
@@ -136,7 +138,9 @@
                 })
 
             }
-            $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(' + jsonObj.pageTotal + ')">\>>最后一页</a>');
+            if (jsonObj.pageTotal != 1 && currentPage != jsonObj.pageTotal) {
+                $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(' + jsonObj.pageTotal + ')">\>>最后一页</a>');
+            }
 
             for (var a = 0; a < jsonObj.items.length; a++) {
                 var str = jsonObj.items[a].message_time;
@@ -354,6 +358,13 @@
                             }
                         })
                     });
+
+                    function clear() {
+                       $("#receive_id").val("");
+                       $("#type").val("");
+                        $("#addtitle").val("");
+                        $("#addcontent").val("");
+                    }
                 </script>
                 <!--添加按钮-->
 
@@ -399,15 +410,17 @@
                                                     var user = JSON.parse(data);
                                                     if (user == null) {
                                                         $("#receive_name").val("查询不到该学生/老师");
-                                                        $("#button-add-handup").toggleClass("layui-btn");
+                                                        // $("#button-add-handup").toggleClass("layui-btn");
                                                         // $("#button-add-handup").removeAttr("class","className");
-                                                        $("#button-add-handup").addClass("layui-btn-disabled")
+                                                        // $("#button-add-handup").addClass("layui-btn-disabled")
+                                                        $("#button-add-handup").addClass("layui-btn-disabled");
+
                                                     }else {
                                                         $("#receive_name").val(user.realname);
                                                         $("#receive_id").val(user.id);
-                                                        $("#button-add-handup").toggleClass("layui-btn-disabled");
+                                                        $("#button-add-handup").removeClass("layui-btn-disabled");
                                                         // $("#button-add-handup").removeAttr("class","className");
-                                                        $("#button-add-handup").addClass("layui-btn")
+                                                        $("#button-add-handup").addClass("layui-btn");
                                                     }
                                                 }
                                             });
@@ -429,15 +442,16 @@
                                                     var user = JSON.parse(data);
                                                     if (user == null) {
                                                         $("#receive_name").val("查询不到该学生/老师");
-                                                        $("#button-add-handup").toggleClass("layui-btn");
+                                                        // $("#button-add-handup").removeClass("layui-btn");
                                                         // $("#button-add-handup").removeAttr("class","className");
-                                                        $("#button-add-handup").addClass("layui-btn-disabled")
+                                                        // $("#button-add-handup").addClass("layui-btn-disabled");
+                                                        $("#button-add-handup").addClass("layui-btn-disabled");
                                                     }else {
                                                         $("#receive_name").val(user.realname);
                                                         $("#receive_id").val(user.id);
-                                                        $("#button-add-handup").toggleClass("layui-btn-disabled");
+                                                        $("#button-add-handup").removeClass("layui-btn-disabled");
                                                         // $("#button-add-handup").removeAttr("class","className");
-                                                        $("#button-add-handup").addClass("layui-btn")
+                                                        $("#button-add-handup").addClass("layui-btn");
                                                     }
                                                 }
                                             });
@@ -455,11 +469,15 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="layui-btn layui-btn-primary" data-dismiss="modal" id="button-add-close">
+                            <button type="button" class="shut layui-btn layui-btn-primary" data-dismiss="modal" id="button-add-close">
                                 关闭
                             </button>
-                            <button type="button" class="send layui-btn layui-btn layui-btn-disabled" id="button-add-handup">发送</button>
+                            <button type="button" class="send  layui-btn layui-btn-disabled" id="button-add-handup">发送</button>
                             <script>
+                                $(".shut").on("click", function () {
+                                    clear();
+
+                                });
                                 $(".send").on("click", function () {
                                     var receive_id = $("#receive_id").val();
                                     var type = $("#type").val();
@@ -478,6 +496,7 @@
                                                 swal("发送失败", "", "error");
                                             }
                                             $("#addModal").modal("hide");
+                                            clear();
                                             changepage(currentPage);                                            // console.log(data);
                                         }
                                     });

@@ -180,6 +180,10 @@
             let nextbutton = "<button type='button' class='btn btn-default' id='next' onclick='changePage(currentPage+1)'>下一页</button> ";
             let lastbutton = "<button type='button' class='btn btn-default' id='last' onclick='changePage(currentPage-1)'>上一页</button> ";
 
+            if (jsonObj.pageTotal != 1&&currentPage != 1) {
+                $("#pageBtn").append('<a class="btn btn-default" onclick="changePage(1)">首页\<<</a>');
+            }
+
             if (currentPage != 1) {
                 $("#pageBtn").append(lastbutton);
             }
@@ -203,6 +207,9 @@
 
             if (currentPage != jsonObj.pageTotal) {
                 $("#pageBtn").append(nextbutton);
+            }
+            if (jsonObj.pageTotal != 1&&currentPage!=jsonObj.pageTotal) {
+                $("#pageBtn").append('<a class="btn btn-default" onclick="changePage(' + jsonObj.pageTotal + ')">\>>最后一页</a>');
             }
             // $("#pageBtn").append(nextbutton);
             // $("#a1").attr("class", "pagebtn btn btn-primary");
@@ -397,34 +404,34 @@
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">工号</label>
-                        <div class="layui-inline    ">
+                        <div class="layui-inline">
                             <input type="text" name="t_no" id="t_no_q" placeholder="请输入" autocomplete="off"
                                    class="layui-input">
                         </div>
+                        <div class="layui-inline">
+                            <button type="button" id="btn_query" class="layui-btn layuiadmin-btn-admin" lay-submit=""
+                                    lay-filter="LAY-user-back-search">
+                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            </button>
+                            <script>
+                                $("#btn_query").click(function () {
+                                    realname = $("#realname_q").val();
+                                    t_no = $("#t_no_q").val();
+                                    $.ajax({
+                                        url: "/teacher.do",
+                                        data: {action: "query", realname: realname, t_no: t_no, pageNum: 1},
+                                        type: "post",
+                                        datatype: "text",
+                                        success: function (data) {
+                                            initData(data);
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
                     </div>
 
-                    <div class="layui-inline">
-                        <button type="button" id="btn_query" class="layui-btn layuiadmin-btn-admin" lay-submit=""
-                                lay-filter="LAY-user-back-search">
-                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                        </button>
-                        <script>
-                            $("#btn_query").click(function () {
-                                realname = $("#realname_q").val();
-                                t_no = $("#t_no_q").val();
-                                $.ajax({
-                                    url: "/teacher.do",
-                                    data: {action: "query", realname: realname, t_no: t_no, pageNum: 1},
-                                    type: "post",
-                                    datatype: "text",
-                                    success: function (data) {
-                                        alert(data);
-                                        initData(data);
-                                    }
-                                });
-                            });
-                        </script>
-                    </div>
+
 
                 </form>
             </div>

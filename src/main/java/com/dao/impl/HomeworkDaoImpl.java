@@ -42,7 +42,7 @@ public class HomeworkDaoImpl extends BaseDao implements HomeworkDao {
 
         String sql="SELECT hw.id,hw.name,hw.docu_name,u.realname as t_name,c.name as c_name,hw.end_time FROM homework hw,course c,teacher t ,user u WHERE hw.c_id=c.id and hw.t_id=t.id and t.user_id=u.id AND c.id=? ";
         if(!"".equals(name)){
-            sql+=" AND hw.name=?";
+            sql+=" AND hw.name like ?";
         }
         if(!"".equals(end_time)){
             sql+=" AND hw.end_time like ?";
@@ -50,9 +50,9 @@ public class HomeworkDaoImpl extends BaseDao implements HomeworkDao {
         sql+=" limit ?,?";
 
         if(!"".equals(name)&&!"".equals(end_time)){
-            return queryForList(HomeworkManageInfo.class,sql,course_id,name,"%"+end_time+"%",pageNo,pageSize);
+            return queryForList(HomeworkManageInfo.class,sql,course_id,"%"+name+"%","%"+end_time+"%",pageNo,pageSize);
         }else if(!"".equals(name)&&"".equals(end_time)){
-            return queryForList(HomeworkManageInfo.class,sql,course_id,name,pageNo,pageSize);
+            return queryForList(HomeworkManageInfo.class,sql,course_id,"%"+name+"%",pageNo,pageSize);
         }else if(!"".equals(end_time)&&"".equals(name)){
             return queryForList(HomeworkManageInfo.class,sql,course_id,"%"+end_time+"%",pageNo,pageSize);
         }else if("".equals(name)&&"".equals(end_time)){

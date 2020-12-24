@@ -42,6 +42,11 @@
     %>
     <script>
         var user_id = <%=student.getUser_id()%>;//todo:获取登入人id
+        function clear() {
+            console.log(1);
+            $("#addtitle").val("");
+            $("#addcontent").val("");
+        }
     </script>
 
 
@@ -111,11 +116,14 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="button-add-close">
+                                <button type="button" class="shut layui-btn layui-btn-primary" data-dismiss="modal" id="button-add-close">
                                     关闭
                                 </button>
-                                <button type="button" class="send btn btn-primary" id="button-add-handup">发送</button>
+                                <button type="button" class="send  layui-btn layui-btn" id="button-add-handup">发送</button>
                                 <script>
+                                    $(".shut").on("click",function () {
+                                        clear()
+                                    })
                                     $(".send").on("click", function () {
                                         var receive_id = $("#receive_id").val();
                                         var title = $("#addtitle").val();
@@ -133,6 +141,7 @@
                                                     swal("发送失败", "", "error");
                                                 }
                                                 $("#addModal").modal("hide");
+                                                clear();
                                                 // changepage(currentPage);                                            // console.log(data);
                                             }
                                         });

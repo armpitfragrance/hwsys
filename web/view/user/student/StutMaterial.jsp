@@ -156,7 +156,10 @@
             $("#pagebutton").empty();
             $("#pagebutton").html("<b id=\"totalPageCount\">共页</b>\n")
             $("#totalPageCount").html("共" + jsonObj.pageTotal + "页");
-            $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(1)">首页\<<</a>');
+
+            if (jsonObj.pageTotal != 1 && currentPage != 1) {
+                $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(1)">首页\<<</a>');
+            }
 
             if (currentPage!=1) {
                 $("#pagebutton").append(lastbutton);
@@ -200,7 +203,9 @@
                 })
 
             }
-            $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(' + jsonObj.pageTotal + ')">\>>最后一页</a>');
+            if (jsonObj.pageTotal != 1 && currentPage != jsonObj.pageTotal) {
+                $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(' + jsonObj.pageTotal + ')">\>>最后一页</a>');
+            }
 
             for (var a = 0; a < jsonObj.items.length; a++) {
                 var str = jsonObj.items[a].handup_time;

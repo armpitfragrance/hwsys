@@ -106,7 +106,7 @@
                       -->
 
           <li data-name="home" class="layui-nav-item layui-this">
-            <a href="javascript:;" lay-href="home.html" >
+            <a href="javascript:;" lay-href="adminhome.jsp" >
               <i class="layui-icon layui-icon-home"></i>
               <cite>主页</cite>
             </a>
@@ -172,7 +172,7 @@
       </div>
       <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
         <ul class="layui-tab-title" id="LAY_app_tabsheader">
-          <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+          <li lay-id="home/console.html" lay-attr="adminhome.jsp" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
         </ul>
       </div>
     </div>
@@ -181,7 +181,7 @@
     <!-- 主体内容 -->
     <div class="layui-body" id="LAY_app_body">
       <div class="layadmin-tabsbody-item layui-show">
-        <iframe src="../../home.html" frameborder="0" class="layadmin-iframe"></iframe>
+        <iframe src="adminhome.jsp" frameborder="0" class="layadmin-iframe"></iframe>
       </div>
     </div>
 

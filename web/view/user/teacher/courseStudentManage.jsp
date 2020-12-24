@@ -281,7 +281,7 @@
                             <button type="button" class="layui-btn layui-btn-primary" data-dismiss="modal" id="button-add-close">
                                 关闭
                             </button>
-                            <button type="button" class="layui-btn layui-btn-primary layui-btn-disabled" id="button-add-handup">添加</button>
+                            <button type="button" class="btn layui-btn layui-btn-disabled" id="button-add-handup">添加</button>
                         </div>
 
                         <script>
@@ -314,18 +314,23 @@
                                         var user = JSON.parse(data);
                                         if(result==1){
                                             $("#checked").attr("placeholder", "该学生已报名");
-                                            $("#button-add-handup").toggleClass("layui-btn-primary");
-                                            // $("#button-add-handup").removeAttr("class","className");
-                                            $("#button-add-handup").addClass("layui-btn-disabled")
+                                            // $("#button-add-handup").toggleClass("layui-btn-primary");
+                                            // $("#button-add-handup").removeAttr("class","layui-btn-primary");
+                                            // $("#button-add-handup").toggleClass("layui-btn-disabled")
+                                            $("#button-add-handup").addClass("layui-btn-disabled");
+
                                         }else if (user == null) {
-                                            $("#checked").attr("placeholder","查询不到该学生/老师");
-                                            $("#button-add-handup").toggleClass("layui-btn-primary");
+                                            $("#checked").attr("placeholder","查询不到该学生");
+                                            // $("#button-add-handup").toggleClass("layui-btn-primary");
                                             // $("#button-add-handup").removeAttr("class","className");
-                                            $("#button-add-handup").addClass("layui-btn-disabled")
+                                            // $("#button-add-handup").removeAttr("class","layui-btn-primary");
+                                            $("#button-add-handup").addClass("layui-btn-disabled");
+                                            // $("#button-add-handup").toggleClass("layui-btn-disabled")
                                         }else {
                                             $("#checked").attr("placeholder",user.realname);
-                                            $("#button-add-handup").toggleClass("layui-btn-disabled");
-                                            $("#button-add-handup").addClass("layui-btn-primary")
+                                            $("#button-add-handup").removeClass("layui-btn-disabled");
+                                            // $("#button-add-handup").removeAttr("class","className");
+                                            $("#button-add-handup").addClass("layui-btn");
                                         }
                                     }
                                 });

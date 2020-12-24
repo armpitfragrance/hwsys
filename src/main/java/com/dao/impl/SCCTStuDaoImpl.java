@@ -81,12 +81,12 @@ public class SCCTStuDaoImpl extends BaseDao implements SCCTStuDao {
         List<SCCTStu> list = new ArrayList<>();
         String sql = "SELECT tc.id,tc.c_id,c.`name`,u.realname,t.t_no,c.path,tc.create_time createtime FROM `sc` sc,`student` s,`teacher` t,`course` c,`user` u,`tc` tc WHERE";
         if (!"".equals(name)) {
-            sql += " c.`name`=? and";
+            sql += " c.`name` like ? and";
         }
         sql += " sc.`stu_id`=? and sc.c_id=tc.c_id and sc.stu_id=s.id and u.id=t.user_id and tc.c_id=c.id and tc.t_id=t.id GROUP BY sc.c_id LIMIT ?,?";
 
         if (!"".equals(name)) {
-            list = queryForList(SCCTStu.class, sql, name, stu_id, pageNO, pageSize);
+            list = queryForList(SCCTStu.class, sql, "%"+name+"%", stu_id, pageNO, pageSize);
         } else {
             list = queryForList(SCCTStu.class, sql, stu_id, pageNO, pageSize);
         }
@@ -105,7 +105,7 @@ public class SCCTStuDaoImpl extends BaseDao implements SCCTStuDao {
         List<SCCTStu> list = new ArrayList<>();
         String sql = "SELECT tc.id,tc.c_id,c.`name`,u.realname,t.t_no,c.path,tc.create_time createtime FROM `teacher` t,`course` c,`user` u,`tc` tc WHERE";
         if (!"".equals(name)) {
-            sql += " c.`name`=? and";
+            sql += " c.`name` like ? and";
         }
         if (!"".equals(t_id)) {
             sql += " t.`t_no`=? and";
@@ -113,9 +113,9 @@ public class SCCTStuDaoImpl extends BaseDao implements SCCTStuDao {
         sql += " u.id=t.user_id and tc.c_id=c.id and tc.t_id=t.id LIMIT ?,?";
 
         if (!"".equals(name) && !"".equals(t_id)) {
-            list = queryForList(SCCTStu.class, sql, name, t_id, pageNO, pageSize);
+            list = queryForList(SCCTStu.class, sql, "%"+name+"%", t_id, pageNO, pageSize);
         } else if (!"".equals(name) && "".equals(t_id)) {
-            list = queryForList(SCCTStu.class, sql, name, pageNO, pageSize);
+            list = queryForList(SCCTStu.class, sql, "%"+name+"%", pageNO, pageSize);
         } else if ("".equals(name) && !"".equals(t_id)) {
             list = queryForList(SCCTStu.class, sql, t_id, pageNO, pageSize);
         } else {

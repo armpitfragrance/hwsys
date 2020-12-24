@@ -200,7 +200,7 @@
                 <label class="layadmin-user-login-icon layui-icon layui-icon-vercode"
                        for="vercode"></label>
                 <input type="text" name="vercode" id="vercode" lay-verify="vercode"
-                       placeholder="验证码" class="layui-input" style="width: 300px;display: inline">
+                       placeholder="验证码" class="layui-input" style="width: 300px;display: inline" autocomplete="false">
                 <canvas id="canvas" width="100" height="43"></canvas>
             </div>
 

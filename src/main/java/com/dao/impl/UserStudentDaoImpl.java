@@ -56,16 +56,16 @@ public class UserStudentDaoImpl extends BaseDao implements UserStudentDao {
     public List<UserStudent> queryUserStudentByPageByRealNameOrStuNo(int pageNo, int pageSize, String realname, String stu_no) {
         String sql = "select s.id,s.user_id,s.stu_no,u.psw,u.realname,s.classname,u.sex,u.age from student s,user u  where";
         if (!"".equals(realname)) {
-            sql += " u.realname=? and";
+            sql += " u.realname like ? and";
         }
         if (!"".equals(stu_no)) {
             sql+=" s.stu_no=? and";
         }
         sql += " s.user_id=u.id and u.type='学生' limit ?,?";
         if (!"".equals(realname) && !"".equals(stu_no)) {
-            return queryForList(UserStudent.class, sql, realname, stu_no, pageNo, pageSize);
+            return queryForList(UserStudent.class, sql, "%"+realname+"%", stu_no, pageNo, pageSize);
         } else if (!"".equals(realname) && "".equals(stu_no)) {
-            return queryForList(UserStudent.class, sql, realname, pageNo, pageSize);
+            return queryForList(UserStudent.class, sql, "%"+realname+"%", pageNo, pageSize);
         } else if ("".equals(realname) && !"".equals(stu_no)) {
             return queryForList(UserStudent.class, sql, stu_no, pageNo, pageSize);
         } else {

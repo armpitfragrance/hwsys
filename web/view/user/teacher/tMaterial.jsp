@@ -155,7 +155,10 @@
             $("#pagebutton").empty();
             $("#pagebutton").html("<b id=\"totalPageCount\">共页</b>\n")
             $("#totalPageCount").html("共" + jsonObj.pageTotal + "页");
-            $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(1)">首页\<<</a>');
+            if (jsonObj.pageTotal != 1 && currentPage != 1) {
+                $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(1)">首页\<<</a>');
+            }
+
 
             if (currentPage!=1) {
                 $("#pagebutton").append(lastbutton);
@@ -199,7 +202,9 @@
                 })
 
             }
-            $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(' + jsonObj.pageTotal + ')">\>>最后一页</a>');
+            if (jsonObj.pageTotal != 1 && currentPage != jsonObj.pageTotal) {
+                $("#pagebutton").append('<a class="btn btn-default" onclick="changepage(' + jsonObj.pageTotal + ')">\>>最后一页</a>');
+            }
 
             for (var a = 0; a < jsonObj.items.length; a++) {
                 var str = jsonObj.items[a].handup_time;
@@ -340,10 +345,10 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="button-add-close">
+                            <button type="button" class="layui-btn layui-btn-primary" data-dismiss="modal" id="button-add-close">
                                 关闭
                             </button>
-                            <button type="button" class="btn btn-primary" id="button-add-handup">上传</button>
+                            <button type="button" class="layui-btn" id="button-add-handup">上传</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->

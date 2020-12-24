@@ -254,7 +254,7 @@
                                     // stu_no=$("#stu_no_q").val();
                                     $.ajax({
                                         url: "/SC.do",
-                                        data: {action:"querySC", name: name, stu_no: 2,pageNo: 1,stu_id,stu_id},
+                                        data: {action:"querySC", name: name, stu_no: <%=student.getStu_no()%>,pageNo: 1,stu_id,stu_id},
                                         type: "post",
                                         datatype: "text",
                                         success: function (data) {

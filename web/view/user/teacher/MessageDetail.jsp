@@ -109,10 +109,10 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="button-add-close">
+                                <button type="button" class="layui-btn layui-btn-primary" data-dismiss="modal" id="button-add-close">
                                     关闭
                                 </button>
-                                <button type="button" class="send btn btn-primary" id="button-add-handup">发送</button>
+                                <button type="button" class="send layui-btn layui-btn" id="button-add-handup">发送</button>
                                 <script>
                                     $(".send").on("click", function () {
                                         var receive_id = $("#receive_id").val();

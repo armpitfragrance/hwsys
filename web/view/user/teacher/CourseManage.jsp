@@ -389,7 +389,7 @@
                             <script>
                                 $("#btn_query").click(function () {
                                     name=$("#coursename_q").val();
-                                    t_no=$("#t_no_q").val();
+                                    t_no=<%=teacher.getT_no()%>
                                     $.ajax({
                                         url: "/SC.do",
                                         data: {action:"queryNoPage", name: name, t_no: t_no,pageNo: 1},

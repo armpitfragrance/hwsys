@@ -1,4 +1,4 @@
-<%--
+。<%--
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2020/12/10
@@ -192,6 +192,10 @@
             let nextbutton = "<button type='button' class='btn btn-default' id='next' onclick='changePage(currentPage+1)'>下一页</button> ";
             let lastbutton = "<button type='button' class='btn btn-default' id='last' onclick='changePage(currentPage-1)'>上一页</button> ";
 
+
+            if (jsonObj.pageTotal != 1&&currentPage != 1) {
+                $("#pageBtn").append('<a class="btn btn-default" onclick="changePage(1)">首页\<<</a>');
+            }
             if (currentPage != 1) {
                 $("#pageBtn").append(lastbutton);
             }
@@ -215,6 +219,9 @@
 
             if (currentPage != jsonObj.pageTotal) {
                 $("#pageBtn").append(nextbutton);
+            }
+            if (jsonObj.pageTotal != 1&&currentPage!=jsonObj.pageTotal) {
+                $("#pageBtn").append('<a class="btn btn-default" onclick="changePage(' + jsonObj.pageTotal + ')">\>>最后一页</a>');
             }
             // $("#pageBtn").append(nextbutton);
             // $("#a1").attr("class", "pagebtn btn btn-primary");
@@ -419,30 +426,31 @@
                             <input id="stu_no_q" type="text" name="stu_no" placeholder="请输入" autocomplete="off"
                                    class="layui-input">
                         </div>
+                        <div class="layui-inline">
+                            <button id="btn_query" type="button" class="layui-btn layuiadmin-btn-admin" lay-submit=""
+                                    lay-filter="LAY-user-back-search">
+                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            </button>
+                            <script>
+                                $("#btn_query").click(function () {
+                                    realname = $("#realname_q").val();
+                                    stu_no = $("#stu_no_q").val();
+                                    $.ajax({
+                                        url: "/student.do",
+                                        data: {action: "query", realname: realname, stu_no: stu_no, pageNum: 1},
+                                        type: "post",
+                                        datatype: "text",
+                                        success: function (data) {
+                                            // alert(data);
+                                            initData(data);
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
                     </div>
 
-                    <div class="layui-inline">
-                        <button id="btn_query" type="button" class="layui-btn layuiadmin-btn-admin" lay-submit=""
-                                lay-filter="LAY-user-back-search">
-                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                        </button>
-                        <script>
-                            $("#btn_query").click(function () {
-                                realname = $("#realname_q").val();
-                                stu_no = $("#stu_no_q").val();
-                                $.ajax({
-                                    url: "/student.do",
-                                    data: {action: "query", realname: realname, stu_no: stu_no, pageNum: 1},
-                                    type: "post",
-                                    datatype: "text",
-                                    success: function (data) {
-                                        // alert(data);
-                                        initData(data);
-                                    }
-                                });
-                            });
-                        </script>
-                    </div>
+
                 </form>
             </div>
         </div>

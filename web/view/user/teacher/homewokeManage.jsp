@@ -161,7 +161,9 @@
             let nextbutton = "<button type='button' class='btn btn-default' id='next' onclick='changePage(currentPage+1)'>下一页</button> ";
             <!--上一页-->
             let lastbutton = "<button type='button' class='btn btn-default' id='last' onclick='changePage(currentPage-1)'>上一页</button> ";
-
+            if (dataObj.pageTotal != 1&&currentPage != 1) {
+                $("#page-button-order").append('<a class="btn btn-default" onclick="changePage(1)">首页\<<</a>');
+            }
             if (currentPage != 1) {
                 //若不是第一页,添加上一页按钮
                 $("#page-button-order").append(lastbutton);
@@ -200,6 +202,9 @@
             if (currentPage != dataObj.pageTotal) {
                 //若不是最后一页,添加下一页按钮
                 $("#page-button-order").append(nextbutton);
+            }
+            if (dataObj.pageTotal != 1&&currentPage != dataObj.pageTotal) {
+                $("#page-button-order").append('<a class="btn btn-default" onclick="changePage(' + dataObj.pageTotal + ')">\>>最后一页</a>');
             }
             $(".page-button-order").attr("class", "pagebtn btn btn-default");
             $("#a" + currentPage).attr("class", "pagebtn btn btn-primary");
@@ -392,10 +397,10 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="button-add-close">
+                            <button type="button" class="layui-btn layui-btn-primary" data-dismiss="modal" id="button-add-close">
                                 关闭
                             </button>
-                            <button type="button" class="btn btn-primary" id="button-add-handup">添加</button>
+                            <button type="button" class="layui-btn" id="button-add-handup">添加</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->

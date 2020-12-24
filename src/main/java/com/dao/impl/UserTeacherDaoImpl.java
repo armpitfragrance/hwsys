@@ -47,16 +47,16 @@ public class UserTeacherDaoImpl extends BaseDao implements UserTeacherDao {
     public List<UserTeacher> queryUserStudentByPageByRealNameOrStuNo(int pageNo, int pageSize, String realname, String t_no) {
         String sql = "select t.id,t.user_id,t.t_no,u.psw,u.realname,u.sex,u.age from teacher t,user u  where";
         if (!"".equals(realname)) {
-            sql += " u.realname=? and";
+            sql += " u.realname like ? and";
         }
         if (!"".equals(t_no)) {
             sql+=" t.t_no=? and";
         }
         sql += " t.user_id=u.id and u.type='老师' limit ?,?";
         if (!"".equals(realname) && !"".equals(t_no)) {
-            return queryForList(UserTeacher.class, sql, realname, t_no, pageNo, pageSize);
+            return queryForList(UserTeacher.class, sql, "%"+realname+"%", t_no, pageNo, pageSize);
         } else if (!"".equals(realname) && "".equals(t_no)) {
-            return queryForList(UserTeacher.class, sql, realname, pageNo, pageSize);
+            return queryForList(UserTeacher.class, sql, "%"+realname+"%", pageNo, pageSize);
         } else if ("".equals(realname) && !"".equals(t_no)) {
             return queryForList(UserTeacher.class, sql, t_no, pageNo, pageSize);
         } else {

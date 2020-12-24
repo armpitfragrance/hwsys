@@ -132,11 +132,15 @@
             let nextbutton = "<button type='button' class='btn btn-default' id='next' onclick='changePage(currentPage+1)'>下一页</button> ";
             <!--上一页-->
             let lastbutton = "<button type='button' class='btn btn-default' id='last' onclick='changePage(currentPage-1)'>上一页</button> ";
-
+            if (dataObj.pageTotal != 1&&currentPage != 1) {
+                $("#page-button-order").append('<a class="btn btn-default" onclick="changePage(1)">首页\<<</a>');
+            }
             if (currentPage != 1) {
                 //若不是第一页,添加上一页按钮
                 $("#page-button-order").append(lastbutton);
             }
+
+
             if (currentPage <= 3) {
                 index = 1;
             } else if (currentPage > 3 && currentPage < (dataObj.pageTotal - 2)) {
@@ -171,6 +175,9 @@
             if (currentPage != dataObj.pageTotal) {
                 //若不是最后一页,添加下一页按钮
                 $("#page-button-order").append(nextbutton);
+            }
+            if (dataObj.pageTotal != 1&&currentPage != dataObj.pageTotal) {
+                $("#page-button-order").append('<a class="btn btn-default" onclick="changePage(' + dataObj.pageTotal + ')">\>>最后一页</a>');
             }
             $(".page-button-order").attr("class", "pagebtn btn btn-default");
             $("#a" + currentPage).attr("class", "pagebtn btn btn-primary");
@@ -256,7 +263,7 @@
         <!--下载附件-->
         function download(pathname) {
             console.log(pathname)
-            location.href="http://localhost/download.do?path="+pathname;
+            location.href="/download.do?path="+pathname;
         }<!--download-->
 
 
